@@ -13,7 +13,7 @@ class PaisController extends Controller
         $query = Pais::find();
 
         $pagination = new Pagination([
-            'defaultPageSize' => 5,
+            'defaultPageSize' => 3,
             'totalCount' => $query->count(),
         ]);
 
