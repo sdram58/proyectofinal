@@ -95,5 +95,5 @@ class SiteController extends Controller
     public function actionDecir($mensaje = 'Hola Mundo')
     {
         return $this->render('decir',['mensaje'=>$mensaje]);
-    }
+    }    
 }

@@ -17,7 +17,7 @@ $this->title = 'Gestinvetabilidad';
 
         <div class="row">
             <div class="col-lg-6">
-                <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Inventario</a></p>
+                <p><a class="btn btn-lg btn-success btn-principal" href="index.php?r=inventario/index" title="Inventario">Inventario</a></p>
             </div>
             <div class="col-lg-6">
                 <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Contabilidad</a></p>
