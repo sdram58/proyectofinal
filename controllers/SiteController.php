@@ -8,6 +8,11 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+/*Use de pruebas*/
+use app\models\IngresoFormulario;
+
+
+
 
 class SiteController extends Controller
 {
@@ -95,5 +100,22 @@ class SiteController extends Controller
     public function actionDecir($mensaje = 'Hola Mundo')
     {
         return $this->render('decir',['mensaje'=>$mensaje]);
-    }    
+    }
+    
+    /****Ejemplo Formulario **********************************************************/
+    public function actionIngreso()
+    {
+     $model = new IngresoFormulario;
+
+     if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+      // Valida los datos recibidos en $model
+
+      // Se puede manipular los datos de $model
+
+      return $this->render('confirmar-ingreso', ['model' => $model]);
+     } else {
+      // Se despliega la pagina inicial o si hay un error de validacion
+      return $this->render('ingreso', ['model' => $model]);
+     }
+    }
 }
