@@ -92,8 +92,8 @@ a.desc:after {
 }
 
 .btn-principal{
-    background-image: url('D:/inventario/inventario/web/assets/images/iconoInventario.png');
+    background-image: url('../assets/images/iconoInventario.png') ;
     height: 150px;
-    background-color: #a94442;    
+    background-color: #a94442;
     width: 40%;
 }
