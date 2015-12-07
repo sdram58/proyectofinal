@@ -9,18 +9,21 @@ $this->title = 'Gestinvetabilidad';
     <div class="jumbotron">
         <h1>Gestión de Inventario y Contabilidad</h1>
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
+        <p class="lead">Elige la sección a la que quieres acceder.</p>
 
     </div>
 
     <div class="body-content">
 
-        <div class="row">
-            <div class="col-lg-6">
-                <p><a class="btn btn-lg btn-success btn-principal" href="index.php?r=inventario/index" title="Inventario">Inventario</a></p>
+        <div class="row text-center">
+            <div class="col-sm-6">
+                <p><a class="btn btn-lg btn-success btn-principal btn-inventario" href="index.php?r=inventario/index" title="Inventario"></a></p>
             </div>
-            <div class="col-lg-6">
-                <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Contabilidad</a></p>
+            <div class="col-sm-0">
+                
+            </div>
+            <div class="col-sm-6">
+                <p><a class="btn btn-lg btn-success btn-principal btn-contabilidad" href="index.php?r=contabilidad/index" title="Contabilidad"></a></p>
             </div>
         </div>
 

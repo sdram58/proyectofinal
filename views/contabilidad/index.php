@@ -4,18 +4,15 @@
 
 use yii\helpers\Html;
 
-$this->title = 'Inventario';
+$this->title = 'Contabilidad';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-about">
-    <div class="jumbotron">
     <h1><?= Html::encode($this->title) ?></h1>
-    </div>
 
     <p>
-        Aquí va el inventario
+        Aquí va la contabilidad
     </p>
 
     <code><?= __FILE__ ?></code>
 </div>
-

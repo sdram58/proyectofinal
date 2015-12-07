@@ -91,9 +91,26 @@ a.desc:after {
     margin: 0 0 15px 0;
 }
 
-.btn-principal{
-    background-image: url('../assets/images/iconoInventario.png') ;
-    height: 150px;
-    background-color: #a94442;
-    width: 40%;
+.btn-principal{    
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 170px;
+    /*background-color: #a94442;*/
+    width: 60%;
+}
+
+.btn-inventario{
+    background-image: url('../assets/images/inventario.png');
+}
+
+.btn-contabilidad{
+   background-image: url('../assets/images/contabilidad.png'); 
+}
+.btn-inventario:hover{
+    background-image: url('../assets/images/inventariohover.png');
+}
+
+.btn-contabilidad:hover{
+   background-image: url('../assets/images/contabilidadhover.png'); 
 }
