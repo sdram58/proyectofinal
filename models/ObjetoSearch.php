@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\CategoriasObjetos;
+use app\models\Objeto;
 
 /**
- * CategoriasObjetosSearch represents the model behind the search form about `app\models\CategoriasObjetos`.
+ * ObjetoSearch represents the model behind the search form about `app\models\Objeto`.
  */
-class CategoriasObjetosSearch extends CategoriasObjetos
+class ObjetoSearch extends Objeto
 {
     /**
      * @inheritdoc
@@ -18,7 +18,8 @@ class CategoriasObjetosSearch extends CategoriasObjetos
     public function rules()
     {
         return [
-            [['id', strtoupper('categoria')], 'safe'],
+            [['id', 'estado'], 'integer'],
+            [['ubicacion', 'categoria', 'tipo', 'Descripcion', 'fecha_alta', 'fecha_baja'], 'safe'],
         ];
     }
 
@@ -40,7 +41,7 @@ class CategoriasObjetosSearch extends CategoriasObjetos
      */
     public function search($params)
     {
-        $query = CategoriasObjetos::find();
+        $query = Objeto::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -54,8 +55,17 @@ class CategoriasObjetosSearch extends CategoriasObjetos
             return $dataProvider;
         }
 
-        $query->andFilterWhere(['like', 'id', $this->id])
-            ->andFilterWhere(['like', 'categoria', $this->categoria]);
+        $query->andFilterWhere([
+            'id' => $this->id,
+            'estado' => $this->estado,
+            'fecha_alta' => $this->fecha_alta,
+            'fecha_baja' => $this->fecha_baja,
+        ]);
+
+        $query->andFilterWhere(['like', 'ubicacion', $this->ubicacion])
+            ->andFilterWhere(['like', 'categoria', $this->categoria])
+            ->andFilterWhere(['like', 'tipo', $this->tipo])
+            ->andFilterWhere(['like', 'Descripcion', $this->Descripcion]);
 
         return $dataProvider;
     }

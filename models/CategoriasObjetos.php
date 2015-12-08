@@ -42,7 +42,7 @@ class CategoriasObjetos extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+            'id' => 'Identificador interno',
             'categoria' => 'Categoria',
         ];
     }

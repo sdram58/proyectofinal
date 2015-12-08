@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\CategoriasObjetos;
+use app\models\Ubicaciones;
 
 /**
- * CategoriasObjetosSearch represents the model behind the search form about `app\models\CategoriasObjetos`.
+ * UbicacionesSearch represents the model behind the search form about `app\models\Ubicaciones`.
  */
-class CategoriasObjetosSearch extends CategoriasObjetos
+class UbicacionesSearch extends Ubicaciones
 {
     /**
      * @inheritdoc
@@ -18,7 +18,7 @@ class CategoriasObjetosSearch extends CategoriasObjetos
     public function rules()
     {
         return [
-            [['id', strtoupper('categoria')], 'safe'],
+            [['id', 'Descripcion'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class CategoriasObjetosSearch extends CategoriasObjetos
      */
     public function search($params)
     {
-        $query = CategoriasObjetos::find();
+        $query = Ubicaciones::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -55,7 +55,7 @@ class CategoriasObjetosSearch extends CategoriasObjetos
         }
 
         $query->andFilterWhere(['like', 'id', $this->id])
-            ->andFilterWhere(['like', 'categoria', $this->categoria]);
+            ->andFilterWhere(['like', 'Descripcion', $this->Descripcion]);
 
         return $dataProvider;
     }

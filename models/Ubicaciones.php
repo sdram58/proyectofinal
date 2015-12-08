@@ -53,13 +53,4 @@ class Ubicaciones extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Objeto::className(), ['ubicacion' => 'id']);
     }
-
-    /**
-     * @inheritdoc
-     * @return UbicacionesQuery the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new UbicacionesQuery(get_called_class());
-    }
 }

@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Ubicaciones;
-use app\models\UbicacionesSearch;
+use app\models\Usuario;
+use app\models\UsuarioSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * UbicacionesController implements the CRUD actions for Ubicaciones model.
+ * UsuarioController implements the CRUD actions for Usuario model.
  */
-class UbicacionesController extends Controller
+class UsuarioController extends Controller
 {
     public function behaviors()
     {
@@ -27,12 +27,12 @@ class UbicacionesController extends Controller
     }
 
     /**
-     * Lists all Ubicaciones models.
+     * Lists all Usuario models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new UbicacionesSearch();
+        $searchModel = new UsuarioSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -42,8 +42,8 @@ class UbicacionesController extends Controller
     }
 
     /**
-     * Displays a single Ubicaciones model.
-     * @param string $id
+     * Displays a single Usuario model.
+     * @param integer $id
      * @return mixed
      */
     public function actionView($id)
@@ -54,13 +54,13 @@ class UbicacionesController extends Controller
     }
 
     /**
-     * Creates a new Ubicaciones model.
+     * Creates a new Usuario model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Ubicaciones();
+        $model = new Usuario();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -72,9 +72,9 @@ class UbicacionesController extends Controller
     }
 
     /**
-     * Updates an existing Ubicaciones model.
+     * Updates an existing Usuario model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param string $id
+     * @param integer $id
      * @return mixed
      */
     public function actionUpdate($id)
@@ -91,9 +91,9 @@ class UbicacionesController extends Controller
     }
 
     /**
-     * Deletes an existing Ubicaciones model.
+     * Deletes an existing Usuario model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param string $id
+     * @param integer $id
      * @return mixed
      */
     public function actionDelete($id)
@@ -104,15 +104,15 @@ class UbicacionesController extends Controller
     }
 
     /**
-     * Finds the Ubicaciones model based on its primary key value.
+     * Finds the Usuario model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param string $id
-     * @return Ubicaciones the loaded model
+     * @param integer $id
+     * @return Usuario the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Ubicaciones::findOne($id)) !== null) {
+        if (($model = Usuario::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

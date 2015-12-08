@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\CategoriasObjetos;
+use app\models\Usuario;
 
 /**
- * CategoriasObjetosSearch represents the model behind the search form about `app\models\CategoriasObjetos`.
+ * UsuarioSearch represents the model behind the search form about `app\models\Usuario`.
  */
-class CategoriasObjetosSearch extends CategoriasObjetos
+class UsuarioSearch extends Usuario
 {
     /**
      * @inheritdoc
@@ -18,7 +18,8 @@ class CategoriasObjetosSearch extends CategoriasObjetos
     public function rules()
     {
         return [
-            [['id', strtoupper('categoria')], 'safe'],
+            [['id', 'inventario', 'contabilidad'], 'integer'],
+            [['usuario', 'pass'], 'safe'],
         ];
     }
 
@@ -40,7 +41,7 @@ class CategoriasObjetosSearch extends CategoriasObjetos
      */
     public function search($params)
     {
-        $query = CategoriasObjetos::find();
+        $query = Usuario::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -54,8 +55,14 @@ class CategoriasObjetosSearch extends CategoriasObjetos
             return $dataProvider;
         }
 
-        $query->andFilterWhere(['like', 'id', $this->id])
-            ->andFilterWhere(['like', 'categoria', $this->categoria]);
+        $query->andFilterWhere([
+            'id' => $this->id,
+            'inventario' => $this->inventario,
+            'contabilidad' => $this->contabilidad,
+        ]);
+
+        $query->andFilterWhere(['like', 'usuario', $this->usuario])
+            ->andFilterWhere(['like', 'pass', $this->pass]);
 
         return $dataProvider;
     }
