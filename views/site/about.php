@@ -11,8 +11,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        This is the About page. You may modify the following file to customize its content:
+        Este sitio web ha sido realizado por Carlos Tarazona como proyecto final dentro del curso 2015-2016.<br />
+        La aplicación gestiona la contabilidad y el inventario, de una manera muy básica y sencilla, de un centro escolar
     </p>
-
-    <code><?= __FILE__ ?></code>
+    
+        <a class="btn-block" href="index.php" title="Volver">Volver</a>                
 </div>
