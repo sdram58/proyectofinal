@@ -42,7 +42,7 @@ class Ubicaciones extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'Descripcion' => 'Descripcion',
+            'Descripcion' => 'Descripción',
         ];
     }
 
