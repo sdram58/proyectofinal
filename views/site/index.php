@@ -17,7 +17,7 @@ $this->title = 'Gestinvetabilidad';
 
         <div class="row text-center">
             <div class="col-sm-6">
-                <p><a class="btn btn-lg btn-success btn-principal btn-inventario" href="index.php?r=inventario/index" title="Inventario"></a></p>
+                <p><a class="btn btn-lg btn-success btn-principal btn-inventario" href="index.php?r=objeto/index" title="Inventario"></a></p>
             </div>
             <div class="col-sm-0">
                 
