@@ -17,8 +17,7 @@ class TipoCategoriasSearch extends TipoCategorias
      */
     public function rules()
     {
-        return [
-            [['id'], 'integer'],
+        return [            
             [['tipo', 'categoria'], 'safe'],
         ];
     }

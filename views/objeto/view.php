@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Objeto */
 
-$this->title = $model->id;
+$this->title = isset($model->Descripcion)?$model->Descripcion.' de '.$model->ubicacion:$model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Objetos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -14,21 +14,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+    
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             'estado',
             'ubicacion',
             'categoria',
@@ -38,5 +28,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'fecha_baja',
         ],
     ]) ?>
+    <p>
+        <?= Html::a('Modificar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Borrar', ['delete', 'id' => $model->id], [
+            'class' => 'btn btn-danger',
+            'data' => [
+                'confirm' => 'Are you sure you want to delete this item?',
+                'method' => 'post',
+            ],
+        ]) ?>
+        <?= Html::a('Volver', ['index'], ['class' => 'btn btn-success','style'=>'margin-left:35%;']) ?>
+    </p>
 
 </div>

@@ -17,9 +17,10 @@ AppAsset::register($this);
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href=<?= Yii::$app->homeUrl.'../assets/image/inventario.png' ?> rel='shortcut icon' type='image/png'> 
+    <link rel="shortcut icon" href="<?php echo Yii::$app->homeUrl.'../assets/image/inventario.png' ?>" type="image/png" />
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
+    <script src="..\web\scripts\miscript.js" type="text/javascript"></script>
     <?php $this->head() ?>
 </head>
 <body>

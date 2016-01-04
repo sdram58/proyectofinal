@@ -42,8 +42,7 @@ class TipoCategorias extends \yii\db\ActiveRecord
      */
     public function attributeLabels()
     {
-        return [
-            'id' => 'ID',
+        return [            
             'tipo' => 'Tipo',
             'categoria' => 'Categoria',
         ];
@@ -64,4 +63,27 @@ class TipoCategorias extends \yii\db\ActiveRecord
     {
         return $this->hasOne(CategoriasObjetos::className(), ['id' => 'categoria']);
     }
-}
+    
+    public function getTipoCategorias(){
+        $temp = Yii::$app->getDb()->createCommand("SELECT * FROM tipo_categorias WHERE categoria like 'EDFISICA' ")->queryAll();
+        $tiposCategorias = array();
+        foreach($temp as $tc){                          
+            $tiposCategorias[$tc['tipo']] = strtoupper($tc['tipo']);  
+        }
+        return $tiposCategorias;
+    }
+    
+    public function getTipoCategoriasByCategoria($categoria){
+        $comando = Yii::$app->getDb()->createCommand("SELECT * FROM tipo_categorias WHERE UPPER(categoria) like :cat ");
+        
+        $temp = $comando->bindValue(':cat', strtoupper($categoria))->queryAll();
+        
+        
+        $tiposCategorias = array();
+        foreach($temp as $tc){                          
+            $tiposCategorias[$tc['tipo']] = strtoupper($tc['tipo']);  
+        }
+        return $tiposCategorias;
+    }
+    
+    }

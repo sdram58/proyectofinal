@@ -53,4 +53,13 @@ class Ubicaciones extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Objeto::className(), ['ubicacion' => 'id']);
     }
+    
+    public function getUbicaciones(){
+        $temp = Yii::$app->getDb()->createCommand("SELECT * FROM ubicaciones")->queryAll();
+        $ubicaciones = array();
+        foreach($temp as $ubi){                          
+            $ubicaciones[$ubi['id']] = strtoupper($ubi['Descripcion']);  
+        }
+        return $ubicaciones;
+    }
 }

@@ -93,7 +93,7 @@ abstract class Application extends Module
     /**
      * @var string the application name.
      */
-    public $name = 'My Application';
+    public $name = 'Mi aplicaci&oactue;n';
     /**
      * @var string the version of this application.
      */
@@ -108,13 +108,13 @@ abstract class Application extends Module
      * for English, while `en-US` stands for English (United States).
      * @see sourceLanguage
      */
-    public $language = 'en-US';
+    public $language = 'es-ES';
     /**
      * @var string the language that the application is written in. This mainly refers to
      * the language that the messages and view files are written in.
      * @see language
      */
-    public $sourceLanguage = 'en-US';
+    public $sourceLanguage = 'es-ES';
     /**
      * @var Controller the currently active controller instance
      */

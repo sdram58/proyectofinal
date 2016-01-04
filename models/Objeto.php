@@ -25,6 +25,8 @@ class Objeto extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    public static $estados =['1'=>'ALTA', '2'=>'BAJA'];
+    
     public static function tableName()
     {
         return 'objeto';
@@ -36,8 +38,8 @@ class Objeto extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'estado', 'ubicacion', 'categoria', 'tipo', 'fecha_alta'], 'required'],
-            [['id', 'estado'], 'integer'],
+            [['estado', 'ubicacion', 'categoria', 'tipo', 'fecha_alta'], 'required', 'message'=>'El campo \'{attribute}\' no puede estar en blanco'],
+            [['estado'], 'integer'],
             [['fecha_alta', 'fecha_baja'], 'safe'],
             [['ubicacion'], 'string', 'max' => 50],
             [['categoria', 'tipo'], 'string', 'max' => 20],
@@ -53,12 +55,12 @@ class Objeto extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'estado' => 'Estado',
-            'ubicacion' => 'Ubicacion',
-            'categoria' => 'Categoria',
+            'ubicacion' => 'Ubicación',
+            'categoria' => 'Categoría',
             'tipo' => 'Tipo',
-            'Descripcion' => 'Descripcion',
-            'fecha_alta' => 'Fecha Alta',
-            'fecha_baja' => 'Fecha Baja',
+            'Descripcion' => 'Descripción (N/S)',
+            'fecha_alta' => 'Fecha de Alta',
+            'fecha_baja' => 'Fecha de Baja',
         ];
     }
 
@@ -77,7 +79,8 @@ class Objeto extends \yii\db\ActiveRecord
     {
         return $this->hasOne(TipoCategorias::className(), ['tipo' => 'tipo']);
     }
-
+    
+    
     /**
      * @return \yii\db\ActiveQuery
      */

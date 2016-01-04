@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php if (Yii::$app->session->hasFlash('contactFormSubmitted')): ?>
 
         <div class="alert alert-success">
-            Thank you for contacting us. We will respond to you as soon as possible.
+            Gracias por contactar con nosotros. Le responderemos en la mayor brevedad posible.
         </div>
 
         <p>
@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php else: ?>
 
         <p>
-            Si tiene consultas comerciales u otras preguntas , por favor , rellene el siguiente formulario para contactar con nosotros.
+            Si tiene alguna consulta o duda , por favor , rellene el siguiente formulario para contactar con nosotros.
             Gracias.
         </p>
 
@@ -43,13 +43,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?php $form = ActiveForm::begin(['id' => 'contact-form']); ?>
 
-                    <?= $form->field($model, 'name') ?>
+                    <?= $form->field($model, 'name')->label("Nombre") ?>
 
                     <?= $form->field($model, 'email') ?>
 
-                    <?= $form->field($model, 'subject') ?>
+                    <?= $form->field($model, 'subject')->label('Asunto') ?>
 
-                    <?= $form->field($model, 'body')->textArea(['rows' => 6]) ?>
+                    <?= $form->field($model, 'body')->textArea(['rows' => 6])->label("Cuerpo") ?>
 
                     <?= $form->field($model, 'verifyCode')->widget(Captcha::className(), [
                         'template' => '<div class="row"><div class="col-lg-3">{image}</div><div class="col-lg-6">{input}</div></div>',

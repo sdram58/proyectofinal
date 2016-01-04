@@ -5,6 +5,9 @@ namespace app\controllers;
 use Yii;
 use app\models\Objeto;
 use app\models\ObjetoSearch;
+use app\models\CategoriasObjetos;
+use app\models\TipoCategorias;
+use app\models\Ubicaciones;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -13,7 +16,7 @@ use yii\filters\VerbFilter;
  * ObjetoController implements the CRUD actions for Objeto model.
  */
 class ObjetoController extends Controller
-{
+{    
     public function behaviors()
     {
         return [
@@ -34,10 +37,11 @@ class ObjetoController extends Controller
     {
         $searchModel = new ObjetoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+       
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'estados' => Objeto::$estados,
         ]);
     }
 
@@ -61,12 +65,18 @@ class ObjetoController extends Controller
     public function actionCreate()
     {
         $model = new Objeto();
+        $objetos = new CategoriasObjetos();
+        $categorias = $objetos->getCategorias();
+        $ubicacion = new Ubicaciones();
+        $ubicaciones = $ubicacion->getUbicaciones();
+        $tc = new TipoCategorias();
+        $tiposCategorias = $tc->getTipoCategorias();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
-                'model' => $model,
+                'model' => $model,'categorias'=>$categorias,'ubicaciones' => $ubicaciones,'tiposCategorias' => $tiposCategorias,'estados' => Objeto::$estados
             ]);
         }
     }
@@ -80,12 +90,21 @@ class ObjetoController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        echo $id;
+        
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+            $objetos = new CategoriasObjetos();
+            $categorias = $objetos->getCategorias();
+            $ubicacion = new Ubicaciones();
+            $ubicaciones = $ubicacion->getUbicaciones();
+            $tc = new TipoCategorias();
+            $tiposCategorias = $tc->getTipoCategorias();
+            
             return $this->render('update', [
-                'model' => $model,
+                'model' => $model,'categorias'=>$categorias,'ubicaciones' => $ubicaciones,'estados' => Objeto::$estados
             ]);
         }
     }

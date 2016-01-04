@@ -8,6 +8,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\TipoCategorias;
 /*Use de pruebas*/
 use app\models\IngresoFormulario;
 
@@ -60,6 +61,14 @@ class SiteController extends Controller
     public function actionLogin()
     {
         if (!\Yii::$app->user->isGuest) {
+            if ($session->isActive){
+                $session = Yii::$app->session;
+            }else{
+              	$session->open();  
+            }
+            $session['inventario'] = '';
+            $session['contabilidad'] = '';
+            
             return $this->goHome();
         }
 
@@ -116,6 +125,14 @@ class SiteController extends Controller
      } else {
       // Se despliega la pagina inicial o si hay un error de validacion
       return $this->render('ingreso', ['model' => $model]);
-     }
+     }    
     }
+    
+    public function actionAjax(){
+         if (isset($_POST['categoria'])){
+            $categoria = $_POST['categoria'];
+            $tc = new TipoCategorias();
+            echo json_encode($tc->getTipoCategoriasByCategoria($categoria));
+        }
+     }
 }

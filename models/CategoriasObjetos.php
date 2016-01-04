@@ -62,4 +62,15 @@ class CategoriasObjetos extends \yii\db\ActiveRecord
     {
         return $this->hasMany(TipoCategorias::className(), ['categoria' => 'id']);
     }
+    
+    public function getCategorias(){
+        $temp = Yii::$app->getDb()->createCommand("SELECT * FROM categorias_objetos")->queryAll();
+        $categorias = array();
+        $i=0;
+        foreach($temp as $cat){                          
+            $categorias[$cat['id']] = strtoupper($cat['categoria']);  
+        }
+        return $categorias;
+    }
+    
 }
