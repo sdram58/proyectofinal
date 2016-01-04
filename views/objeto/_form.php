@@ -25,7 +25,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'Descripcion')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'fecha_alta')->textInput(['type' => 'date', 'id' => 'fecha_alta','placeholder'=>'aaaa-mm-dd','required' => true, 'pattern' => '^(\d{4})(-)([0][1-9]|[1][0-2])(-)([0][1-9]|[12][0-9]|3[01])$', ]) ?>
+    <?= $form->field($model, 'fecha_alta')->textInput(['type' => 'date', 'id' => 'fecha_alta','placeholder'=>'aaaa-mm-dd', 'pattern' => '^(\d{4})(-)([0][1-9]|[1][0-2])(-)([0][1-9]|[12][0-9]|3[01])$', ]) ?>
     
     <?= $form->field($model, 'fecha_baja')->textInput(['type' => 'date', 'id' => 'fecha_baja','placeholder'=>'aaaa-mm-dd','pattern' => '^(\d{4})(-)([0][1-9]|[1][0-2])(-)([0][1-9]|[12][0-9]|3[01])$', ]) ?>
 
