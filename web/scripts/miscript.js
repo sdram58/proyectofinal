@@ -62,16 +62,17 @@ function comprobarFechaBaja(event){
         }      
     }
     if(elemento.id==='fecha_baja'){
-        alert(f_baja.value);
         if(f_baja.value === ""){
             tipo.value='1';
         }else{
             tipo.value='2';
         }
         if (((f_baja.value === "") || (f_baja.value > f_alta.value))&& f_alta.value !== "") {
-            alert('no hacer nada');
+            //alert('no hacer nada');
         }else{
-            alert("Error, hay que cambiar fechas");
+            $('#fecha_baja').prev().addClass('error-form-label');
+            $('#fecha_baja').after('<div class="error-form-label">La fecha de Baja no puede ser anterior a la fecha de Alta</div>');
+            $('#fecha_baja').addClass('error-form');
         } 
     }
     if(elemento.id==='tipo'){
@@ -80,6 +81,5 @@ function comprobarFechaBaja(event){
         }else{
             ponerFechaElemento('fecha_baja');
         }
-        
     }
 }

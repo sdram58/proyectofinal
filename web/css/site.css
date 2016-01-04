@@ -124,3 +124,10 @@ a.desc:after {
     background-color: #006684;
     border-color: blue;
 }
+.error-form-input{
+    border-color:rgb(132,53,52);
+}
+.error-form-label{
+    padding-top:10px;
+    color:rgb(169,68,66);
+}
