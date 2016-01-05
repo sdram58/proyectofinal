@@ -37,7 +37,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
-        <?= Html::a('Volver', ['index'], ['class' => 'btn btn-success','style'=>'margin-left:35%;']) ?>
+        <br />
+        <?= Html::a('Volver', ['index'], ['class' => 'btn btn-success','style'=>'margin-left:50%;']) ?>
     </p>
 
 </div>

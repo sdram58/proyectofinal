@@ -10,6 +10,7 @@ $this->title = 'Crear Objeto';
 $this->params['breadcrumbs'][] = ['label' => 'Objetos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="objeto-create">
 
     <h1><?= Html::encode($this->title) ?></h1>

@@ -41,6 +41,26 @@ AppAsset::register($this);
             ['label' => 'Inicio', 'url' => ['/site/index']],
             ['label' => 'Acerca de..', 'url' => ['/site/about']],
             ['label' => 'Contacto', 'url' => ['/site/contact']],
+            (!Yii::$app->user->isGuest && Yii::$app->user->identity->inventario=='1') ?
+            [    
+            'label' => 'Inventario',
+            'items' => [
+                 ['label' => 'Ubicaciones', 'url' => ['/ubicaciones']],
+                 '<li class="divider"></li>',
+                 '<li class="dropdown-header">Categorias</li>',
+                 ['label' => 'Categorias', 'url' => ['/categorias-objetos']],
+                 ['label' => 'Tipo Categorias', 'url' => ['/tipo-categorias']],
+            ],]:['label' => ''],
+            (!Yii::$app->user->isGuest && Yii::$app->user->identity->contabilidad=='1') ?
+            [    
+            'label' => 'Contabilidad',
+            'items' => [
+                 ['label' => 'Ubicaciones', 'url' => ['/ubicaciones']],
+                 '<li class="divider"></li>',
+                 '<li class="dropdown-header">Categorias</li>',
+                 ['label' => 'Categorias', 'url' => ['/categorias-objetos']],
+                 ['label' => 'Tipo Categorias', 'url' => ['/tipo-categorias']],
+            ],]:['label' => ''],
             Yii::$app->user->isGuest ?
                 ['label' => 'Login', 'url' => ['/site/login']] :
                 [

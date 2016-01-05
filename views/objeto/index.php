@@ -13,10 +13,18 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="objeto-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php  //echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    
-    <?= GridView::widget([
+    <?php  //echo $this->render('_search', ['model' => $searchModel]); 
+    //Solo usuarios logeados y con rol de inventario podrán modificar
+    if ((!Yii::$app->user->isGuest)&&(Yii::$app->user->identity->inventario==1)) {
+        $plantilla= '{view} {update} {delete}{link}';
+        $anchoAction = ['width' => '70'];
+        $accion='Acción';
+    }else{
+        $plantilla= '{view}{link}';
+        $anchoAction = ['width' => '35'];
+        $accion="Ver";
+    }?>
+        <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         //'layout'=>"{sorter}\n{pager}\n{summary}\n{items}",
@@ -60,9 +68,9 @@ $this->params['breadcrumbs'][] = $this->title;
             
             [
                 'class' => 'yii\grid\ActionColumn',
-                'header'=>'Acción',
-                'headerOptions' => ['width' => '70'],
-                'template' => '{view} {update} {delete}{link}',
+                'header'=> $accion,
+                'headerOptions' => $anchoAction,
+                'template' => $plantilla,
                 ],
         ], 
         'options'=>['class'=>'grid-view gridview-newclass'],
@@ -75,8 +83,12 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
     
     <p>
+        <?php if ((!Yii::$app->user->isGuest)&&(Yii::$app->user->identity->inventario==1)) { ?>
         <?= Html::a('A&ntilde;adir Elemento', ['create'], ['class' => 'btn btn-success']) ?>
+       <?php }?>
         <?= Html::a('Imprimir', ['create'], ['class' => 'btn btn-success btn-imprimir']) ?>
-    </p>
+    </p> 
+        
+    
 
 </div>
