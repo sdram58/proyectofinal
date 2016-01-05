@@ -148,7 +148,7 @@ class AccessControl extends ActionFilter
         if ($user->getIsGuest()) {
             $user->loginRequired();
         } else {
-            throw new ForbiddenHttpException(Yii::t('yii', 'You are not allowed to perform this action.'));
+            throw new ForbiddenHttpException(Yii::t('yii', 'No esás autorizado para realizar eta acción.'));
         }
     }
 }
