@@ -60,22 +60,20 @@ class SiteController extends Controller
     
     public function actionLogin()
     {
-        if (!\Yii::$app->user->isGuest) {
-            if ($session->isActive){
-                $session = Yii::$app->session;
-            }else{
-              	$session->open();  
-            }
-            $session['inventario'] = '';
-            $session['contabilidad'] = '';
+        $model = new LoginForm();
+        /*if (!Yii::$app->user->isGuest) {
+            $session = Yii::$app->session;            
+            $session->open();  
+
+            $session['contabilidad'] = $model->getUser()->contabilidad;
             
             return $this->goHome();
-        }
-
-        $model = new LoginForm();
+        }*/
+        
+        
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        }
+            return $this->goBack(); ?>           
+        <?php }
         return $this->render('login', [
             'model' => $model,
         ]);
