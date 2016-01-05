@@ -125,9 +125,8 @@ a.desc:after {
     border-color: blue;
 }
 .error-form-input{
-    border-color:rgb(132,53,52);
+    border-color:rgb(169,68,66);
 }
 .error-form-label{
-    padding-top:10px;
     color:rgb(169,68,66);
 }
