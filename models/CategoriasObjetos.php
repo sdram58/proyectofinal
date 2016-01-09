@@ -42,7 +42,7 @@ class CategoriasObjetos extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'Identificador interno',
+            'id' => 'Id interno',
             'categoria' => 'Categoria',
         ];
     }
@@ -66,7 +66,6 @@ class CategoriasObjetos extends \yii\db\ActiveRecord
     public function getCategorias(){
         $temp = Yii::$app->getDb()->createCommand("SELECT * FROM categorias_objetos")->queryAll();
         $categorias = array();
-        $i=0;
         foreach($temp as $cat){                          
             $categorias[$cat['id']] = strtoupper($cat['categoria']);  
         }

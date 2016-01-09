@@ -18,6 +18,8 @@ class Usuario extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    public static $permisos =['0'=>'NO', '1'=>'SI'];
+    
     public static function tableName()
     {
         return 'usuario';
@@ -29,8 +31,10 @@ class Usuario extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['username', 'password'], 'required'],
-            [['inventario', 'contabilidad'], 'integer'],
+            [['username', 'password'], 'required','message' => 'El campo {attribute} es obligatorio'],
+            [['inventario', 'contabilidad','usuario'], 'integer', 'when' => function($model) {
+                return ($model->usuario<=2 && $model->usuario>=1 && $model->inventario<=2 && $model->inventario>=1 && $model->contabilidad<=2 && $model->contabilidad>=1);
+            }],
             [['username', 'password'], 'string', 'max' => 20],
             [['username'], 'unique']
         ];
@@ -43,10 +47,11 @@ class Usuario extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'username' => 'Username',
-            'password' => 'Password',
+            'username' => 'Usuario',
+            'password' => 'Contraseña',
             'inventario' => 'Inventario',
             'contabilidad' => 'Contabilidad',
+            'usuario' => 'Usuario',
         ];
     }
 }

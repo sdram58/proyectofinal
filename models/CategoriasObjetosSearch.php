@@ -18,7 +18,7 @@ class CategoriasObjetosSearch extends CategoriasObjetos
     public function rules()
     {
         return [
-            [['id', strtoupper('categoria')], 'safe'],
+            [['id', 'categoria'], 'safe'],
         ];
     }
 

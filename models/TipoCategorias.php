@@ -44,7 +44,7 @@ class TipoCategorias extends \yii\db\ActiveRecord
     {
         return [            
             'tipo' => 'Tipo',
-            'categoria' => 'Categoria',
+            'categoria' => 'Categoría',
         ];
     }
 
@@ -84,6 +84,6 @@ class TipoCategorias extends \yii\db\ActiveRecord
             $tiposCategorias[$tc['tipo']] = strtoupper($tc['tipo']);  
         }
         return $tiposCategorias;
-    }
+    } 
     
-    }
+}

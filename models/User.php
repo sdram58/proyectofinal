@@ -13,6 +13,7 @@ public $username;
 public $password;
 public $inventario;
 public $contabilidad;
+public $usuario;
 public $authKey;
 public $accessToken;
 public $email;
