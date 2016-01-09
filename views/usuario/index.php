@@ -2,10 +2,12 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use app\controllers\Roles;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\UsuarioSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+
 
 $this->title = 'Usuarios';
 $this->params['breadcrumbs'][] = $this->title;
@@ -15,24 +17,53 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a('Create Usuario', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
+    
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'username',
-            'password',
-            'inventario',
-            'contabilidad',
+            'username',          
+            [   
+                'attribute' => 'inventario',
+                'filter'=>$searchModel::$permisos,
+                'contentOptions' =>['class' => 'table_class',],
+                'content'=>function($data){
+                     return $data::$permisos[$data->inventario];
+                }
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ],
+                    
+            [   
+                'attribute' => 'contabilidad',
+                'filter'=>$searchModel::$permisos,
+                'contentOptions' =>['class' => 'table_class',],
+                'content'=>function($data){
+                     return $data::$permisos[$data->contabilidad];
+                }
+
+            ],
+                    
+            [   
+                'attribute' => 'usuario',
+                'filter'=>$searchModel::$permisos,
+                'contentOptions' =>['class' => 'table_class',],
+                'content'=>function($data){
+                     return $data::$permisos[$data->usuario];
+                }
+
+            ],
+                    
+            [              
+                'class' => 'yii\grid\ActionColumn',
+                'header'=> 'Acci&oacute;n',
+            ],
         ],
     ]); ?>
+    
+    <p>
+        <?= Html::a('Crear nuevo Usuario', ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
 
 </div>

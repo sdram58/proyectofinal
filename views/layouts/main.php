@@ -8,6 +8,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use app\controllers\Roles;
 
 AppAsset::register($this);
 ?>
@@ -35,24 +36,34 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
+    
+    $items = [
             ['label' => 'Inicio', 'url' => ['/site/index']],
-            ['label' => 'Acerca de..', 'url' => ['/site/about']],
-            ['label' => 'Contacto', 'url' => ['/site/contact']],
-            (!Yii::$app->user->isGuest && Yii::$app->user->identity->inventario=='1') ?
-            [    
+            ['label' => 'Acerca de...', 'url' => ['/site/about']],
+            ['label' => 'Contacto', 'url' => ['/site/contact']]
+        ];
+    
+    if(!Roles::getInvitado() && Roles::getUsuario()){
+        $items[]=[    
+            'label' => 'Usuarios',
+            'url' => ['/usuario'],
+            ];
+    }
+            
+    if (!Roles::getInvitado() && Roles::getInventario()){
+            $items[]=[    
             'label' => 'Inventario',
             'items' => [
                  ['label' => 'Ubicaciones', 'url' => ['/ubicaciones']],
                  '<li class="divider"></li>',
-                 '<li class="dropdown-header">Categorias</li>',
+                 //'<li class="dropdown-header">Categorias</li>',
                  ['label' => 'Categorias', 'url' => ['/categorias-objetos']],
                  ['label' => 'Tipo Categorias', 'url' => ['/tipo-categorias']],
-            ],]:['label' => ''],
-            (!Yii::$app->user->isGuest && Yii::$app->user->identity->contabilidad=='1') ?
-            [    
+            ],];
+    }
+            
+    if (!Roles::getInvitado() && Roles::getContabilidad()){
+            $items[] = [    
             'label' => 'Contabilidad',
             'items' => [
                  ['label' => 'Ubicaciones', 'url' => ['/ubicaciones']],
@@ -60,15 +71,21 @@ AppAsset::register($this);
                  '<li class="dropdown-header">Categorias</li>',
                  ['label' => 'Categorias', 'url' => ['/categorias-objetos']],
                  ['label' => 'Tipo Categorias', 'url' => ['/tipo-categorias']],
-            ],]:['label' => ''],
-            Yii::$app->user->isGuest ?
+            ],];
+    }
+    
+    $items[]=Yii::$app->user->isGuest ?
                 ['label' => 'Login', 'url' => ['/site/login']] :
                 [
                     'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
                     'url' => ['/site/logout'],
                     'linkOptions' => ['data-method' => 'post']
-                ],
-        ],
+                ];
+    
+    echo Nav::widget([
+        'options' => ['class' => 'navbar-nav navbar-right'],
+        'items' => $items,
+        
     ]);
     NavBar::end();
     ?>

@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\CategoriasObjetos */
 
-$this->title = 'Update Categorias Objetos: ' . ' ' . $model->id;
+$this->title = 'Actualizar Categorias Objetos: ' . ' ' . $model->categoria;
 $this->params['breadcrumbs'][] = ['label' => 'Categorias Objetos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = ['label' => $model->categoria, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = 'Actualizar';
 ?>
 <div class="categorias-objetos-update">
 

@@ -14,11 +14,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'tipo')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'categoria')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'categoria')->dropDownList($model) ?>
     
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Nueva' : 'Actualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'Crear' : 'Actualizar', ['class' => 'btn btn-primary']) ?>
+        <br />
+        <?= Html::a('Volver', ['index'], ['class' => 'btn btn-success','style'=>'margin-left:45%;']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

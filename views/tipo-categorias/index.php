@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\TipoCategoriasSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'SubCategorías';
+$this->title = 'Subcategorías';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tipo-categorias-index">
@@ -30,7 +30,9 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
     
     <p>
-        <?= Html::a('Crear SubCategorias', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('+ Nueva Subcategoria', ['create'], ['class' => 'btn btn-primary']) ?>
+        <br />
+        <?= Html::a('Volver', ['index'], ['class' => 'btn btn-success','style'=>'margin-left:45%;']) ?>
     </p>
 
 </div>

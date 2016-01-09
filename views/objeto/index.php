@@ -44,10 +44,30 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
 
             ],
-            'ubicacion',
-            'categoria',
-            'tipo',
-            'Descripcion',
+            [
+                'attribute'=>'ubicacion',
+                'content' => function($data){
+                    return strtoupper($data->ubicacion);
+                },
+            ],
+            [
+                'attribute'=>'categoria',
+                'content' => function($data){
+                    return strtoupper($data->categoria);
+                },
+            ],
+            [
+                'attribute'=>'tipo',
+                'content' => function($data){
+                    return strtoupper($data->tipo);
+                },
+            ],
+            [
+                'attribute'=>'Descripcion',
+                'content' => function($data){
+                    return strtoupper($data->Descripcion);
+                },
+            ],
             [
                 'attribute'=>'fecha_alta', 
                 'contentOptions' =>['class' => 'table_class','style'=>'width:35px;text-align:center;'],

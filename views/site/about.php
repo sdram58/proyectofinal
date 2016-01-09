@@ -15,5 +15,6 @@ $this->params['breadcrumbs'][] = $this->title;
         La aplicación gestiona la contabilidad y el inventario, de una manera muy básica y sencilla, de un centro escolar
     </p>
     
-        <a class="btn-block" href="index.php" title="Volver">Volver</a>                
+    <br />
+        <?= Html::a('Volver', ['index'], ['class' => 'btn btn-success','style'=>'margin-left:50%;']) ?>               
 </div>

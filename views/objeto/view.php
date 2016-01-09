@@ -28,7 +28,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'fecha_baja',
         ],
     ]) ?>
-    <p>
+    <p>        
+        <?php if(!$noPermiso){ ?>
         <?= Html::a('Modificar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Borrar', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
@@ -37,6 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?php } ?>
         <br />
         <?= Html::a('Volver', ['index'], ['class' => 'btn btn-success','style'=>'margin-left:50%;']) ?>
     </p>
