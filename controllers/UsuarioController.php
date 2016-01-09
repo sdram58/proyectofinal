@@ -8,6 +8,7 @@ use app\models\UsuarioSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use \app\models\Nologed;
 
 /**
  * UsuarioController implements the CRUD actions for Usuario model.
@@ -31,7 +32,9 @@ class UsuarioController extends Controller
      * @return mixed
      */
     public function actionIndex()
-    {
+    {   
+        $this->comprobarPermiso();
+        
         $searchModel = new UsuarioSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -48,6 +51,8 @@ class UsuarioController extends Controller
      */
     public function actionView($id)
     {
+        $this->comprobarPermiso();
+        
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -60,6 +65,8 @@ class UsuarioController extends Controller
      */
     public function actionCreate()
     {
+        $this->comprobarPermiso();
+        
         $model = new Usuario();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -79,6 +86,8 @@ class UsuarioController extends Controller
      */
     public function actionUpdate($id)
     {
+        $this->comprobarPermiso();
+        
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -98,6 +107,8 @@ class UsuarioController extends Controller
      */
     public function actionDelete($id)
     {
+        $this->comprobarPermiso();
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -117,5 +128,13 @@ class UsuarioController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    private function comprobarPermiso(){
+        if(Roles::getInvitado() || !Roles::getUsuario()){
+            
+            return $this->redirect("index.php?r=site/nologed&pg=usuario");
+        }
+        return true;
     }
 }

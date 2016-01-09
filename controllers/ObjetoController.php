@@ -41,7 +41,7 @@ class ObjetoController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'estados' => Objeto::$estados,
+            'estados' => $searchModel::$estados,
         ]);
     }
 
@@ -51,9 +51,9 @@ class ObjetoController extends Controller
      * @return mixed
      */
     public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
+    {     
+          return $this->render('view', [
+            'model' => $this->findModel($id),'noPermiso'=>(Roles::getInvitado() || !Roles::getInventario())
         ]);
     }
 
@@ -64,6 +64,7 @@ class ObjetoController extends Controller
      */
     public function actionCreate()
     {
+        $this->comprobarPermiso();
         $model = new Objeto();
         $objetos = new CategoriasObjetos();
         $categorias = $objetos->getCategorias();
@@ -89,6 +90,7 @@ class ObjetoController extends Controller
      */
     public function actionUpdate($id)
     {
+        $this->comprobarPermiso();
         $model = $this->findModel($id);
         echo $id;
         
@@ -117,6 +119,7 @@ class ObjetoController extends Controller
      */
     public function actionDelete($id)
     {
+        $this->comprobarPermiso();
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -137,4 +140,13 @@ class ObjetoController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+    
+    private function comprobarPermiso(){
+        if(Roles::getInvitado() || !Roles::getInventario()){
+            
+            return $this->redirect("index.php?r=site/nologed&pg=inventario");
+        }
+        return true;
+    }
 }
+

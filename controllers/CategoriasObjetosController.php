@@ -27,11 +27,21 @@ class CategoriasObjetosController extends Controller
     }
 
     /**
+     * Antes de la accion comprobamos si tiene permisos para realizarla
+     * @return mixed
+     */
+    public function beforeAction($action) {
+        parent::beforeAction($action);
+        $this->comprobarPermiso();
+    }
+    
+    /**
      * Lists all CategoriasObjetos models.
      * @return mixed
      */
     public function actionIndex()
     {
+        
         $searchModel = new CategoriasObjetosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -117,5 +127,20 @@ class CategoriasObjetosController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    private function checkPermisos(){
+        if (!Rules::getInvitidado && Rules::getInventario()){
+            return true;
+        }
+        return Yii::goHome();
+    }
+    
+    private function comprobarPermiso(){
+        if(Roles::getInvitado() || !Roles::getInventario()){
+            
+            return $this->redirect("index.php?r=site/nologed&pg=categorias");
+        }
+        return true;
     }
 }

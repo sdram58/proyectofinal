@@ -7,6 +7,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
+use app\models\Nologed;
 use app\models\ContactForm;
 use app\models\TipoCategorias;
 /*Use de pruebas*/
@@ -133,4 +134,42 @@ class SiteController extends Controller
             echo json_encode($tc->getTipoCategoriasByCategoria($categoria));
         }
      }
+     
+     public function actionNologed(){
+        $model = new Nologed;
+        $pagina = isset($_GET['pg'])?$_GET['pg']:'';
+        
+        $titulo='';
+        $mensaje='';
+        switch($pagina){
+            case 'usuario':
+                $titulo = 'Acceso a Usuario no permitido';
+                $mensaje = 'No tiene acceso a la sección de Usuarios, pruebe a acceder con un usuario válido';
+                break;
+            case 'categorias':
+                $titulo = 'Acceso a Categorias no permitido';
+                $mensaje = 'No tiene acceso a la sección de Categorias, pruebe a acceder con un usuario válido';
+                break;
+            case 'tcategorias':
+                $titulo = 'Acceso a Subcategorias no permitido';
+                $mensaje = 'No tiene acceso a la sección de Subcategorias, pruebe a acceder con un usuario válido';
+                break;
+            case 'contabilidad':
+                $titulo = 'Acceso a Usuario no permitido';
+                $mensaje = 'No tiene acceso a la sección de Contabilidad, pruebe a acceder con un usuario válido';
+                break;
+            case 'inventario':
+                $titulo = 'Acceso al inventario no permitido';
+                $mensaje = 'No tiene acceso a la sección de Inventario, pruebe a acceder con un usuario válido';
+                break;
+            default:
+                $titulo = 'Acceso no permitido';
+                $mensaje = 'No tiene acceso a la sección, pruebe a acceder con un usuario válido';
+                break;
+        }        
+        
+        $model->setTitulo($titulo);
+        $model->setMensaje($mensaje);
+        return $this->render('nologed', ['model' => $model]);        
+    }
 }

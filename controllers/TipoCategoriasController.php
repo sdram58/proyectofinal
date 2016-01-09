@@ -30,8 +30,15 @@ class TipoCategoriasController extends Controller
      * Lists all TipoCategorias models.
      * @return mixed
      */
+    public function beforeAction($action) {
+        parent::beforeAction($action);
+        $this->comprobarPermiso();
+    }
+    
+    
     public function actionIndex()
     {
+        //$this->comprobarPermiso();
         $searchModel = new TipoCategoriasSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -48,6 +55,7 @@ class TipoCategoriasController extends Controller
      */
     public function actionView($id)
     {
+        //$this->comprobarPermiso();
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -60,6 +68,7 @@ class TipoCategoriasController extends Controller
      */
     public function actionCreate()
     {
+        //$this->comprobarPermiso();
         $model = new TipoCategorias();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -79,6 +88,7 @@ class TipoCategoriasController extends Controller
      */
     public function actionUpdate($id)
     {
+        //$this->comprobarPermiso();
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -98,6 +108,7 @@ class TipoCategoriasController extends Controller
      */
     public function actionDelete($id)
     {
+        //$this->comprobarPermiso();
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -117,5 +128,12 @@ class TipoCategoriasController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    private function comprobarPermiso(){
+        if(Roles::getInvitado() || !Roles::getInventario()){
+            
+            return $this->redirect("index.php?r=site/nologed&pg=tcategorias");
+        }
+        return true;
     }
 }
