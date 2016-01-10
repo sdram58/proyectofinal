@@ -8,8 +8,14 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="objeto-form">
-    <?php $form = ActiveForm::begin(); ?>
+<div class="objeto-form categorias-form">
+    <?php $form = ActiveForm::begin([
+        'options' => ['class' => 'form-horizontal'],
+        'fieldConfig' => [
+            'template' => "{label}\n<div class=\"col-lg-5\">{input}</div><div class=\"col-lg-6\">{error}</div>",
+            'labelOptions' => ['class' => 'col-lg-1 control-label','style'=>'text-align:center;min-width:100px;'],
+        ],
+    ]); ?>
 
     <?= $form->field($model, 'estado')->dropDownList($estados,['id'=>'tipo']) ?>
 
@@ -29,12 +35,14 @@ use yii\widgets\ActiveForm;
     
     <?= $form->field($model, 'fecha_baja')->textInput(['type' => 'date', 'id' => 'fecha_baja','placeholder'=>'aaaa-mm-dd','pattern' => '^(\d{4})(-)([0][1-9]|[1][0-2])(-)([0][1-9]|[12][0-9]|3[01])$', ]) ?>
 
-    <div class="form-group">
+    <div class="form-group grupo-envio">
         <?= Html::submitButton($model->isNewRecord ? 'Crear' : 'Actualizar', ['id'=>'btn-crear-actualizar','class' => 'btn btn-primary']) ?>
-        <br />
-        <?= Html::a('Volver', ['index'], ['class' => 'btn btn-success','style'=>'margin-left:45%;']) ?>
+        
     </div>
 
     <?php ActiveForm::end(); ?>
+    
 
 </div>
+<br />
+        <?= Html::a('Volver', ['index'], ['class' => 'btn btn-success','style'=>'margin-left:45%;']) ?>

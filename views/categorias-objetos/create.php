@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\CategoriasObjetos */
 
-$this->title = 'Create Categorias Objetos';
-$this->params['breadcrumbs'][] = ['label' => 'Categorias Objetos', 'url' => ['index']];
+$this->title = 'Crear nueva categoría';
+$this->params['breadcrumbs'][] = ['label' => 'Categorías', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="categorias-objetos-create">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
-        'model' => $model,
+        'model' => $model,'mensaje'=>$mensaje,
     ]) ?>
 
 </div>

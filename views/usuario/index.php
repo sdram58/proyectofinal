@@ -63,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
     
     <p>
-        <?= Html::a('Crear nuevo Usuario', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('+ Nuevo usuario', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
 </div>

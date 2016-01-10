@@ -104,7 +104,7 @@ $this->params['breadcrumbs'][] = $this->title;
     
     <p>
         <?php if ((!Yii::$app->user->isGuest)&&(Yii::$app->user->identity->inventario==1)) { ?>
-        <?= Html::a('A&ntilde;adir Elemento', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('+ Nuevo Elemento', ['create'], ['class' => 'btn btn-success']) ?>
        <?php }?>
         <?= Html::a('Imprimir', ['create'], ['class' => 'btn btn-success btn-imprimir']) ?>
     </p> 

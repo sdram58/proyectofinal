@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
     
     <p>
-        <?= Html::a('+ Nueva Categor&iacute;a', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('+ Nueva Categor&iacute;a', ['create'], ['class' => 'btn btn-primary']) ?>
     </p>
 
 </div>

@@ -8,13 +8,13 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="usuario-form">
+<div class="usuario-form categorias-form">
 
     <?php $form = ActiveForm::begin([
         'options' => ['class' => 'form-horizontal'],
         'fieldConfig' => [
-            'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
-            'labelOptions' => ['class' => 'col-lg-1 control-label','style'=>'text-align:left;'],
+            'template' => "{label}\n<div class=\"col-lg-5\">{input}</div>\n<div class=\"col-lg-5 error\">{error}</div>",
+            'labelOptions' => ['class' => 'col-lg-1 control-label','style'=>'text-align:center;min-width:100px;'],
         ],
     ]); ?>
     
@@ -27,13 +27,14 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'contabilidad')->dropDownList($model::$permisos,['id'=>'tipo']) ?>
     
     <?= $form->field($model, 'usuario')->dropDownList($model::$permisos,['id'=>'tipo']) ?>
-
-    <div class="form-group">
+    <div class="error-envio-form error-form-label">Hay errores en el formulario que ha de subsanar!</div>
+    <div class="form-group grupo-envio">
         <?= Html::submitButton($model->isNewRecord ? 'Crear' : 'Actualizar', ['class' => 'btn btn-primary']) ?>
-        <br />
-        <?= Html::a('Volver', ['index'], ['class' => 'btn btn-success','style'=>'margin-left:45%;']) ?>
+        
     </div>
 
     <?php ActiveForm::end(); ?>
 
 </div>
+<br />
+        <?= Html::a('Volver', ['index'], ['class' => 'btn btn-success','style'=>'margin-left:45%;']) ?>

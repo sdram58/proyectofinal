@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Ubicaciones */
 
-$this->title = 'Create Ubicaciones';
+$this->title = 'Crear nueva Ubicación';
 $this->params['breadcrumbs'][] = ['label' => 'Ubicaciones', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

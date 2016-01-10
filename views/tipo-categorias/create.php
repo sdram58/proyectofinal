@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\TipoCategorias */
 
-$this->title = 'Crear SubCategorías';
-$this->params['breadcrumbs'][] = ['label' => 'Crear SubCategorías', 'url' => ['index']];
+$this->title = 'Crear nueva Subcategoría';
+$this->params['breadcrumbs'][] = ['label' => 'Crear Subcategoría', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tipo-categorias-create">
