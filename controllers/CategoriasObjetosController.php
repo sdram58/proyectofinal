@@ -31,8 +31,9 @@ class CategoriasObjetosController extends Controller
      * @return mixed
      */
     public function beforeAction($action) {
-        parent::beforeAction($action);
         $this->comprobarPermiso();
+        return parent::beforeAction($action);
+        
     }
     
     /**
@@ -40,8 +41,7 @@ class CategoriasObjetosController extends Controller
      * @return mixed
      */
     public function actionIndex()
-    {
-        
+    {   
         $searchModel = new CategoriasObjetosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -71,12 +71,21 @@ class CategoriasObjetosController extends Controller
     public function actionCreate()
     {
         $model = new CategoriasObjetos();
-
+        /*$mensaje='';
+        if(isset($_POST['CategoriasObjetos[id]']) && isset($_POST['CategoriasObjetos[categoria]'])){
+            //$mensaje = validaCategoria($_POST['id'],$_POST['categoria']);
+            $mensaje = $_POST['CategoriasObjetos[id]'].' '.$_POST['CategoriasObjetos[categoria]'];
+            if($mensaje!=''){
+              return $this->render('create', [
+                'model' => $model,'mensaje'=>$mensaje,
+            ]);  
+            }
+        }*/
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
-                'model' => $model,
+                'model' => $model,'mensaje'=>'',
             ]);
         }
     }
@@ -95,7 +104,7 @@ class CategoriasObjetosController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
-                'model' => $model,
+                'model' => $model,'mensaje'=>'',
             ]);
         }
     }
@@ -142,5 +151,21 @@ class CategoriasObjetosController extends Controller
             return $this->redirect("index.php?r=site/nologed&pg=categorias");
         }
         return true;
+    }
+    
+
+    /**
+     * Comprueba si la categoria ya existe.
+     * @param string $categoria
+     * @return true si no existe y false en caso contrario
+     */
+    private function validaCategoria($id,$cat){
+        $categorias = $this::find();
+        $mensaje='';
+        (in_array(strtoupper($id), $categorias))?$mensaje='Id ya existe':$mensaje='';
+        (in_array(strtoupper($cat), $categorias))?$mensaje.='<br/>Categoria ya existe':$mensaje.='';
+        
+        return $mensaje;
+        
     }
 }

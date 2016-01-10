@@ -31,14 +31,14 @@ class TipoCategoriasController extends Controller
      * @return mixed
      */
     public function beforeAction($action) {
-        parent::beforeAction($action);
         $this->comprobarPermiso();
+        return parent::beforeAction($action);
+        
     }
     
     
     public function actionIndex()
     {
-        //$this->comprobarPermiso();
         $searchModel = new TipoCategoriasSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

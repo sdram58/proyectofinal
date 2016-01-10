@@ -10,6 +10,9 @@ use app\models\LoginForm;
 use app\models\Nologed;
 use app\models\ContactForm;
 use app\models\TipoCategorias;
+use app\models\CategoriasObjetos;
+use app\models\Ubicaciones;
+use app\models\Usuario;
 /*Use de pruebas*/
 use app\models\IngresoFormulario;
 
@@ -133,6 +136,30 @@ class SiteController extends Controller
             $tc = new TipoCategorias();
             echo json_encode($tc->getTipoCategoriasByCategoria($categoria));
         }
+        if (isset($_POST['dameusu'])){
+            $damecat = $_POST['dameusu'];
+            if($damecat){
+                $tc = new Usuario();
+                echo json_encode($tc->getUsuarios());
+            }
+            
+        }
+        if (isset($_POST['damecat'])){
+            $damecat = $_POST['damecat'];
+            if($damecat){
+                $tc = new CategoriasObjetos();
+                echo json_encode($tc->getCategorias());
+            }
+            
+        }
+        if (isset($_POST['dameubi'])){
+            $damecat = $_POST['dameubi'];
+            if($damecat){
+                $tc = new Ubicaciones();
+                echo json_encode($tc->getUbicaciones());
+            }
+            
+        }
      }
      
      public function actionNologed(){
@@ -161,6 +188,10 @@ class SiteController extends Controller
             case 'inventario':
                 $titulo = 'Acceso al inventario no permitido';
                 $mensaje = 'No tiene acceso a la sección de Inventario, pruebe a acceder con un usuario válido';
+                break;
+            case 'ubicaciones':
+                $titulo = 'Acceso a las Ubicaciones no permitido';
+                $mensaje = 'No tiene acceso a la sección de Ubicaciones, pruebe a acceder con un usuario válido';
                 break;
             default:
                 $titulo = 'Acceso no permitido';

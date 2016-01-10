@@ -26,6 +26,18 @@ class UbicacionesController extends Controller
         ];
     }
 
+    
+    
+    /**
+     * Antes de la accion comprobamos si tiene permisos para realizarla
+     * @return mixed
+     */    
+    public function beforeAction($action) {
+        $this->comprobarPermiso();
+        return parent::beforeAction($action);        
+    }
+    
+    
     /**
      * Lists all Ubicaciones models.
      * @return mixed
@@ -117,6 +129,13 @@ class UbicacionesController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    private function comprobarPermiso(){
+        if(Roles::getInvitado() || !Roles::getInventario()){            
+            return $this->redirect("index.php?r=site/nologed&pg=ubicaciones");
+        }
+        return true;
     }
     
 }
