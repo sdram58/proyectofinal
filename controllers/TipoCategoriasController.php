@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\TipoCategorias;
+use app\models\CategoriasObjetos;
 use app\models\TipoCategoriasSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -26,17 +27,17 @@ class TipoCategoriasController extends Controller
         ];
     }
 
-    /**
-     * Lists all TipoCategorias models.
-     * @return mixed
-     */
+    
     public function beforeAction($action) {
         $this->comprobarPermiso();
         return parent::beforeAction($action);
         
     }
     
-    
+    /**
+     * Lists all TipoCategorias models.
+     * @return mixed
+     */
     public function actionIndex()
     {
         $searchModel = new TipoCategoriasSearch();
@@ -70,12 +71,15 @@ class TipoCategoriasController extends Controller
     {
         //$this->comprobarPermiso();
         $model = new TipoCategorias();
+        
+        $objetos = new CategoriasObjetos();
+        $categorias = $objetos->getCategorias();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
-                'model' => $model,
+                'model' => $model,'categorias'=>$categorias
             ]);
         }
     }
@@ -90,12 +94,14 @@ class TipoCategoriasController extends Controller
     {
         //$this->comprobarPermiso();
         $model = $this->findModel($id);
+        $objetos = new CategoriasObjetos();
+        $categorias = $objetos->getCategorias();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
-                'model' => $model,
+                'model' => $model,'categorias'=>$categorias
             ]);
         }
     }

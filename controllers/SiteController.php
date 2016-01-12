@@ -160,6 +160,14 @@ class SiteController extends Controller
             }
             
         }
+        if (isset($_POST['damesubc'])){
+            $damecat = $_POST['damesubc'];
+            if($damecat){
+                $tc = new TipoCategorias();
+                echo json_encode($tc->getAllTipoCategorias());
+            }
+            
+        }
      }
      
      public function actionNologed(){
