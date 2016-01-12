@@ -33,8 +33,28 @@ class TipoCategorias extends \yii\db\ActiveRecord
             [['tipo', 'categoria'], 'required'],
             [['tipo'], 'string', 'max' => 30],
             [['categoria'], 'string', 'max' => 20],
-            [['tipo'], 'unique']
+            [['tipo'], 'unique'],
+            ['tipo', 'validacionTipo','skipOnEmpty' => false,'skipOnError' => false],
         ];
+    }
+    
+    /**
+     * Comprueba si el tipo ya existe.
+     * @param type $attribute
+     * @param type $params
+     * @return type
+     */
+    public function validacionTipo($attribute, $params){
+        if(strrpos($_SERVER['REQUEST_URI'],"update")>-1){           
+            $subcategorias = $this->getAllTipoCategoriasMenosUno($this->$attribute);
+        }else{
+            $subcategorias = $this->getAllTipoCategorias();
+        }
+        foreach($subcategorias as $id=>$valor){
+            if($id==strtoupper($this->$attribute)){
+                return $this->addError($attribute,'El tipo \''.$this->$attribute.'\' ya existe.');
+            }
+        }     
     }
 
     /**
@@ -43,7 +63,7 @@ class TipoCategorias extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [            
-            'tipo' => 'Tipo',
+            'tipo' => 'Subcategoría',
             'categoria' => 'Categoría',
         ];
     }
@@ -73,6 +93,15 @@ class TipoCategorias extends \yii\db\ActiveRecord
         return $tiposCategorias;
     }
     
+    public function getAllTipoCategorias(){
+        $temp = Yii::$app->getDb()->createCommand("SELECT * FROM tipo_categorias")->queryAll();
+        $tiposCategorias = array();
+        foreach($temp as $tc){                          
+            $tiposCategorias[$tc['tipo']] = strtoupper($tc['tipo']);  
+        }
+        return $tiposCategorias;
+    }
+    
     public function getTipoCategoriasByCategoria($categoria){
         $comando = Yii::$app->getDb()->createCommand("SELECT * FROM tipo_categorias WHERE UPPER(categoria) like :cat ");
         
@@ -84,6 +113,40 @@ class TipoCategorias extends \yii\db\ActiveRecord
             $tiposCategorias[$tc['tipo']] = strtoupper($tc['tipo']);  
         }
         return $tiposCategorias;
-    } 
+    }
+    public function getAllTipoCategoriasMenosUno($tipo){
+        $comando = Yii::$app->getDb()->createCommand("SELECT * FROM tipo_categorias WHERE UPPER(tipo) NOT LIKE :tipo ");
+        
+        $temp = $comando->bindValue(':tipo', strtoupper($tipo))->queryAll();
+        
+        $tiposCategorias = array();
+        foreach($temp as $tc){                          
+            $tiposCategorias[$tc['tipo']] = strtoupper($tc['tipo']);  
+        }
+        return $tiposCategorias;
+    }
+    
+    public function getMiCategoria(){
+        $comando = Yii::$app->getDb()->createCommand("SELECT * FROM categorias_objetos WHERE UPPER(id) LIKE :cat ");
+        
+        $temp = $comando->bindValue(':cat', strtoupper($this->categoria))->queryAll();
+        
+        $categorias = array();
+        foreach($temp as $cat){                          
+            $categorias[$cat['id']] = strtoupper($cat['categoria']);  
+        }
+        return $categorias;
+        
+    }
+    public function getCategorias(){
+        $temp = Yii::$app->getDb()->createCommand("SELECT * FROM categorias_objetos")->queryAll();
+                
+        $categorias = array();
+        foreach($temp as $cat){                          
+            $categorias[$cat['id']] = strtoupper($cat['categoria']);  
+        }
+        return $categorias;
+        
+    }
     
 }
