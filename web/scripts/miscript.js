@@ -27,7 +27,7 @@ function iniciar(){
         });
     
     }else{
-        if(window.location.href.indexOf("objeto")>-1){
+        if((window.location.href.indexOf("objeto")>-1) && (window.location.href.indexOf("imprimir")<0)){
             if(window.location.href.indexOf("create")>-1){
                 ponerFechaElemento('fecha_alta');
             }
@@ -77,6 +77,23 @@ function iniciar(){
                 
         });
     
+    }else{       
+        if(window.location.href.indexOf("tipo-categorias")>-1){
+        if((window.location.href.indexOf("create")>-1) || (window.location.href.indexOf("update")>-1)){
+          cargarSubcategorias();
+          document.getElementById('tipocategorias-tipo').addEventListener('change',comprobarTipoCategoria);
+          //document.getElementById('ubicaciones-descripcion').addEventListener('change',comprobarDescripcion);
+        }
+        
+        $("form").submit(function (e) {
+            if(!subcategoriasIsOK){
+                $('.error-envio-form').css('display','block');
+                e.preventDefault();
+            }
+                
+        });
+    
+    }
     }
     }
     }
@@ -289,6 +306,34 @@ function iniciar(){
            $(event.target).parent().next().prepend('<div class="error-form-label catclas">La Descripción \''+event.target.value+'\' ya existe</div>');
         }        
         ubicacionesIsOK = !existe;
+    }
+    
+    
+    /*************SUBCATEGORIAS***************************************************/
+    
+    var subcategorias;
+    var subcategoriasIsOK=true;
+       
+    function cargarSubcategorias(){
+        parametro = "damesubc=true&nocache="+Math.random();
+        $.post('index.php?r=site/ajax',parametro,function(data){
+            subcategorias = JSON.parse(JSON.stringify(eval("(" + data + ")")));
+            var url =window.location.href;
+            if(url.indexOf("update")>-1){
+                var id= url.substring(url.indexOf('update&id=')+10);
+                delete subcategorias[$('#tipocategorias-tipo').val()];
+            }
+        });
+    }
+    
+    function comprobarTipoCategoria(event){
+        $('.error-envio-form').css('display','none');
+        $(event.target).parent().next().children('.error-form-label').remove();
+        if(subcategorias[event.target.value.toUpperCase()]){          
+            $(event.target).parent().next().prepend('<div class=\'error-form-label\'>El tipo \''+event.target.value+'\' ya existe</div>');
+            $(event.target).parent().prev().last().addClass('error-form-label');
+            subcategoriasIsOK = false;
+        }else{subcategoriasIsOK = true; }               
     }
     
        

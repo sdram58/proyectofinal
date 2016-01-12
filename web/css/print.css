@@ -1,0 +1,9 @@
+body{
+    text-align: left;
+    background-color: #CCCCCC;
+    font-family:'arial';
+}
+div{
+    display:inline;
+    margin-right: 20px;
+}
