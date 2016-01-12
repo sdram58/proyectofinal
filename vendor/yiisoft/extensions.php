@@ -57,4 +57,22 @@ return array (
       '@yii/faker' => $vendorDir . '/yiisoft/yii2-faker',
     ),
   ),
+  'robregonm/yii2-pdf' => 
+  array (
+    'name' => 'robregonm/yii2-pdf',
+    'version' => '9999999-dev',
+    'alias' => 
+    array (
+      '@robregonm/pdf' => $vendorDir . '/robregonm/yii2-pdf',
+    ),
+  ),
+  'kartik-v/yii2-mpdf' => 
+  array (
+    'name' => 'kartik-v/yii2-mpdf',
+    'version' => '1.0.0.0',
+    'alias' => 
+    array (
+      '@kartik/mpdf' => $vendorDir . '/kartik-v/yii2-mpdf',
+    ),
+  ),
 );
