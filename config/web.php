@@ -27,7 +27,39 @@ $config = [
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
-            'useFileTransport' => true,
+            'useFileTransport' => false,
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'smtp.gmail.com',
+                'username' => 'cartatar@gmail.com',
+                'password' => 'Pi=3,1415',
+                'port' => '587',
+                'encryption' => 'tls',
+                ],
+        ],
+        'response' => [
+            'formatters' => [
+                'pdf' => [
+                    'class' => 'robregonm\pdf\PdfResponseFormatter',
+                    'mode' => '', // Optional
+                    'format' => 'A4',  // Optional but recommended. http://mpdf1.com/manual/index.php?tid=184
+                    'defaultFontSize' => 8, // Optional
+                    'defaultFont' => '', // Optional
+                    'marginLeft' => 5, // Optional
+                    'marginRight' => 15, // Optional
+                    'marginTop' => 1, // Optional
+                    'marginBottom' => 16, // Optional
+                    'marginHeader' => 9, // Optional
+                    'marginFooter' => 9, // Optional
+                    'orientation' => 'Landscape', // optional. This value will be ignored if format is a string value.
+                    'options' => [
+                        // mPDF Variables
+                        // 'fontdata' => [
+                            // ... some fonts. http://mpdf1.com/manual/index.php?tid=454
+                        // ]
+                    ]
+                ],
+            ]
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
