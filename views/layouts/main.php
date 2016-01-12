@@ -58,7 +58,7 @@ AppAsset::register($this);
                  '<li class="divider"></li>',
                  //'<li class="dropdown-header">Categorias</li>',
                  ['label' => 'Categorias', 'url' => ['/categorias-objetos']],
-                 ['label' => 'Tipo Categorias', 'url' => ['/tipo-categorias']],
+                 ['label' => 'Subcategorias', 'url' => ['/tipo-categorias']],
             ],];
     }
             

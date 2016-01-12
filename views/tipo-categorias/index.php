@@ -20,10 +20,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
+            
             'tipo',
-            'categoria',
+            [
+                'attribute'=>'categoria',
+                'content' => function($data){
+                    return strtoupper($data->getMiCategoria()[$data->categoria]);
+                },
+            ],
+            
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

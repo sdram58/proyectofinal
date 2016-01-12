@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Objeto */
 
 $this->title = isset($model->Descripcion)?$model->Descripcion.' de '.$model->ubicacion:$model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Objetos', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Inventario', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="objeto-view">
@@ -21,7 +21,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'estado',
             'ubicacion',
-            'categoria',
+            [
+                'label'=>'categoria',
+                'value' => $model->getCategoria0()->all()[0]['categoria'],
+            ],
             'tipo',
             'Descripcion',
             'fecha_alta',

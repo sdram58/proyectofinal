@@ -10,7 +10,7 @@ use yii\bootstrap\ActiveForm;
 $this->title = 'Login';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-login">
+<div class="site-login categorias-form">
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>Por favor rellene los siguientes campos para acceder:</p>
@@ -35,8 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="form-group">
             <div class="col-lg-offset-1 col-lg-11">
                 <?= Html::submitButton('Acceder', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-                <br />
-                <?= Html::a('Volver', ['index'], ['class' => 'btn btn-success','style'=>'margin-left:50%;']) ?>
+                
             </div>
         </div>
 
@@ -47,3 +46,5 @@ $this->params['breadcrumbs'][] = $this->title;
         To modify the username/password, please check out the code <code>app\models\User::$users</code>.
     </div> -->
 </div>
+<br />
+<?= Html::a('Volver', ['index'], ['class' => 'btn btn-success','style'=>'margin-left:45%;']) ?>

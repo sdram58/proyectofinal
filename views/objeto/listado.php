@@ -7,13 +7,13 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\ObjetoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Inventario';
+$this->title = 'Listados';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="objeto-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php  //echo $this->render('_search', ['model' => $searchModel]); 
+    <?php  echo $this->render('_search', ['model' => $searchModel]); 
     //Solo usuarios logeados y con rol de inventario podrán modificar
     if ((!Yii::$app->user->isGuest)&&(Yii::$app->user->identity->inventario==1)) {
         $plantilla= '{view} {update} {delete}{link}';
@@ -106,7 +106,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php if ((!Yii::$app->user->isGuest)&&(Yii::$app->user->identity->inventario==1)) { ?>
         <?= Html::a('+ Nuevo Elemento', ['create'], ['class' => 'btn btn-success']) ?>
        <?php }?>
-        <?= Html::a('Listados', ['listado'], ['class' => 'btn btn-success btn-imprimir']) ?>
+        <?= Html::a('Imprimir', ['imprimir'], ['class' => 'btn btn-success btn-imprimir']) ?>
         <br /><br />
         <?= Html::a('Volver', ['index'], ['class' => 'btn btn-success','style'=>'margin-left:50%;']) ?>
     </p> 

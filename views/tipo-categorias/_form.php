@@ -10,8 +10,7 @@ use yii\widgets\ActiveForm;
 
 <div class="tipo-categorias-form categorias-form">
 
-    <?php $form = ActiveForm::begin([
-        
+    <?php $form = ActiveForm::begin([        
     'options' => ['class' => 'form-horizontal'],
         'fieldConfig' => [
             'template' => "{label}\n<div class=\"col-lg-5\">{input}</div>\n<div class=\"col-lg-5 error\">{error}</div>",
@@ -20,8 +19,13 @@ use yii\widgets\ActiveForm;
         ]); ?>
 
     <?= $form->field($model, 'tipo')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'categoria')->dropDownList($model) ?>
+    
+    <?php if($model->isNewRecord){ ?>
+        <?= $form->field($model, 'categoria')->dropDownList($categorias,['id'=>'input-cat']) ?>
+   <?php }else{ ?>
+        <?= $form->field($model, 'categoria')->dropDownList($categorias,['id'=>'input-cat','value'=>$categorias[$model->categoria]]) ?>
+   <?php } ?>  
+    
     <div class="error-envio-form error-form-label">Hay errores en el formulario que ha de subsanar!</div>
 
     <div class="form-group grupo-envio">

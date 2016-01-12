@@ -6,32 +6,39 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\TipoCategorias */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Tipo Categorias', 'url' => ['index']];
+$this->title = $model->tipo;
+$this->params['breadcrumbs'][] = ['label' => 'Subcategorías', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tipo-categorias-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+    
+
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            'id',            
+            [
+                'label'=>'categoria',
+                'value' => $model->getMiCategoria()[$model->categoria],
+            ],
+            'tipo',
+        ],
+    ]) ?>
+    
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Actualizar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Borrar', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Está seguro que desea eliminar este elemento?',
                 'method' => 'post',
             ],
         ]) ?>
+        <br />
+        <?= Html::a('Volver', ['index'], ['class' => 'btn btn-success','style'=>'margin-left:50%;']) ?>
     </p>
-
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'tipo',
-            'categoria',
-        ],
-    ]) ?>
 
 </div>
