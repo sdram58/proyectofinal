@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Cuenta;
+use app\models\Subcodigos;
 
 /**
- * CuentaSearch represents the model behind the search form about `app\models\Cuenta`.
+ * SubcodigosSearch represents the model behind the search form about `app\models\Subcodigos`.
  */
-class CuentaSearch extends Cuenta
+class SubcodigosSearch extends Subcodigos
 {
     /**
      * @inheritdoc
@@ -18,9 +18,8 @@ class CuentaSearch extends Cuenta
     public function rules()
     {
         return [
-            [['id', 'tipocuenta', 'idconcepto'], 'integer'],
-            [['saldo'], 'number'],
-            [['fecha', 'descripcion'], 'safe'],
+            [['id', 'identificador', 'codigo'], 'integer'],
+            [['descripcionv', 'descripcionc'], 'safe'],
         ];
     }
 
@@ -42,7 +41,7 @@ class CuentaSearch extends Cuenta
      */
     public function search($params)
     {
-        $query = Cuenta::find();
+        $query = Subcodigos::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -58,13 +57,12 @@ class CuentaSearch extends Cuenta
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'tipocuenta' => $this->tipocuenta,
-            'saldo' => $this->saldo,
-            'idconcepto' => $this->idconcepto,
-            'fecha' => $this->fecha,
+            'identificador' => $this->identificador,
+            'codigo' => $this->codigo,
         ]);
 
-        $query->andFilterWhere(['like', 'descripcion', $this->descripcion]);
+        $query->andFilterWhere(['like', 'descripcionv', $this->descripcionv])
+            ->andFilterWhere(['like', 'descripcionc', $this->descripcionc]);
 
         return $dataProvider;
     }

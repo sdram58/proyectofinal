@@ -3,17 +3,17 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Usuario;
-use app\models\UsuarioSearch;
+use app\models\Subcodigos;
+use app\models\SubcodigosSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-//se \app\models\Nologed;
+
 
 /**
- * UsuarioController implements the CRUD actions for Usuario model.
+ * SubcodigoController implements the CRUD actions for Subcodigos model.
  */
-class UsuarioController extends Controller
+class SubcodigoController extends Controller
 {
     public function behaviors()
     {
@@ -27,15 +27,21 @@ class UsuarioController extends Controller
         ];
     }
 
+    
+    public function beforeAction($action) {
+        $this->comprobarPermiso();
+        return parent::beforeAction($action);
+        
+    }
+    
+    
     /**
-     * Lists all Usuario models.
+     * Lists all Subcodigos models.
      * @return mixed
      */
     public function actionIndex()
-    {   
-        $this->comprobarPermiso();
-        
-        $searchModel = new UsuarioSearch();
+    {
+        $searchModel = new SubcodigosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,29 +51,25 @@ class UsuarioController extends Controller
     }
 
     /**
-     * Displays a single Usuario model.
+     * Displays a single Subcodigos model.
      * @param integer $id
      * @return mixed
      */
     public function actionView($id)
     {
-        $this->comprobarPermiso();
-        
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
     }
 
     /**
-     * Creates a new Usuario model.
+     * Creates a new Subcodigos model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $this->comprobarPermiso();
-        
-        $model = new Usuario();
+        $model = new Subcodigos();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -79,15 +81,13 @@ class UsuarioController extends Controller
     }
 
     /**
-     * Updates an existing Usuario model.
+     * Updates an existing Subcodigos model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
      */
     public function actionUpdate($id)
     {
-        $this->comprobarPermiso();
-        
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -100,40 +100,38 @@ class UsuarioController extends Controller
     }
 
     /**
-     * Deletes an existing Usuario model.
+     * Deletes an existing Subcodigos model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
      */
     public function actionDelete($id)
     {
-        $this->comprobarPermiso();
-        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Usuario model based on its primary key value.
+     * Finds the Subcodigos model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Usuario the loaded model
+     * @return Subcodigos the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Usuario::findOne($id)) !== null) {
+        if (($model = Subcodigos::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
     
-    private function comprobarPermiso(){
-        if(Roles::getInvitado() || !Roles::getUsuario()){
+     private function comprobarPermiso(){
+        if(Roles::getInvitado() || !Roles::getContabilidad()){
             
-            return $this->redirect("index.php?r=site/nologed&pg=usuario");
+            return $this->redirect("index.php?r=site/nologed&pg=subcodigo");
         }
         return true;
     }

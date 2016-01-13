@@ -3,31 +3,32 @@
 namespace app\models;
 
 use Yii;
+use app\models\Codigos;
+use app\models\Subcodigos;
 
 /**
- * This is the model class for table "objeto".
+ * This is the model class for table "cuenta".
  *
  * @property integer $id
  * @property integer $tipocuenta
  * @property double $saldo
  * @property integer $idconcepto
  * @property string $fecha
+ * @property string $descripcion
+ *
+ * @property Subcodigos $idconcepto0
  */
 class Cuenta extends \yii\db\ActiveRecord
 {
+    
+    public static $cuentas =['0'=>'A', '1'=>'B'];
     /**
      * @inheritdoc
      */
-    public static $TIPO_CUENTA =['0'=>'A', '1'=>'B'];
-    
     public static function tableName()
     {
         return 'cuenta';
     }
-    
-   /* public static function getDb() {
-        return Yii:;
-    }*/
 
     /**
      * @inheritdoc
@@ -35,11 +36,12 @@ class Cuenta extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id','tipocuenta', 'saldo', 'idconcepto', 'fecha'], 'required', 'message'=>'El campo \'{attribute}\' no puede estar en blanco'],
-            [['tipocuenta'], 'integer'],
-            [['saldo'], 'double'],
-            [['fecha'], 'safe'],                        
-       ];
+            [['id', 'saldo', 'idconcepto', 'fecha'], 'required'],
+            [['id', 'tipocuenta', 'idconcepto'], 'integer'],
+            [['saldo'], 'number'],
+            [['fecha'], 'safe'],
+            [['descripcion'], 'string', 'max' => 250]
+        ];
     }
 
     /**
@@ -50,19 +52,45 @@ class Cuenta extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'tipocuenta' => 'Cuenta',
-            'saldo' => 'Saldo',
+            'saldo' => 'Importe',
             'idconcepto' => 'Concepto',
             'fecha' => 'Fecha',
+            'descripcion' => 'Descripción',
+        ];
+    }
+    
+    function fields() {
+        return[
+            'id' => 'ID',
+            'tipocuenta' => 'Cuenta',
+            'saldo' => 'Importe',
+            'idconcepto' => 'Concepto',
+            'fecha' => 'Fecha',
+            'descripcion' => 'Descripción',
+            'totalA'=>'2342',
+            'totalB'=>'1111',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getIdConcepto0()
+    public function getIdconcepto0()
     {
-        return $this->hasOne(CategoriasObjetos::className(), ['id' => 'idconcepto']);
+        return $this->hasOne(Subcodigos::className(), ['id' => 'idconcepto']);
     }
     
-    
+    /**
+     * Devuelve todos los subconceptos en un array del tipo ['idsub'=>'identificador concepto.identificador subcodigo.Descripcion]
+     */
+    public function getConceptos(){ ;
+        $subcodigo = new Subcodigos();
+        $subcodigos = $subcodigo->find();
+        $conceptos = [];
+        foreach($subcodigo as $key=>$valor){
+            $conceptos[$key] = $valor['codigo'].$valor['identificador'].'.-'.$valor['Descripcionc'];
+        }   
+        return $conceptos;
+            
+    }
 }

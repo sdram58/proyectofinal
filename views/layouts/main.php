@@ -66,11 +66,8 @@ AppAsset::register($this);
             $items[] = [    
             'label' => 'Contabilidad',
             'items' => [
-                 ['label' => 'Ubicaciones', 'url' => ['/ubicaciones']],
-                 '<li class="divider"></li>',
-                 '<li class="dropdown-header">Categorias</li>',
-                 ['label' => 'Categorias', 'url' => ['/categorias-objetos']],
-                 ['label' => 'Tipo Categorias', 'url' => ['/tipo-categorias']],
+                 ['label' => 'Códigos', 'url' => ['/codigos']],
+                 ['label' => 'Subcódigos', 'url' => ['/subcodigo']],                 
             ],];
     }
     

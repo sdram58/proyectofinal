@@ -201,6 +201,14 @@ class SiteController extends Controller
                 $titulo = 'Acceso a las Ubicaciones no permitido';
                 $mensaje = 'No tiene acceso a la sección de Ubicaciones, pruebe a acceder con un usuario válido';
                 break;
+            case 'codigos':
+                $titulo = 'Acceso a los Códigos de contabilidad no permitido';
+                $mensaje = 'No tiene acceso a la sección de códigos, pruebe a acceder con un usuario válido';
+                break;
+            case 'subcodigo':
+                $titulo = 'Acceso a los Subcodigos de contabilidad no permitido';
+                $mensaje = 'No tiene acceso a la sección de subcodigos, pruebe a acceder con un usuario válido';
+                break;
             default:
                 $titulo = 'Acceso no permitido';
                 $mensaje = 'No tiene acceso a la sección, pruebe a acceder con un usuario válido';
