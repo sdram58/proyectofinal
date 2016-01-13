@@ -1,9 +1,13 @@
 <?php
 
 namespace app\controllers;
+
+use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
+use app\models\Cuenta;
+use app\models\CuentaSearch;
 
 class ContabilidadController extends Controller
 {
@@ -31,6 +35,15 @@ class ContabilidadController extends Controller
     }
    public function actionIndex()
     {
-        return $this->render('index');
+         $searchModel = new CuentaSearch();
+        
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->pagination->pageSize=5;
+       
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+
+        ]);
     }
 }
