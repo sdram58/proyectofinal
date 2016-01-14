@@ -18,7 +18,7 @@ class CuentaSearch extends Cuenta
     public function rules()
     {
         return [
-            [['id', 'tipocuenta', 'idconcepto'], 'integer'],
+            [['id', 'tipocuenta', 'idconcepto','gastoingreso'], 'integer'],
             [['saldo'], 'number'],
             [['fecha', 'descripcion'], 'safe'],
         ];
@@ -47,7 +47,12 @@ class CuentaSearch extends Cuenta
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
+         /*$dataProvider->sort->attributes['id'] = [
+        // The tables are the ones our relation are configured to
+        // in my case they are prefixed with "tbl_"
+        'asc' => ['id' => SORT_ASC],
+        'desc' => ['id' => SORT_DESC],
+        ];*/
         $this->load($params);
 
         if (!$this->validate()) {
