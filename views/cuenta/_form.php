@@ -19,6 +19,8 @@ use yii\widgets\ActiveForm;
     ]); ?>
 
     <?= $form->field($model, 'tipocuenta')->dropDownList($model::$cuentas) ?>
+    
+    <?= $form->field($model, 'gastoingreso')->dropDownList($model::$GASTO_INGRESO) ?>
 
     <?= $form->field($model, 'saldo')->textInput() ?>
 

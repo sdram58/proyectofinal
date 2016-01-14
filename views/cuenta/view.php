@@ -37,8 +37,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
-        
-        <?= Html::submitButton('+ Nueva Cuenta',['create'], ['class' => 'btn btn-primary']) ?>
+        <br />
+        <br /><br />
+        <?= Html::a('+ Crear otra', ['create'], ['class' => 'btn btn-success','style'=>'margin-left:45%;']) ?>
     </p>
 
 </div>
