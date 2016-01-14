@@ -93,11 +93,21 @@ function iniciar(){
                 
         });
     
+    }else{//**************Cuentas************************************************************************
+        if(window.location.href.indexOf("cuenta")>-1){
+                 document.getElementById('btnenviar').addEventListener('click',function(){
+                     document.getElementById("form-cuenta").submit();
+                 });
+                 document.getElementById('tipocuenta').addEventListener('change',cambiarCodigos);
+                 cargarCodigoIngresos();
+                 cargarCodigoCargos();
+             }   
     }
     }
     }
     }
     }
+    
     
     
     
@@ -119,7 +129,7 @@ function iniciar(){
     function cambiarTipo(event){
         var destino='tipo-cat';
         var origen = event.target;
-        parametro = "categoria="+origen.value+"&nocache="+Math.random();
+        var parametro = "categoria="+origen.value+"&nocache="+Math.random();
         $.post('index.php?r=site/ajax',parametro,function(data){
             var categorias = JSON.parse(JSON.stringify(eval("(" + data + ")")));
             var html="";
@@ -142,10 +152,11 @@ function iniciar(){
             if (((f_baja.value === "") || (f_baja.value > f_alta.value))&& f_alta.value !== "") {
                 //no hacer nada'
                 $('.error-form').removeClass('error-form');            
-                
+                $(event.target).parent().removeClass('has-error');
                 $('.error-form-label').removeClass('error-form-label');
             }else{
                 $('#fecha_alta').prev().addClass('error-form-label');
+                $(event.target).parent().addClass('has-error');
                 $('#fecha_alta').after('<div class="error-form-label">La fecha de Alta no puede ser posterior a la fecha de Baja</div>');
                 $('#fecha_alta').addClass('error-form');
             }      
@@ -160,9 +171,10 @@ function iniciar(){
             if (((f_baja.value === "") || (f_baja.value >= f_alta.value))&& f_alta.value !== "") {
                 //no hacer nada';
                 $('.error-form').removeClass('error-form');
-                
+                $(event.target).parent().removeClass('has-error');
                 $('.error-form-label').removeClass('error-form-label');
             }else{
+                $(event.target).parent().addClass('has-error');
                 $('#fecha_baja').prev().addClass('error-form-label');                
                 $('#fecha_baja').after('<div class="error-form-label">La fecha de Baja no puede ser anterior a la fecha de Alta</div>');
                 $('#fecha_baja').addClass('error-form');
@@ -183,7 +195,7 @@ function iniciar(){
     var idIsOk=true;
        
     function cargarCategorias(){
-        parametro = "damecat=true&nocache="+Math.random();
+        var parametro = "damecat=true&nocache="+Math.random();
         $.post('index.php?r=site/ajax',parametro,function(data){
             categorias = JSON.parse(JSON.stringify(eval("(" + data + ")")));
             var url =window.location.href;
@@ -229,7 +241,7 @@ function iniciar(){
     var usuarios;
     var isUsuarioOk=true;
     function cargarUsuarios(){
-        parametro = "dameusu=true&nocache="+Math.random();
+        var parametro = "dameusu=true&nocache="+Math.random();
         $.post('index.php?r=site/ajax',parametro,function(data){
             usuarios = JSON.parse(JSON.stringify(eval("(" + data + ")")));
             var url =window.location.href;
@@ -268,7 +280,7 @@ function iniciar(){
     var idUbicacionIsOk=true;
        
     function cargarUbicaciones(){
-        parametro = "dameubi=true&nocache="+Math.random();
+        var parametro = "dameubi=true&nocache="+Math.random();
         $.post('index.php?r=site/ajax',parametro,function(data){
             ubicaciones = JSON.parse(JSON.stringify(eval("(" + data + ")")));
             var url =window.location.href;
@@ -315,7 +327,7 @@ function iniciar(){
     var subcategoriasIsOK=true;
        
     function cargarSubcategorias(){
-        parametro = "damesubc=true&nocache="+Math.random();
+        var parametro = "damesubc=true&nocache="+Math.random();
         $.post('index.php?r=site/ajax',parametro,function(data){
             subcategorias = JSON.parse(JSON.stringify(eval("(" + data + ")")));
             var url =window.location.href;
@@ -335,6 +347,43 @@ function iniciar(){
             subcategoriasIsOK = false;
         }else{subcategoriasIsOK = true; }               
     }
+    
+    
+    //*********CUENTAS*************************************************
+    var codigosCargos="";
+    var codigosIngresos="";
+    
+    function cargarCodigoCargos(){
+        var parametro = "damecg=true&nocache="+Math.random();
+        $.post('index.php?r=site/ajax',parametro,function(data){
+            codigosCargos = JSON.parse(JSON.stringify(eval("(" + data + ")")));
+        });
+    }
+    
+    function cargarCodigoIngresos(){
+        var parametro = "dameci=true&nocache="+Math.random();
+        $.post('index.php?r=site/ajax',parametro,function(data){
+            codigosIngresos = JSON.parse(JSON.stringify(eval("(" + data + ")")));
+         });
+    }
+    
+    
+    function cambiarCodigos(){
+        var codigos='';
+        if(document.getElementById('tipocuenta').value==0){
+            codigos=codigosCargos;
+        }else{
+            codigos=codigosIngresos;
+        }
+        var html="";
+        $.each(codigos, function(index, element){
+           html+="<option value='"+index+"'>"+element.toUpperCase()+"</option>\n";
+           });
+           var elemento = document.getElementById("gastosingresos");
+           elemento.innerHTML=html;
+
+    }
+    
     
        
 }

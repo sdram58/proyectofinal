@@ -146,3 +146,31 @@ a.desc:after {
 .error-envio-form{
     display:none;
 }
+.cuentas{
+    text-align: right;
+}
+.cuentas span{
+    font-weight: bold;
+}
+
+span.nuevo{
+    position:relative;
+    top:30px;
+    font-size:25px;
+}
+
+a#btnenviar:hover{
+    cursor:pointer;
+}
+
+.mierror{
+    /*position:absolute;
+    display:inline-block;*/
+}
+
+.cuenta-form{
+    border:2px solid rgb(230,210,180);;
+    background-color:rgb(255,233,201);
+    border-radius: 5px;
+    padding: 5px;
+    }
