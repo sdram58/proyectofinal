@@ -39,12 +39,25 @@ class CuentaController extends Controller
      */
     public function actionIndex()
     {
+        $model = new Cuenta();        
+        if ($model->load(Yii::$app->request->post()) && ($model->save())) {
+           
+                //Datos guardados
+                unset($model);
+                $model = new Cuenta();
+        }
+        
         $searchModel = new CuentaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->sort =['defaultOrder' => ['id'=>SORT_DESC]];
+        $dataProvider->pagination->pageSize=10;
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'model'=>$model,
+            'saldoA'=>$model->getSaldoA(),
+            'saldoB'=>$model->getSaldoB(),
         ]);
     }
 
@@ -68,7 +81,7 @@ class CuentaController extends Controller
     public function actionCreate()
     {
         $model = new Cuenta();
-
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
@@ -106,7 +119,7 @@ class CuentaController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-
+        $this->actualizarNumCuenta($id);
         return $this->redirect(['index']);
     }
 
@@ -122,7 +135,7 @@ class CuentaController extends Controller
         if (($model = Cuenta::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException('La página solicitada no existe.');
         }
     }
     
@@ -132,5 +145,18 @@ class CuentaController extends Controller
             return $this->redirect("index.php?r=site/nologed&pg=contabilidad");
         }
         return true;
+    }
+    
+    private function actualizarNumCuenta($numcuenta){
+        $comando = Yii::$app->getDb()->createCommand('UPDATE cuenta SET id=id - 1 WHERE id>'.$numcuenta);
+        $comando->execute();
+        
+        $command = Yii::$app->db->createCommand("SELECT max(id) FROM cuenta");
+        $maximo = $command->queryScalar();
+        
+        $comando = Yii::$app->getDb()->createCommand('ALTER TABLE cuenta AUTO_INCREMENT = :max');
+        $comando->bindValue(':max', $maximo+1);
+        $comando->execute();     
+
     }
 }

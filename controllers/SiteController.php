@@ -13,6 +13,7 @@ use app\models\TipoCategorias;
 use app\models\CategoriasObjetos;
 use app\models\Ubicaciones;
 use app\models\Usuario;
+use app\models\Cuenta;
 /*Use de pruebas*/
 use app\models\IngresoFormulario;
 
@@ -165,6 +166,22 @@ class SiteController extends Controller
             if($damecat){
                 $tc = new TipoCategorias();
                 echo json_encode($tc->getAllTipoCategorias());
+            }
+            
+        }
+        if (isset($_POST['damecg'])){
+            $damecat = $_POST['damecg'];
+            if($damecat){
+                $tc = new Cuenta();
+                echo json_encode($tc->getConceptosGastos());
+            }
+            
+        }
+        if (isset($_POST['dameci'])){
+            $damecat = $_POST['dameci'];
+            if($damecat){
+                $tc = new Cuenta();
+                echo json_encode($tc->getConceptoIngresos());
             }
             
         }
