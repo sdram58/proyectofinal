@@ -50,7 +50,7 @@ class CuentaController extends Controller
         $searchModel = new CuentaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->sort =['defaultOrder' => ['id'=>SORT_DESC]];
-        $dataProvider->pagination->pageSize=10;
+        $dataProvider->pagination->pageSize=6;
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -58,6 +58,10 @@ class CuentaController extends Controller
             'model'=>$model,
             'saldoA'=>$model->getSaldoA(),
             'saldoB'=>$model->getSaldoB(),
+            'saldoGastosA'=>$model->getGastosA(),
+            'saldoGastosB'=>$model->getGastosB(),
+            'saldoIngresosA'=>$model->getIngresosA(),
+            'saldoIngresosB'=>$model->getIngresosB(),
         ]);
     }
 

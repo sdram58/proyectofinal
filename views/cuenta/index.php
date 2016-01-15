@@ -54,10 +54,22 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php ActiveForm::end(); ?>
 
     </div>
-    <div class="cuentas">
-        <div class="cuenta">Saldo cuenta A: <span><?php echo number_format($saldoA,2,'.',','); ?>€</span></div>
-        <div class="cuenta">Saldo cuenta B: <span><?php echo number_format($saldoB,2,'.',','); ?>€</span></div>
-        <div class="cuenta">Saldo Total: <span><?php echo number_format($saldoA+$saldoB,2,'.',','); ?>€</span></div>
+    <div class="wrapcuentas">
+    <div class="row cuentas">
+        <div class="col-xs-4 cuenta">Ingresos cuenta A: <span><?php echo number_format($saldoIngresosA,2,'.',','); ?>€</span></div>
+        <div class="col-xs-4 cuenta">Gastos cuenta A: <span><?php echo number_format($saldoGastosA,2,'.',','); ?>€</span></div>
+        <div class="col-xs-4 cuenta">Saldo cuenta A: <span><?php echo number_format($saldoA,2,'.',','); ?>€</span></div>
+    </div>
+    <div class="row cuentas">
+        <div class="col-xs-4 cuenta">Ingresos cuenta B: <span><?php echo number_format($saldoIngresosB,2,'.',','); ?>€</span></div>
+        <div class="col-xs-4 cuenta">Gastos cuenta B: <span><?php echo number_format($saldoGastosB,2,'.',','); ?>€</span></div>
+        <div class="col-xs-4 cuenta">Saldo cuenta B: <span><?php echo number_format($saldoB,2,'.',','); ?>€</span></div>
+    </div>
+    <div class="row cuentas">
+        <div class="col-xs-4 cuenta">Total Ingresos: <span><?php echo number_format($saldoIngresosA+$saldoIngresosB,2,'.',','); ?>€</span></div>
+        <div class="col-xs-4 cuenta">Total Gastos: <span><?php echo number_format($saldoGastosA+$saldoGastosB,2,'.',','); ?>€</span></div>
+        <div class="col-xs-4 cuenta">Total: <span><?php echo number_format($saldoA+$saldoB,2,'.',','); ?>€</span></div>
+    </div>
     </div>
     
     <?php  //echo $this->render('_search', ['model' => $searchModel]); 
@@ -134,6 +146,8 @@ $this->params['breadcrumbs'][] = $this->title;
               
         ],
     ]); ?>
+    
+    
     
      <p>
         <?php if ((!Yii::$app->user->isGuest)&&(Yii::$app->user->identity->contabilidad==1)) { ?>

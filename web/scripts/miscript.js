@@ -213,7 +213,7 @@ function iniciar(){
             $(event.target).parent().next().prepend('<div class=\'error-form-label\'>El identificador \''+event.target.value+'\' ya existe</div>');
             $(event.target).parent().prev().last().addClass('error-form-label');
             idIsOk = false;
-        }else{idIsOk = true; }               
+        }else{idIsOk = true;}               
     }
     
     function comprobarCategoria(event){
@@ -231,7 +231,7 @@ function iniciar(){
         }
         if(existe){
            $(event.target).parent().next().prepend('<div class="error-form-label catclas">La categoría \''+event.target.value+'\' ya existe</div>');
-        }        
+        }
         categoriasIsOK = !existe;
     }
     
@@ -298,7 +298,7 @@ function iniciar(){
             $(event.target).parent().next().prepend('<div class=\'error-form-label\'>El identificador \''+event.target.value+'\' ya existe</div>');
             $(event.target).parent().prev().last().addClass('error-form-label');
             idUbicacionIsOk = false;
-        }else{idUbicacionIsOk = true; }               
+        }else{idUbicacionIsOk = true;}               
     }
     
     function comprobarDescripcion(event){
@@ -315,8 +315,8 @@ function iniciar(){
           }
         }
         if(existe){
-           $(event.target).parent().next().prepend('<div class="error-form-label catclas">La Descripción \''+event.target.value+'\' ya existe</div>');
-        }        
+           $(event.target).parent().next().prepend('<div class="error-form-label catclas">La Descripción \''+event.target.value+'\' ya existe</div>');           
+        }      
         ubicacionesIsOK = !existe;
     }
     
@@ -345,7 +345,8 @@ function iniciar(){
             $(event.target).parent().next().prepend('<div class=\'error-form-label\'>El tipo \''+event.target.value+'\' ya existe</div>');
             $(event.target).parent().prev().last().addClass('error-form-label');
             subcategoriasIsOK = false;
-        }else{subcategoriasIsOK = true; }               
+            $(event.target).parent().addClass('has-error');
+        }else{subcategoriasIsOK = true; $(event.target).parent().addClass('has-error');}               
     }
     
     

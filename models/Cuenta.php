@@ -40,7 +40,7 @@ class Cuenta extends \yii\db\ActiveRecord
         return [
             [['saldo', 'idconcepto', 'fecha', 'gastoingreso'], 'required'],
             [['id', 'tipocuenta', 'idconcepto','gastoingreso'], 'integer'],
-            [['saldo'], 'number'],
+            [['saldo'], 'number','min'=>0],
             [['fecha'], 'safe'],
             [['descripcion'], 'string', 'max' => 250]
         ];
@@ -140,5 +140,26 @@ class Cuenta extends \yii\db\ActiveRecord
         $command = Yii::$app->db->createCommand("SELECT sum(saldo) FROM cuenta where tipocuenta=1 AND gastoingreso=".cuenta::$GASTO);
         $gastos = $command->queryScalar();
         return ($ingresos - $gastos);
+    }
+    
+    public function getIngresosB(){        
+        return  Yii::$app->db
+                ->createCommand("SELECT sum(saldo) FROM cuenta where tipocuenta=1 AND gastoingreso=".cuenta::$INGRESO)
+                ->queryScalar();
+    }
+    public function getIngresosA(){        
+        return  Yii::$app->db
+                ->createCommand("SELECT sum(saldo) FROM cuenta where tipocuenta=0 AND gastoingreso=".cuenta::$INGRESO)
+                ->queryScalar();
+    }
+    public function getGastosB(){        
+        return  Yii::$app->db
+                ->createCommand("SELECT sum(saldo) FROM cuenta where tipocuenta=1 AND gastoingreso=".cuenta::$GASTO)
+                ->queryScalar();
+    }
+    public function getGastosA(){        
+        return  Yii::$app->db
+                ->createCommand("SELECT sum(saldo) FROM cuenta where tipocuenta=0 AND gastoingreso=".cuenta::$GASTO)
+                ->queryScalar();
     }
 }

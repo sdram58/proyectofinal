@@ -146,8 +146,18 @@ a.desc:after {
 .error-envio-form{
     display:none;
 }
+.wrapcuentas{
+    margin: 10px;
+}
 .cuentas{
     text-align: right;
+}
+
+.cuenta{
+   /* background-color: rgb(200,200,200);
+    border:3px #EEEEDD solid;
+    border-radius: 5px;
+    text-align: right;*/
 }
 .cuentas span{
     font-weight: bold;
