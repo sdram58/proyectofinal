@@ -154,10 +154,10 @@ a.desc:after {
 }
 
 .cuenta{
-   /* background-color: rgb(200,200,200);
+    background-color: rgb(200,200,200);
     border:3px #EEEEDD solid;
     border-radius: 5px;
-    text-align: right;*/
+    text-align: right;
 }
 .cuentas span{
     font-weight: bold;
@@ -179,8 +179,61 @@ a#btnenviar:hover{
 }
 
 .cuenta-form{
-    border:2px solid rgb(230,210,180);;
+    border:2px solid rgb(230,210,180);
     background-color:rgb(255,233,201);
     border-radius: 5px;
     padding: 5px;
-    }
+}
+
+.btn-atributo{
+    width: 80%;
+}
+
+.cond-accion{
+    margin-top: 20px;
+}
+.cond-accion span::before{
+    font-size:20px;
+    position:relative;
+    top:10px;
+}
+
+.cond-atributo{
+    text-align: center;
+    height: 40px;
+    color:#bbb;
+    border-radius: 7px;
+    border:3px dashed brown;
+}
+
+.comparador div{
+    text-align: center;    
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.listado-campos{
+    text-align: center;
+    border-radius: 7px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.cond-atributo{
+    margin-top:20px;
+    border:3px dashed brown;
+    min-height: 30px;    
+}
+
+
+.cond-accion:hover{
+    cursor:pointer;
+}
+
+.ordenar h3{
+    text-align: center;
+}
+
+.cajaover{
+    border-color:green;
+}

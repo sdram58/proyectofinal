@@ -126,6 +126,17 @@ class CuentaController extends Controller
         $this->actualizarNumCuenta($id);
         return $this->redirect(['index']);
     }
+    
+    /**
+     * Pagina para filtrar campos y delver inform
+     */
+    
+    public function actionListado(){
+        $model = new Cuenta();
+        return $this->render('listado', [
+                'model' => $model,
+            ]);
+    }
 
     /**
      * Finds the Cuenta model based on its primary key value.

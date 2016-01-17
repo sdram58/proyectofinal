@@ -67,6 +67,7 @@ class CuentaSearch extends Cuenta
             'saldo' => $this->saldo,
             'idconcepto' => $this->idconcepto,
             'fecha' => $this->fecha,
+            'gastoingreso' => $this->gastoingreso,
         ]);
 
         $query->andFilterWhere(['like', 'descripcion', $this->descripcion]);

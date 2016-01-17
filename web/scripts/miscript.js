@@ -93,15 +93,58 @@ function iniciar(){
                 
         });
     
-    }else{//**************Cuentas************************************************************************
-        if(window.location.href.indexOf("cuenta")>-1){
+    }else{//CUENTAS*****************************************************************************************************
+        if((window.location.href.indexOf("cuenta")>-1) && (window.location.href.indexOf("listado")<0)){
                  document.getElementById('btnenviar').addEventListener('click',function(){
                      document.getElementById("form-cuenta").submit();
                  });
                  document.getElementById('tipocuenta').addEventListener('change',cambiarCodigos);
                  cargarCodigoIngresos();
                  cargarCodigoCargos();
-             }   
+             }
+        
+        if((window.location.href.indexOf("cuenta")>-1) && (window.location.href.indexOf("listado")>-1)){
+            var comparadores = document.querySelectorAll(".comparador");
+            for(var i=0;i<comparadores.length;i++){
+                var comp=comparadores[i];
+                comp.addEventListener('dragstart',dragStart);
+            }
+            var atributos = document.querySelectorAll(".btn-atributo");
+            for(var i=0;i<atributos.length;i++){
+                var comp=atributos[i];
+                comp.addEventListener('dragstart',dragStart);
+                //addEvent(comp, 'drop', dropAtributo);
+            }
+            
+            var comparador = document.querySelectorAll(".comparador");
+            for(var i=0;i<comparador.length;i++){
+                var comp=comparador[i];
+                comp.addEventListener('dragstart',dragStart);
+                //addEvent(comp, 'drop', dropAtributo);
+            }
+            
+            var atributo = document.querySelectorAll(".atributo");
+           for(var i=0;i<atributo.length;i++){
+                var comp=atributo[i];
+                 addEvent(comp,'drop', dropAtributo);
+                 addEvent(comp,'dragleave', dragLeaveAtributo);
+                 addEvent(comp,'dragover', dragOverAtributo);
+            }
+            
+            var condicion = document.querySelectorAll(".cond-comparador");
+           for(var i=0;i<condicion.length;i++){
+                var comp=condicion[i];
+                 addEvent(comp,'drop', dropComparador);
+                 addEvent(comp,'dragleave', dragLeaveComparador);
+                 addEvent(comp,'dragover', dragOverComparador);
+            } 
+            
+            $('.nueva-cond').on('click',nuevaFilaCondicion);
+            //document.getElementById('hola').addEventListener('drop',dropAtributo);
+            
+            $('.del-cond').click(eliminarFilaCondicion);
+
+        }    
     }
     }
     }
@@ -386,6 +429,135 @@ function iniciar(){
     }
     
     
-       
+    
+    
+    /**********LISTADOS CUENTA*******************************************************/
+    
+    function dragStart(e){        
+        var dato = $(e.target).html();
+        e.dataTransfer.setData('Text', e.target.id);
+        e.dataTransfer.effectAllowed = 'all';
+    }
+    
+    function dragOverAtributo(e){
+        if (e.preventDefault) e.preventDefault();
+        $(e.target).addClass('cajaover');
+        e.dataTransfer.dropEffect = 'copy';
+        return false;
+    }
+    
+    function dragOverComparador(e){
+        if (e.preventDefault) e.preventDefault();
+        $(e.target).addClass('cajaover');
+        e.dataTransfer.dropEffect = 'copy';
+        return false;
+    }
+    
+    function dragLeaveAtributo(e){
+        if (e.preventDefault) e.preventDefault();
+        $(e.target).removeClass('cajaover');
+        return false;
+    }
+    
+    function dragLeaveComparador(e){
+        if (e.preventDefault) e.preventDefault();
+        $(e.target).removeClass('cajaover');
+        return false;
+    }
+    
+    function dropAtributo(e) {
+        if (e.stopPropagation) e.stopPropagation(); // stops the browser from redirecting...why???
+        var id = e.dataTransfer.getData('Text');
+        var tieneclase=$('#'+id).hasClass('btn-atributo')
+        if(tieneclase){
+            $(e.target).addClass('cajaover');
+            $(e.target).html('');
+            $(e.target).attr('drop',null);
+            $(e.target).append($('#'+id).clone(false).attr('draggable','false'));
+        }else{
+            $(e.target).removeClass('cajaover');
+        }
+        
+            
+        return false;
+  }
+  
+  function dropComparador(e) {
+       if (e.stopPropagation) e.stopPropagation(); // stops the browser from redirecting...why???
+        var id = e.dataTransfer.getData('Text');
+        var tieneclase=$('#'+id).hasClass('comparador')
+        if(tieneclase){
+            $(e.target).addClass('cajaover');
+            $(e.target).html('');
+            $(e.target).attr('drop',null);
+            $(e.target).append($('#'+id).clone(false).attr('draggable','false'));
+        }else{
+            $(e.target).removeClass('cajaover');
+        }
+            
+        return false;
+        
+  }
+  
+  function nuevaFilaCondicion(e){
+      var padre =$(e.target).parents()[3];
+      chequearCondidicion(padre);
+    $('.condicion-row').last().clone(true).html(nuevaFila).insertBefore($('.ordenar').first());
+    var ultimo = $('.atributo').last();
+    addEvent(ultimo,'drop', dropAtributo);
+    addEvent(ultimo,'dragleave', dragLeaveAtributo);
+    addEvent(ultimo,'dragover', dragOverAtributo);
+    
+    
+    var comp = $('.cond-comparador').last();
+    addEvent(comp,'drop', dropComparador);
+    addEvent(comp,'dragleave', dragLeaveComparador);
+    addEvent(comp,'dragover', dragOverComparador);
+    
+    $('.nueva-cond').click(nuevaFilaCondicion);
+    $('.del-cond').click(eliminarFilaCondicion);  
+
+    
+ 
+    $(this).remove();
+    e.preventDefault();
+    return false;
+  }
+  
+  function eliminarFilaCondicion(e){
+        if(!(this == $('.del-cond').first())){
+            $(this).parents()[2].remove();
+        }
+        e.preventDefault();
+
+    }
+    function chequearCondidicion(elemento){
+        alert ($(elemento).find('.btn-atributo').first().html() + ' '+$(elemento).find('.comparador').first().html() + ' ');
+    }
+  
+  
+  var nuevaFila='<div class="row condicion-row">';
+      nuevaFila+='<div class="col-xs-4">';
+      nuevaFila+='          <div class="cond-atributo atributo">';
+      nuevaFila+='             atributo';
+      nuevaFila+='          </div>';
+      nuevaFila+='      </div>';
+      nuevaFila+='      <div class="col-xs-3">';
+      nuevaFila+='          <div class="cond-atributo cond-comparador">';
+      nuevaFila+='              Comparador';
+      nuevaFila+='          </div>';
+      nuevaFila+='      </div>';
+      nuevaFila+='      <div class="col-xs-4">';
+      nuevaFila+='          <div class="valor">';
+      nuevaFila+='              Valor';
+      nuevaFila+='         </div>';
+      nuevaFila+='     </div>';
+      nuevaFila+='     <div class="col-xs-1">';
+      nuevaFila+='         <div class="cond-accion">';
+      nuevaFila+='              <a class="nueva-cond" title="Nueva condición"><span class="glyphicon glyphicon-arrow-down" ></span></a> '  ; 
+      nuevaFila+='              <a class="del-cond" title="Eliminar condición"><span class="glyphicon glyphicon-erase"></span></a>';
+      nuevaFila+='          </div>';
+      nuevaFila+='      </div>';
+      nuevaFila+='</div>';
 }
 

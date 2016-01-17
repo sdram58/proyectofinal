@@ -56,21 +56,24 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
     <div class="wrapcuentas">
     <div class="row cuentas">
-        <div class="col-xs-4 cuenta">Ingresos cuenta A: <span><?php echo number_format($saldoIngresosA,2,'.',','); ?>€</span></div>
-        <div class="col-xs-4 cuenta">Gastos cuenta A: <span><?php echo number_format($saldoGastosA,2,'.',','); ?>€</span></div>
-        <div class="col-xs-4 cuenta">Saldo cuenta A: <span><?php echo number_format($saldoA,2,'.',','); ?>€</span></div>
+        <div class="col-xs-4 cuenta">
+            <p>Ingresos cuenta A: <span><?php echo number_format($saldoIngresosA,2,'.',','); ?>€</span></p>
+            <p>Ingresos cuenta B: <span><?php echo number_format($saldoIngresosB,2,'.',','); ?>€</span></p>
+            <p>Total Ingresos: <span><?php echo number_format($saldoIngresosA+$saldoIngresosB,2,'.',','); ?>€</span></p>
+        </div>
+        <div class="col-xs-4 cuenta">
+            <p>Gastos cuenta A: <span><?php echo number_format($saldoGastosA,2,'.',','); ?>€</span></p>
+            <p>Gastos cuenta B: <span><?php echo number_format($saldoGastosB,2,'.',','); ?>€</span></p>
+            <p>Total Gastos: <span><?php echo number_format($saldoGastosA+$saldoGastosB,2,'.',','); ?>€</span></p>
+        </div>
+        <div class="col-xs-4 cuenta">
+            <p>Saldo cuenta A: <span><?php echo number_format($saldoA,2,'.',','); ?>€</span></p>
+            <p>Saldo cuenta B: <span><?php echo number_format($saldoB,2,'.',','); ?>€</p>
+            <p>Total: <span><?php echo number_format($saldoA+$saldoB,2,'.',','); ?>€</p>
+        </div>
+                
     </div>
-    <div class="row cuentas">
-        <div class="col-xs-4 cuenta">Ingresos cuenta B: <span><?php echo number_format($saldoIngresosB,2,'.',','); ?>€</span></div>
-        <div class="col-xs-4 cuenta">Gastos cuenta B: <span><?php echo number_format($saldoGastosB,2,'.',','); ?>€</span></div>
-        <div class="col-xs-4 cuenta">Saldo cuenta B: <span><?php echo number_format($saldoB,2,'.',','); ?>€</span></div>
-    </div>
-    <div class="row cuentas">
-        <div class="col-xs-4 cuenta">Total Ingresos: <span><?php echo number_format($saldoIngresosA+$saldoIngresosB,2,'.',','); ?>€</span></div>
-        <div class="col-xs-4 cuenta">Total Gastos: <span><?php echo number_format($saldoGastosA+$saldoGastosB,2,'.',','); ?>€</span></div>
-        <div class="col-xs-4 cuenta">Total: <span><?php echo number_format($saldoA+$saldoB,2,'.',','); ?>€</span></div>
-    </div>
-    </div>
+
     
     <?php  //echo $this->render('_search', ['model' => $searchModel]); 
     //Solo usuarios logeados y con rol de inventario podrán modificar
