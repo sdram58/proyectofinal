@@ -63,6 +63,24 @@ class Objeto extends \yii\db\ActiveRecord
             'fecha_baja' => 'Fecha de Baja',
         ];
     }
+    
+    /**
+     * Retorna todos los atributos con sus tipos correspondientes
+     * @return array() de tipos
+     */
+    public function getTipos(){
+        return [
+            'ID'=>'number', 
+            'Estado'=>'number',
+            'Fecha de Alta'=>'date',
+            'Fecha de Baja'=>'date',
+            'Categoría'=>'number',
+            'Ubicación'=>'text',
+            'Tipo'=>'number',
+            'Descripción (N/S)' => 'text',
+            
+            ];
+    }
 
     /**
      * @return \yii\db\ActiveQuery

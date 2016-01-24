@@ -133,15 +133,13 @@ class ObjetoController extends Controller
      * Muestra las opciones para buscar
      */
     public function actionListado(){
-        $searchModel = new ObjetoSearch();
+        $model = new Objeto();
         
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->pagination->pageSize=5;
+        /*$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->pagination->pageSize=5;*/
        
         return $this->render('listado', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'estados' => $searchModel::$estados,
+            'model' => $model,'tipos'=>$model->getTipos(),
         ]);
     }
     
@@ -152,11 +150,11 @@ class ObjetoController extends Controller
         Yii::$app->response->format = 'pdf';
 
         // Rotate the page
-        Yii::$container->set(Yii::$app->response->formatters['pdf']['class'], [
+       /* Yii::$container->set(Yii::$app->response->formatters['pdf']['class'], [
             'format' => [216, 356], // Legal page size in mm
             'orientation' => 'Landscape', // This value will be used when 'format' is an array only. Skipped when 'format' is empty or is a string
             'beforeRender' => function($mpdf, $data) {},
-            ]);
+            ]);*/
 
         $this->layout = 'printlayout';
         

@@ -1,116 +1,132 @@
 <?php
 
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 use yii\helpers\Html;
-use yii\grid\GridView;
+use yii\widgets\ActiveForm;
 
-/* @var $this yii\web\View */
-/* @var $searchModel app\models\ObjetoSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Listados';
+$this->title = 'Filtrado Inventario';
+$this->params['breadcrumbs'][] = ['label' => 'Inventario', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
-<div class="objeto-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php  echo $this->render('_search', ['model' => $searchModel]); 
-    //Solo usuarios logeados y con rol de inventario podrán modificar
-    if ((!Yii::$app->user->isGuest)&&(Yii::$app->user->identity->inventario==1)) {
-        $plantilla= '{view} {update} {delete}{link}';
-        $anchoAction = ['width' => '70'];
-        $accion='Acción';
-    }else{
-        $plantilla= '{view}{link}';
-        $anchoAction = ['width' => '35'];
-        $accion="Ver";
-    }?>
-        <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        //'layout'=>"{sorter}\n{pager}\n{summary}\n{items}",
-        'showFooter'=>false,
-        'showHeader' => true,
-        'emptyCell'=>'',
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            [   
-                'attribute' => 'estado',
-                'filter'=>$estados,
-                'format' => ['decimal', 2],
-                'contentOptions' =>['class' => 'table_class','style'=>'width:30px;text-align:center;'],
-                'content'=>function($data){
-                     return $data::$estados[$data->estado];
-                }
-
-            ],
-            [
-                'attribute'=>'ubicacion',
-                'content' => function($data){
-                    return strtoupper($data->ubicacion);
-                },
-            ],
-            /*[
-                'attribute'=>'categoria',
-                'content' => function($data){
-                    return strtoupper($data->categoria);
-                },
-            ],*/
-            [
-                'attribute'=>'tipo',
-                'content' => function($data){
-                    return strtoupper($data->tipo);
-                },
-            ],
-            [
-                'attribute'=>'Descripcion',
-                'content' => function($data){
-                    return strtoupper($data->Descripcion);
-                },
-            ],
-            [
-                'attribute'=>'fecha_alta', 
-                'contentOptions' =>['class' => 'table_class','style'=>'width:35px;text-align:center;'],
-            ],
-            [
-                'attribute'=> 'fecha_baja',
-                'contentOptions' =>['class' => 'table_class','style'=>'width:35px;text-align:center;'],
-                'content'=>function($data){
-                    $resultado = "";
-                    if (isset($data->fecha_baja)){
-                        $resultado = $data->fecha_baja;
-                    }else{
-                        $resultado = '<i>no definida</i>';                    
-                    }
-                     return $resultado;
-                }
-            ],
-            
-            [
-                'class' => 'yii\grid\ActionColumn',
-                'header'=> $accion,
-                'headerOptions' => $anchoAction,
-                'template' => $plantilla,
-                ],
-        ], 
-        'options'=>['class'=>'grid-view gridview-newclass'],
-        'tableOptions' =>['class' => 'table table-striped table-bordered'],
-        'rowOptions'=>function ($model, $key, $index, $grid){
-                $class=$index%2?'odd':'even';
-                return array('key'=>$key,'index'=>$index,'class'=>$class);
-            },
-
-    ]); ?>
-    
-    <p>
-        <?php if ((!Yii::$app->user->isGuest)&&(Yii::$app->user->identity->inventario==1)) { ?>
-        <?= Html::a('+ Nuevo Elemento', ['create'], ['class' => 'btn btn-success']) ?>
-       <?php }?>
-        <?= Html::a('Imprimir', ['imprimir'], ['class' => 'btn btn-success btn-imprimir']) ?>
-        <br /><br />
-        <?= Html::a('Volver', ['index'], ['class' => 'btn btn-success','style'=>'margin-left:50%;']) ?>
-    </p> 
+<div class="wraplistadoconteido">
+    <div class="row comparadores">
         
+            <div class="col-xs-4" >
+                <h3 style='text-align:right;position:relative;top:-15px;'>Comparadores:</h3>
+            </div>
+        <div class="col-xs-1" >
+            <div id="igual" class="btn btn-primary comparador" title="Igual" draggable="true">=</div>
+        </div>
+        
+        <div class="col-xs-1">
+            <div id="distinto" class="btn btn-primary comparador" title="Distinto" draggable="true"><></div>          
+        </div>
+        <div class="col-xs-1">
+            <div id="menorque" class="btn btn-primary comparador" title="Menor que" draggable="true"><</div>          
+        </div>
+        <div class="col-xs-1">
+            <div id="mayorque" class="btn btn-primary comparador" title="Mayor que" draggable="true">></div>          
+        </div>
+        <div class="col-xs-1">
+            <div id="menoroigual" class="btn btn-primary comparador" title="Menor o igual" draggable="true"><=</div>         
+        </div>
+        <div class="col-xs-1">
+            <div id="mayoroigual" class="btn btn-primary comparador" title="Mayor o igual" draggable="true">>=</div>          
+        </div>
+        <div class="col-xs-1">
+            <div id="contiene" class="btn btn-primary comparador" title="Contiene" draggable="true">Like</div>           
+        </div>
+        <div class="col-xs-1">
+            <div id="entre" class="btn btn-primary comparador" title="Entre" draggable="true">Between</div>           
+        </div>
+        
+    </div>
     
-
 </div>
+<div class="row">
+    <div class="col-xs-2 listado-campos">
+        <h3>Atributos</h3>
+        <?php foreach($model->attributeLabels() as $key=>$valor){
+            $tipo='';
+            $mivalor='';
+                if (is_array($tipos[$valor])){
+                    $tipo='select';
+                    foreach($tipos[$valor] as $clave=>$val){
+                        $mivalor.=$clave.':'.$val.'_';
+                    }
+                    $mivalor=substr($mivalor,0,strlen($mivalor)-1);
+                }else{
+                    $tipo = $tipos[$valor];
+                }
+                echo '<div tipo="'.$tipo.'" mivalor="'.$mivalor.'"class="btn btn-success btn-atributo" id="'.$key.'" draggable="true">'.$valor.'</div><br />';
+        }?>
+    </div>
+    <div class="col-xs-10 condicion">
+        <div class="row condicion-row">
+            <div class="col-xs-4">
+                <div class="cond-atributo atributo">
+                    atributo
+                </div>
+                
+            </div>
+            <div class="col-xs-2">
+                <div class="cond-atributo cond-comparador">
+                    Comparador
+                </div>
+                
+            </div>
+            <div class="col-xs-5">
+                <div class="cond-atributo valor">
+                    Valor
+                </div>
+            </div>
+            <div class="col-xs-1">
+                <div class="cond-accion">
+                    <a class="nueva-cond" title="Nueva condición"><span class="glyphicon glyphicon-plus" ></span></a>    
+                    <a class="del-cond" title="Eliminar condición"><span class="glyphicon glyphicon-remove"></span></a>
+                </div>
+                
+            </div>
+        </div>
+        
+        <div class="row ordenar">
+            <h3>ORDEN</h3><br />
+            <div class="ordenar">
+                <div id="atr-cond" class="col-xs-3 col-xs-offset-2 cond-atributo atributo-orden">
+                    atributo
+                </div>
+                <div class="col-xs-5 t_orden">
+                    <div id="asc" class="btn btn-primary btn-orden" title="Orden Ascendente A-Z">Ascendente</div>
+                    <div id="desc" class="btn btn-primary btn-orden" title="Orden Descendente Z-A">Descendente</div>                    
+                </div>
+                <div class="col-xs-1">
+                    <div class="cond-accion2">                            
+                        <a id="atr-cond-del" class="del-orden" title="Eliminar orden"><span class="glyphicon glyphicon-remove"></span></a>
+                    </div>                
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="errores">Hay errores en las consultas, <br> Debe haber campos o atributos incompletos.</div>
+        </div>
+        <div class="row listar">
+            <?php $form = ActiveForm::begin(['options' => ['id' => 'formfiltro']]); ?>
+                <input id="consulta" name="consulta" type="hidden"></input>
+                <div id="btn-listar" class="btn btn-primary" title="Imprimir Listado">Imprimir Listado</div>
+            </form><?php ActiveForm::end(); ?>
+            
+        </div>
+        
+            
+    </div>
+</div>
+
+
+
+

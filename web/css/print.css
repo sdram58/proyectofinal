@@ -1,5 +1,30 @@
 body{
-    text-align: left;
-    background-color: #C00CC0;
+    text-align: center;
+    background-color: white;
     font-family:'arial';
+}
+table {
+    margin-top:10px;
+    border-collapse: collapse;
+    width:100%;
+}
+th, td{
+    border:1px solid black;
+    padding:2px;
+}
+th,.centrado{
+    text-align:center;
+}
+
+.table-foot td, th.table-header{
+    font-weight:bold;
+    background-color:#DDD;
+}
+
+.table-foot td{
+    text-align:right
+}
+
+.derecha{
+    text-align:right;
 }

@@ -45,9 +45,9 @@ $config = [
                     'format' => 'A4',  // Optional but recommended. http://mpdf1.com/manual/index.php?tid=184
                     'defaultFontSize' => 8, // Optional
                     'defaultFont' => '', // Optional
-                    'marginLeft' => 5, // Optional
-                    'marginRight' => 15, // Optional
-                    'marginTop' => 1, // Optional
+                    'marginLeft' => 10, // Optional
+                    'marginRight' => 10, // Optional
+                    'marginTop' => 10, // Optional
                     'marginBottom' => 16, // Optional
                     'marginHeader' => 9, // Optional
                     'marginFooter' => 9, // Optional

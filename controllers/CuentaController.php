@@ -134,6 +134,16 @@ class CuentaController extends Controller
     public function actionListado(){
         $model = new Cuenta();
         if(Yii::$app->request->post('consulta')!=NULL){
+            Yii::$app->response->format = 'pdf';
+
+        // Rotate the page
+       Yii::$container->set(Yii::$app->response->formatters['pdf']['class'], [
+            'format' => [297, 210], // Legal page size in mm
+            'orientation' => 'Landscape', // This value will be used when 'format' is an array only. Skipped when 'format' is empty or is a string
+            'beforeRender' => function($mpdf, $data) {},
+            ]);
+
+            
             $this->layout = 'printlayout';
             $movimientos = $model->getListado(Yii::$app->request->post('consulta'));
             
