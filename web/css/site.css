@@ -190,14 +190,22 @@ a#btnenviar:hover{
 }
 
 .cond-accion{
-    margin-top: 20px;
+    /*margin-top: 20px;*/
 }
 .cond-accion span::before{
     font-size:20px;
     position:relative;
     top:10px;
 }
+.cond-accion2 span::before{
+    font-size:20px;
+    position:relative;
+    top:10px;
+}
 
+.condicion-row{
+    margin-bottom: 10px;
+}
 .cond-atributo{
     text-align: center;
     height: 40px;
@@ -220,7 +228,7 @@ a#btnenviar:hover{
 }
 
 .cond-atributo{
-    margin-top:20px;
+    /*margin-top:20px;*/
     border:3px dashed brown;
     min-height: 30px;    
 }
@@ -230,10 +238,102 @@ a#btnenviar:hover{
     cursor:pointer;
 }
 
+.cond-accion2:hover{
+    cursor:pointer;
+}
+
 .ordenar h3{
     text-align: center;
 }
 
 .cajaover{
     border-color:green;
+}
+
+.input-valor{
+    margin-top: 2px;
+    width:98%;
+    border-radius: 5px;
+    color: black;
+    font-weight: bold;
+    padding-left: 5px;
+    height:95%;
+    font-size:1.2em;
+}
+
+.input-valor-between{
+    margin-top: 2px;
+    font-size:1.2em;
+    border-radius: 5px;
+    width:45%;
+    color: black;
+    font-weight: bold;
+    padding-left: 5px;
+    height:95%;
+}
+
+.dropped{
+    width:99%;
+}
+
+.andor{
+    text-align:center;
+    margin-bottom:10px;
+}
+
+.btn-andor{
+    border:#777 solid 2px;
+    border-radius:6px;
+    background: #999;
+    color: white;
+    font-weight: bold; 
+    padding:5px;
+    margin: 0px 7px;
+    width:30%;
+}
+.btn-andor:hover{
+    cursor:pointer;
+    background: #555;
+}
+
+.andor-selected,.andor-selected:hover {
+    background:#0088e4;
+    border:solid 2px #0066c2;
+}
+
+
+.btn-orden{
+    border:#777 solid 2px;
+    border-radius:6px;
+    background: #999;
+    color: white;
+    font-weight: bold; 
+    padding:5px;
+    margin: 0px 7px;
+    width:30%;
+}
+
+.btn-orden:hover{
+    cursor:pointer;
+    background: #555;
+}
+
+.btn-orden-selected, btn-orden-selected:hover{
+    background:#0088e4;
+    border:solid 2px #0066c2;
+}
+
+.listar{
+    text-align: center;
+    margin-top:35px;
+}
+.andor-error{
+    border:brown 2px dashed;
+    padding:10px;
+}
+
+.errores{
+    color:red;
+    padding:10px;
+    display:none;
 }

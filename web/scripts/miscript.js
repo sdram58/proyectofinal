@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-window.addEventListener('load', iniciar);
+addEventHandler(window,'load', iniciar);
 
 function iniciar(){
     //En función de en qué formulario estamos, iniciamos unas cosas u otras.
@@ -14,8 +14,8 @@ function iniciar(){
     if(window.location.href.indexOf("categorias-objetos")>-1){
         if((window.location.href.indexOf("create")>-1) || (window.location.href.indexOf("update")>-1)){
           cargarCategorias();
-          document.getElementById('categoriasobjetos-id').addEventListener('change',comprobarIdCategoria);
-          document.getElementById('categoriasobjetos-categoria').addEventListener('change',comprobarCategoria);
+          addEventHandler(document.getElementById('categoriasobjetos-id'),'change',comprobarIdCategoria);
+          addEventHandler(document.getElementById('categoriasobjetos-categoria'),'change',comprobarCategoria);
         }
         
         $("form").submit(function (e) {
@@ -31,10 +31,10 @@ function iniciar(){
             if(window.location.href.indexOf("create")>-1){
                 ponerFechaElemento('fecha_alta');
             }
-            document.getElementById('input-categoria').addEventListener('change',cambiarTipo);
-            document.getElementById('fecha_alta').addEventListener('change',comprobarFechaBaja);
-            document.getElementById('fecha_baja').addEventListener('change',comprobarFechaBaja);
-            document.getElementById('tipo').addEventListener('change',comprobarFechaBaja);
+            addEventHandler(document.getElementById('input-categoria'),'change',cambiarTipo);
+            addEventHandler(document.getElementById('fecha_alta'),'change',comprobarFechaBaja);
+            addEventHandler(document.getElementById('fecha_baja'),'change',comprobarFechaBaja);
+            addEventHandler(document.getElementById('tipo'),'change',comprobarFechaBaja);
 
             $("form").submit(function (e) {
                 $("#div-form-error").remove();
@@ -51,7 +51,7 @@ function iniciar(){
         if(window.location.href.indexOf("usuario")>-1){
         if((window.location.href.indexOf("create")>-1) || (window.location.href.indexOf("update")>-1)){
           cargarUsuarios();
-          document.getElementById('usuario-username').addEventListener('change',comprobarUsername);
+          addEventHandler(document.getElementById('usuario-username'),'change',comprobarUsername);
         }
         
         $("form").submit(function (e) {
@@ -65,8 +65,8 @@ function iniciar(){
         if(window.location.href.indexOf("ubicaciones")>-1){
         if((window.location.href.indexOf("create")>-1) || (window.location.href.indexOf("update")>-1)){
           cargarUbicaciones();
-          document.getElementById('ubicaciones-id').addEventListener('change',comprobarIdUbicacion);
-          document.getElementById('ubicaciones-descripcion').addEventListener('change',comprobarDescripcion);
+          addEventHandler(document.getElementById('ubicaciones-id'),'change',comprobarIdUbicacion);
+          addEventHandler(document.getElementById('ubicaciones-descripcion'),'change',comprobarDescripcion);
         }
         
         $("form").submit(function (e) {
@@ -81,7 +81,7 @@ function iniciar(){
         if(window.location.href.indexOf("tipo-categorias")>-1){
         if((window.location.href.indexOf("create")>-1) || (window.location.href.indexOf("update")>-1)){
           cargarSubcategorias();
-          document.getElementById('tipocategorias-tipo').addEventListener('change',comprobarTipoCategoria);
+          addEventHandler(document.getElementById('tipocategorias-tipo'),'change',comprobarTipoCategoria);
           //document.getElementById('ubicaciones-descripcion').addEventListener('change',comprobarDescripcion);
         }
         
@@ -95,10 +95,10 @@ function iniciar(){
     
     }else{//CUENTAS*****************************************************************************************************
         if((window.location.href.indexOf("cuenta")>-1) && (window.location.href.indexOf("listado")<0)){
-                 document.getElementById('btnenviar').addEventListener('click',function(){
+                 addEventHandler(document.getElementById('btnenviar'),'click',function(){
                      document.getElementById("form-cuenta").submit();
                  });
-                 document.getElementById('tipocuenta').addEventListener('change',cambiarCodigos);
+                 addEventHandler(document.getElementById('tipocuenta'),'change',cambiarCodigos);
                  cargarCodigoIngresos();
                  cargarCodigoCargos();
              }
@@ -107,42 +107,61 @@ function iniciar(){
             var comparadores = document.querySelectorAll(".comparador");
             for(var i=0;i<comparadores.length;i++){
                 var comp=comparadores[i];
-                comp.addEventListener('dragstart',dragStart);
+                addEventHandler(comp,'dragstart',dragStart);
             }
             var atributos = document.querySelectorAll(".btn-atributo");
             for(var i=0;i<atributos.length;i++){
                 var comp=atributos[i];
-                comp.addEventListener('dragstart',dragStart);
+                addEventHandler(comp,'dragstart',dragStart);
                 //addEvent(comp, 'drop', dropAtributo);
             }
             
             var comparador = document.querySelectorAll(".comparador");
             for(var i=0;i<comparador.length;i++){
                 var comp=comparador[i];
-                comp.addEventListener('dragstart',dragStart);
+                addEventHandler(comp,'dragstart',dragStart);
                 //addEvent(comp, 'drop', dropAtributo);
             }
             
             var atributo = document.querySelectorAll(".atributo");
            for(var i=0;i<atributo.length;i++){
                 var comp=atributo[i];
-                 addEvent(comp,'drop', dropAtributo);
-                 addEvent(comp,'dragleave', dragLeaveAtributo);
-                 addEvent(comp,'dragover', dragOverAtributo);
+                 addEventHandler(comp,'drop', dropAtributo);
+                 addEventHandler(comp,'dragleave', dragLeaveAtributo);
+                 addEventHandler(comp,'dragover', dragOverAtributo);
             }
             
             var condicion = document.querySelectorAll(".cond-comparador");
            for(var i=0;i<condicion.length;i++){
                 var comp=condicion[i];
-                 addEvent(comp,'drop', dropComparador);
-                 addEvent(comp,'dragleave', dragLeaveComparador);
-                 addEvent(comp,'dragover', dragOverComparador);
+                 addEventHandler(comp,'drop', dropComparador);
+                 addEventHandler(comp,'dragleave', dragLeaveComparador);
+                 addEventHandler(comp,'dragover', dragOverComparador);
             } 
             
             $('.nueva-cond').on('click',nuevaFilaCondicion);
             //document.getElementById('hola').addEventListener('drop',dropAtributo);
             
-            $('.del-cond').click(eliminarFilaCondicion);
+            $('.del-cond').on('click',eliminarFilaCondicion);
+            
+            $('.btn-orden').on('click', seleccionarOrden);
+            
+            //Caja donde se añadira el atributo para el orden
+            var atrCond= document.getElementById('atr-cond');
+            addEventHandler(atrCond,'drop', dropAtributo);
+            addEventHandler(atrCond,'dragleave', dragLeaveAtributo);
+            addEventHandler(atrCond,'dragover', dragOverAtributo);
+            $('#atr-cond-del').on('click',function(){
+                $('#atr-cond').html('atributo');
+                var atrCond= document.getElementById('atr-cond');
+                $('.t_orden').children().removeClass('btn-orden-selected');
+                $('#atr-cond').removeClass('cajaover');
+                addEventHandler(atrCond,'drop', dropAtributo);
+                addEventHandler(atrCond,'dragleave', dragLeaveAtributo);
+                addEventHandler(atrCond,'dragover', dragOverAtributo);
+            });
+            
+            $('#btn-listar').on('click',chequearCondidicion);
 
         }    
     }
@@ -169,7 +188,8 @@ function iniciar(){
         document.getElementById(id).value = today;
     }
     
-    function cambiarTipo(event){
+    function cambiarTipo(evento){
+        var event = evento || window.event
         var destino='tipo-cat';
         var origen = event.target;
         var parametro = "categoria="+origen.value+"&nocache="+Math.random();
@@ -184,7 +204,8 @@ function iniciar(){
         });
     }
 
-    function comprobarFechaBaja(event){        
+    function comprobarFechaBaja(evento){        
+        var event = evento || window.event
         $("#div-form-error").remove();
         var elemento = event.target;
         var f_alta = document.getElementById('fecha_alta');
@@ -249,7 +270,8 @@ function iniciar(){
         });
     }
     
-    function comprobarIdCategoria(event){
+    function comprobarIdCategoria(evento){
+        var event = evento || window.event
         $('.error-envio-form').css('display','none');
         $(event.target).parent().next().children('.error-form-label').remove();
         if(categorias[event.target.value.toUpperCase()]){          
@@ -259,7 +281,8 @@ function iniciar(){
         }else{idIsOk = true;}               
     }
     
-    function comprobarCategoria(event){
+    function comprobarCategoria(evento){
+        var event = evento || window.event
         $('.error-envio-form').css('display','none');
         var existe=false;
         $(event.target).parent().next().children('.error-form-label').remove();
@@ -295,7 +318,8 @@ function iniciar(){
         });
     }
     
-    function comprobarUsername(event){       
+    function comprobarUsername(evento){ 
+        var event = evento || window.event
         $('.error-envio-form').css('display','none');
         var existe=false;
         $(event.target).parent().next().children('.error-form-label').remove();
@@ -334,7 +358,8 @@ function iniciar(){
         });
     }
     
-    function comprobarIdUbicacion(event){
+    function comprobarIdUbicacion(evento){
+        var event = evento || window.event
         $('.error-envio-form').css('display','none');
         $(event.target).parent().next().children('.error-form-label').remove();
         if(ubicaciones[event.target.value.toUpperCase()]){          
@@ -344,7 +369,8 @@ function iniciar(){
         }else{idUbicacionIsOk = true;}               
     }
     
-    function comprobarDescripcion(event){
+    function comprobarDescripcion(evento){
+        var event = evento || window.event
         $('.error-envio-form').css('display','none');
         var existe=false;
         $(event.target).parent().next().children('.error-form-label').remove();
@@ -381,7 +407,8 @@ function iniciar(){
         });
     }
     
-    function comprobarTipoCategoria(event){
+    function comprobarTipoCategoria(evento){
+        var event = evento || window.event
         $('.error-envio-form').css('display','none');
         $(event.target).parent().next().children('.error-form-label').remove();
         if(subcategorias[event.target.value.toUpperCase()]){          
@@ -433,76 +460,108 @@ function iniciar(){
     
     /**********LISTADOS CUENTA*******************************************************/
     
-    function dragStart(e){        
+    function dragStart(e){   
+        var e = e || window.event
         var dato = $(e.target).html();
         e.dataTransfer.setData('Text', e.target.id);
         e.dataTransfer.effectAllowed = 'all';
     }
     
     function dragOverAtributo(e){
+        var e = e || window.event;
         if (e.preventDefault) e.preventDefault();
-        $(e.target).addClass('cajaover');
-        e.dataTransfer.dropEffect = 'copy';
+        var id = e.dataTransfer.getData('Text');
+        var tieneclase=$('#'+id).hasClass('btn-atributo')
+        if(tieneclase){
+            $(e.target).addClass('cajaover');
+            e.dataTransfer.dropEffect = 'copy';
+        }
+        
         return false;
     }
     
     function dragOverComparador(e){
+        var e = e || window.event;
         if (e.preventDefault) e.preventDefault();
-        $(e.target).addClass('cajaover');
-        e.dataTransfer.dropEffect = 'copy';
+        var id = e.dataTransfer.getData('Text');
+        var tieneclase=$('#'+id).hasClass('comparador')
+        if(tieneclase){
+            $(e.target).addClass('cajaover');
+            e.dataTransfer.dropEffect = 'copy';    
+        }
+        
         return false;
     }
     
     function dragLeaveAtributo(e){
+        var e = e || window.event
         if (e.preventDefault) e.preventDefault();
         $(e.target).removeClass('cajaover');
         return false;
     }
     
     function dragLeaveComparador(e){
+        var e = e || window.event
         if (e.preventDefault) e.preventDefault();
         $(e.target).removeClass('cajaover');
         return false;
     }
     
     function dropAtributo(e) {
+        var e = e || window.event
         if (e.stopPropagation) e.stopPropagation(); // stops the browser from redirecting...why???
         var id = e.dataTransfer.getData('Text');
         var tieneclase=$('#'+id).hasClass('btn-atributo')
         if(tieneclase){
             $(e.target).addClass('cajaover');
             $(e.target).html('');
-            $(e.target).attr('drop',null);
-            $(e.target).append($('#'+id).clone(false).attr('draggable','false'));
+            delHandlerEvent(e.target,'drop',dropAtributo);
+            delHandlerEvent(e.target,'dragleave',dragLeaveAtributo);
+            delHandlerEvent(e.target,'dragover',dragOverAtributo);
+            $(e.target).append($('#'+id).clone(false).attr('draggable','false').addClass('dropped'));
         }else{
             $(e.target).removeClass('cajaover');
         }
         
-            
+        generarInputs(this);    
         return false;
   }
   
   function dropComparador(e) {
+      var e = e || window.event
        if (e.stopPropagation) e.stopPropagation(); // stops the browser from redirecting...why???
         var id = e.dataTransfer.getData('Text');
         var tieneclase=$('#'+id).hasClass('comparador')
         if(tieneclase){
             $(e.target).addClass('cajaover');
             $(e.target).html('');
-            $(e.target).attr('drop',null);
-            $(e.target).append($('#'+id).clone(false).attr('draggable','false'));
+            delHandlerEvent(e.target,'drop',dropComparador);
+            delHandlerEvent(e.target,'dragleave',dragLeaveComparador);
+            delHandlerEvent(e.target,'dragover',dragOverComparador);
+            //$(e.target).attr('drop',null);
+            $(e.target).append($('#'+id).clone(false).attr('draggable','false').addClass('dropped'));
         }else{
             $(e.target).removeClass('cajaover');
         }
+        
+        generarInputs(this);
+        //$(e.target).parent().next().children().first().html(campoValor);
+                
+        
             
         return false;
         
   }
   
   function nuevaFilaCondicion(e){
+      var e = e || window.event;
       var padre =$(e.target).parents()[3];
-      chequearCondidicion(padre);
-    $('.condicion-row').last().clone(true).html(nuevaFila).insertBefore($('.ordenar').first());
+      $(filaANDOR).insertBefore($('.ordenar').first());
+      $('.andor').last().fadeOut(0);
+      $('.andor').last().fadeIn(300);
+    $(nuevaFila).insertBefore($('.ordenar').first());
+    $('.condicion-row').last().fadeOut(0);
+    $('.condicion-row').last().fadeIn(500);
     var ultimo = $('.atributo').last();
     addEvent(ultimo,'drop', dropAtributo);
     addEvent(ultimo,'dragleave', dragLeaveAtributo);
@@ -514,50 +573,376 @@ function iniciar(){
     addEvent(comp,'dragleave', dragLeaveComparador);
     addEvent(comp,'dragover', dragOverComparador);
     
-    $('.nueva-cond').click(nuevaFilaCondicion);
-    $('.del-cond').click(eliminarFilaCondicion);  
-
-    
- 
+    $('.nueva-cond').last().on('click',nuevaFilaCondicion);
+    $('.del-cond').last().on('click',eliminarFilaCondicion);
+   
+   
+      
+    $('.btn-andor').on('click', function(){
+      $(this).addClass('andor-selected');
+      $(this).siblings().removeClass('andor-selected');
+   });
+     
     $(this).remove();
     e.preventDefault();
     return false;
   }
   
   function eliminarFilaCondicion(e){
-        if(!(this == $('.del-cond').first())){
-            $(this).parents()[2].remove();
+        var e = e || window.event
+        var primerDel = document.querySelector('.del-cond');
+        if(e.target.parentNode != primerDel){
+            //var filacon = e.target.parentNode.parentNode.parentNode.parentNode;
+            $(e.target).parents('.condicion-row').prev().first().remove();
+            $(e.target).parents('.condicion-row').remove();
+            
+            //filacon.parentNode.removeChild(filacon);
+           // $(e.target).parents()[2].remove();
+        }else{          
+            if($('.condicion-row').length>1){
+                $(e.target).parents('.condicion-row').remove();
+            }else{
+            
+                $(e.target).parents('.condicion-row').remove();
+                $(nuevaFila).insertBefore($('.ordenar').first());
+                $('.condicion-row').last().fadeOut(0);
+                $('.condicion-row').last().fadeIn(500);
+                var ultimo = $('.atributo').last();
+                addEvent(ultimo,'drop', dropAtributo);
+                addEvent(ultimo,'dragleave', dragLeaveAtributo);
+                addEvent(ultimo,'dragover', dragOverAtributo);
+
+
+                var comp = $('.cond-comparador').last();
+                addEvent(comp,'drop', dropComparador);
+                addEvent(comp,'dragleave', dragLeaveComparador);
+                addEvent(comp,'dragover', dragOverComparador);
+
+                $('.nueva-cond').last().on('click',nuevaFilaCondicion);
+                $('.del-cond').last().on('click',eliminarFilaCondicion);
+            }
+            $('.andor').first().remove();
         }
+        
+        if($('.nueva-cond').length==0){
+            $('.cond-accion').last().prepend('<a class="nueva-cond" title="Nueva condición"><span class="glyphicon glyphicon-plus" ></span></a>');
+            $('.nueva-cond').on('click',nuevaFilaCondicion);
+        }          
+  
         e.preventDefault();
 
     }
     function chequearCondidicion(elemento){
-        alert ($(elemento).find('.btn-atributo').first().html() + ' '+$(elemento).find('.comparador').first().html() + ' ');
+        //alert ($(elemento).find('.btn-atributo').first().html() + ' '+$(elemento).find('.comparador').first().html() + ' ');
+        var where='';
+        var orderBy="order by ";
+        var numCondiciones=0;
+        var errores=0;
+        var seplogico='';
+        $('.errores').attr('display','none');
+        $('.condicion-row').each(function(){
+            numCondiciones++;
+            var sc=''; //Separador cadena
+            var atributo = $(this).find('.btn-atributo').html();
+            
+            sc = detectarTipo($(this).find('.btn-atributo'));  
+            if(!atributo){
+                var color =$(this).find('.atributo').css('color');
+                $(this).find('.atributo').css('color','red');
+                $(this).find('.atributo').animate({
+                    width:"+=10px",
+                    height:"+=10px",
+                    borderWidth:"+=2px"
+                },150,"linear");
+                $(this).find('.atributo').animate({
+                    width:"-=10px",
+                    height:"-=10px",
+                    borderWidth:"-=2px"
+                },150,"linear");
+                
+                $(this).find('.atributo').css('color',color);
+                errores++;
+            }else{atributo='UPPER('+$(this).find('.btn-atributo').attr('id')+')';}
+            
+            var condicion = $(this).find('.comparador').html();
+            if(!condicion){
+                var color =$(this).find('.cond-comparador').css('color');
+                $(this).find('.cond-comparador').css('color','red');
+                $(this).find('.cond-comparador').animate({
+                    width:"+=10px",
+                    height:"+=10px",
+                    borderWidth:"+=2px",
+                    borderColor:"red"
+                },150,"linear");
+                $(this).find('.cond-comparador').animate({
+                    width:"-=10px",
+                    height:"-=10px",
+                    borderWidth:"-=2px",
+                    borderColor:"green"
+                },150,"linear");
+                $(this).find('.cond-comparador').css('color',color);
+                errores++;
+            }else{
+                switch (condicion){
+                    case '&lt;':
+                        condicion='<';
+                        break;
+                    case '&gt;':
+                        condicion='<';
+                        break;
+                    case '&lt;&gt;':
+                        condicion='<>';
+                        break;
+                    case '&gt;=':
+                        condicion='>=';
+                        break;
+                    case '&lt;=':
+                        condicion='<=';
+                        break;
+                    default:
+                        break;
+                }
+                condicion=condicion.toUpperCase();
+                var valor=null;
+                var valor1='a',valor2='b';
+                
+                if(condicion.toLowerCase()==="between"){
+                    valor1 = $(this).find('.valor1').val();
+                    valor2 = $(this).find('.valor2').val();
+                    valor = sc+valor1+sc + ' AND ' +sc+ valor2+sc;  
+                }else{
+                    if (condicion==='LIKE'){
+                        valor = sc+'%'+$(this).find('.input-valor').val()+'%'+sc;
+                    }else{
+                        valor = sc+$(this).find('.input-valor').val()+sc;
+                    }
+                }
+                if(valor=='' || valor1=='' || valor2==''){
+                    var color =$(this).find('.valor').css('borderColor');
+                    $(this).find('.valor').css('borderColor','brown');
+                    $(this).find('.valor').animate({
+                        width:"+=10px",
+                        height:"+=10px",
+                        borderWidth:"+=2px"
+                    },150,"linear");
+                    $(this).find('.valor').animate({
+                        width:"-=10px",
+                        height:"-=10px",
+                        borderWidth:"-=2px"
+                    },150,"linear",function(){
+                        
+                        $(this).css('borderColor',color);
+                    });
+                    
+                    errores++;
+                }
+                valor=valor.toUpperCase();
+                
+            }
+            
+           if($(this).prev().hasClass('andor')){
+               if($(this).prev().find('.btn-andor').hasClass('andor-selected')==false){           
+                    
+                    var btnesAndor=$(this).prev().find('.btn-andor')
+                    $(btnesAndor).addClass('andor-error');
+                    setTimeout(function(){                        
+                        $(btnesAndor).removeClass('andor-error');                    
+                    },300);
+                    errores++;
+               }else{
+               seplogico=$(this).prev().find('.andor-selected').attr('id');
+           }
+           }
+           where += seplogico + " ";
+           where += atributo + " ";
+           where += condicion + " ";           
+           where += valor + " ";
+           
+        });
+        
+        //ORDER BY
+        var campoOrden = $('.atributo-orden').find('.btn-atributo').attr('id');
+        var tipoOrden = $('.t_orden').find('.btn-orden-selected').attr('id');
+        if(campoOrden && tipoOrden){
+            orderBy += 'c.'+campoOrden + ' ' + tipoOrden;
+        }else {
+            orderBy="";
+        }
+        
+        if(errores>0){
+            if ($('.condicion-row').length==1){
+                if($('.condicion-row').find('.btn-atributo').length==0 && $('.condicion-row').find('.comparador').length==0){
+                   $('#consulta').val('1 = 1 order by c.id');
+                   $('#formfiltro').submit(); 
+                }
+            }else{
+                $('.errores').attr('display','block');
+            }           
+            
+            
+        }else{
+            
+            $('#consulta').val(where+' '+orderBy);
+            $('#formfiltro').submit();
+        }
+        
+        
+    }
+    
+    
+    function detectarTipo(elemento){
+        var tipo = $(elemento).attr('tipo');
+        var sc='';
+        if(tipo){
+            switch (tipo.toLowerCase()){
+            case 'number':
+                sc='';
+                break;
+            case 'decimal':
+                sc='';
+                break;
+            case 'select':
+                sc='';
+                break;            
+            default:
+                sc='"';
+                break;
+            }
+        }
+        
+        return sc;
+    }
+    
+    
+    function generarInputs(elemento){
+        var fila= $(elemento).parents('.condicion-row');
+        
+        var atributo = $(fila).find('div .btn-atributo');
+        var condicion = $(fila).find('div .comparador');
+        if($(atributo).hasClass('btn-atributo') && $(condicion).hasClass('comparador')){
+            var atr = $(atributo).html();
+            var cond = $(condicion).html();
+            var campo;
+           // alert(cond);
+            switch (cond){
+                case 'Between':
+                    
+                    var miTipo = $(atributo).attr('tipo');
+                    switch (miTipo){
+                        case 'select':
+                            var campo='<select class="input-valor-between valor1" name="valor1">';
+                            var opciones='';
+                            var miValor = $(atributo).attr('mivalor');
+                            var misValores=new Array();
+                            misValores = miValor.split('_');
+                            misValores.forEach(function (element,index,array){
+                                var valores=element.split(':');
+                                opciones+='<option value="'+valores[0]+'">'+valores[1]+'</option>';
+                            });
+                            campo+=opciones + '</select> Y <select class="input-valor-between valor2" name="valor2">'+opciones+'</select>';
+                            
+                            
+                            break;
+                        case 'decimal':
+                           campo = '<input class="input-valor-between valor1" type="number" step="any" name="valor1">'
+                           campo += ' y <input class="input-valor-between valor2" type="number" step="any" name="valor2">';
+                            break;
+                        default:
+                            campo = '<input class="input-valor-between valor1" type="'+miTipo+'" name="valor1"> y <input class="input-valor-between valor2" type="'+miTipo+'" name="valor2">';                            
+                    }                    
+                    break;
+                default: 
+                    campo = '<input class="input-valor" type="number" step="any" name="valor">';
+                    var miTipo = $(atributo).attr('tipo');
+                    switch (miTipo){
+                        case 'select':
+                            campo='<select class="input-valor valor1" name="valor1">';
+                            var miValor = $(atributo).attr('mivalor');
+                            var misValores=new Array();
+                            misValores = miValor.split('_');
+                            misValores.forEach(function (element,index,array){
+                                var valores=element.split(':');
+                                campo+='<option value="'+valores[0]+'">'+valores[1]+'</option>';
+                            });
+                            
+                            campo+='</select>';                            
+   
+                            break;
+                        case 'decimal':
+                            campo = '<input class="input-valor" type="number" step="any" name="valor1">';
+                            break;
+                        default:
+                            campo = '<input class="input-valor" type="'+miTipo+'" name="valor1">';
+                    }                 
+            }
+            
+            
+
+            //$(fila).find('.valor').html(campo);
+            
+            $(fila).find('.valor').html(campo).addClass('cajaover');
+        }else{
+            //alert('falta uno');
+        }
+    }
+    
+    function seleccionarOrden(e){
+        var e = e || window.event
+        
+        $(e.target).addClass('btn-orden-selected');
+        $(e.target).siblings('.btn-orden').removeClass('btn-orden-selected');
     }
   
   
   var nuevaFila='<div class="row condicion-row">';
       nuevaFila+='<div class="col-xs-4">';
-      nuevaFila+='          <div class="cond-atributo atributo">';
-      nuevaFila+='             atributo';
-      nuevaFila+='          </div>';
-      nuevaFila+='      </div>';
-      nuevaFila+='      <div class="col-xs-3">';
-      nuevaFila+='          <div class="cond-atributo cond-comparador">';
-      nuevaFila+='              Comparador';
-      nuevaFila+='          </div>';
-      nuevaFila+='      </div>';
-      nuevaFila+='      <div class="col-xs-4">';
-      nuevaFila+='          <div class="valor">';
-      nuevaFila+='              Valor';
-      nuevaFila+='         </div>';
-      nuevaFila+='     </div>';
-      nuevaFila+='     <div class="col-xs-1">';
-      nuevaFila+='         <div class="cond-accion">';
-      nuevaFila+='              <a class="nueva-cond" title="Nueva condición"><span class="glyphicon glyphicon-arrow-down" ></span></a> '  ; 
-      nuevaFila+='              <a class="del-cond" title="Eliminar condición"><span class="glyphicon glyphicon-erase"></span></a>';
-      nuevaFila+='          </div>';
-      nuevaFila+='      </div>';
+      nuevaFila+='<div class="cond-atributo atributo">';
+      nuevaFila+='atributo';
       nuevaFila+='</div>';
+      nuevaFila+='</div>';
+      nuevaFila+='<div class="col-xs-2">';
+      nuevaFila+='<div class="cond-atributo cond-comparador">';
+      nuevaFila+='Comparador';
+      nuevaFila+='</div>';
+      nuevaFila+='</div>';
+      nuevaFila+='<div class="col-xs-5">';
+      nuevaFila+='<div class="cond-atributo valor">';
+      nuevaFila+='Valor';
+      nuevaFila+='</div>';
+      nuevaFila+='</div>';
+      nuevaFila+='<div class="col-xs-1">';
+      nuevaFila+='<div class="cond-accion">';
+      nuevaFila+='<a class="nueva-cond" title="Nueva condición"><span class="glyphicon glyphicon-plus" ></span></a> '  ; 
+      nuevaFila+='<a class="del-cond" title="Eliminar condición"><span class="glyphicon glyphicon-remove"></span></a>';
+      nuevaFila+='</div>';
+      nuevaFila+='</div>';
+      nuevaFila+='</div>';
+      
+    
+    var filaANDOR='<div class="row andor"><div class="col-xs-12"><span id="AND" title="Y" class="btn-andor and">Y</span><span id="OR" title="O" class="btn-andor or">O</span></div>"';
+  
 }
 
+
+
+
+//manejador de eventos multinavegador
+
+function addEventHandler(objeto, evento, funcion){
+    if(objeto.addEventListener){
+        objeto.addEventListener(evento, funcion);
+    }else{
+        if(objeto.attachEvent)
+            objeto.attachEvent("on"+evento, funcion);
+    }
+}
+
+
+function delHandlerEvent(objeto, evento, funcion){
+    if(objeto.removeEventListener){
+        objeto.removeEventListener(evento, funcion);
+    }else{
+        if(objeto.detachEvent)
+            objeto.detachEvent("on"+evento, funcion);
+    }
+}
