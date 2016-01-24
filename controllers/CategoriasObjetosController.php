@@ -138,12 +138,12 @@ class CategoriasObjetosController extends Controller
         }
     }
     
-    private function checkPermisos(){
+    /*private function checkPermisos(){
         if (!Rules::getInvitidado && Rules::getInventario()){
             return true;
         }
         return Yii::goHome();
-    }
+    }*/
     
     private function comprobarPermiso(){
         if(Roles::getInvitado() || !Roles::getInventario()){

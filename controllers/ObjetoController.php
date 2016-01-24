@@ -149,14 +149,14 @@ class ObjetoController extends Controller
      * Imprime en pdf
      */
     public function actionImprimir(){
-        /*Yii::$app->response->format = 'pdf';
+        Yii::$app->response->format = 'pdf';
 
         // Rotate the page
         Yii::$container->set(Yii::$app->response->formatters['pdf']['class'], [
             'format' => [216, 356], // Legal page size in mm
             'orientation' => 'Landscape', // This value will be used when 'format' is an array only. Skipped when 'format' is empty or is a string
             'beforeRender' => function($mpdf, $data) {},
-            ]);*/
+            ]);
 
         $this->layout = 'printlayout';
         
@@ -173,7 +173,7 @@ class ObjetoController extends Controller
         //return $this->render('imprimir', []);
         
         
-       /* 
+       /*
         $this->layout = 'printlayout';
         $content = $this->renderPartial('imprimir');
  

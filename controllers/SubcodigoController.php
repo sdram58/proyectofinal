@@ -43,6 +43,7 @@ class SubcodigoController extends Controller
     {
         $searchModel = new SubcodigosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->pagination->pagesize = 8;
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -124,7 +125,7 @@ class SubcodigoController extends Controller
         if (($model = Subcodigos::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException('la página solicitada no existe.');
         }
     }
     

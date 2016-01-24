@@ -133,8 +133,25 @@ class CuentaController extends Controller
     
     public function actionListado(){
         $model = new Cuenta();
+        if(Yii::$app->request->post('consulta')!=NULL){
+            $this->layout = 'printlayout';
+            $movimientos = $model->getListado(Yii::$app->request->post('consulta'));
+            
+            return $this->render('imprimir', [
+                'model' => $model,'movimientos'=>$movimientos,
+            ]);
+        }
+        
         return $this->render('listado', [
-                'model' => $model,
+                'model' => $model, 'tipos'=>$model->getTipos(),
+            ]);
+    }
+    
+    public function actionImprimir(){
+        $model = new Cuenta();
+        $post = '';//Yii::$app->request->post();
+        return $this->render('imprimir', [
+                'model' => $model, 'datos'=>$post,
             ]);
     }
 

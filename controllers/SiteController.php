@@ -195,7 +195,7 @@ class SiteController extends Controller
         $mensaje='';
         switch($pagina){
             case 'usuario':
-                $titulo = 'Acceso a Usuario no permitido';
+                $titulo = 'Acceso a gestión de usuarios no permitido';
                 $mensaje = 'No tiene acceso a la sección de Usuarios, pruebe a acceder con un usuario válido';
                 break;
             case 'categorias':
@@ -207,7 +207,7 @@ class SiteController extends Controller
                 $mensaje = 'No tiene acceso a la sección de Subcategorias, pruebe a acceder con un usuario válido';
                 break;
             case 'contabilidad':
-                $titulo = 'Acceso a Usuario no permitido';
+                $titulo = 'Acceso a Movimientos no permitido';
                 $mensaje = 'No tiene acceso a la sección de Contabilidad, pruebe a acceder con un usuario válido';
                 break;
             case 'inventario':
