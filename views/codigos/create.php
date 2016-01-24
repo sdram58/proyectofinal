@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Codigos */
 
-$this->title = 'Create Codigos';
+$this->title = 'Código nuevo';
 $this->params['breadcrumbs'][] = ['label' => 'Codigos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

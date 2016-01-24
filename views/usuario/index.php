@@ -63,7 +63,9 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
     
     <p>
-        <?= Html::a('+ Nuevo usuario', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('+ Nuevo usuario', ['create'], ['class' => 'btn btn-primary']) ?>
+        <br />
+        <?= Html::a('Volver', 'index.php', ['class' => 'btn btn-success','style'=>'margin-left:45%;']) ?>
     </p>
 
 </div>

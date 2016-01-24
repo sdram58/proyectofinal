@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Subcodigos */
 
-$this->title = 'Update Subcodigos: ' . ' ' . $model->id;
+$this->title = 'Actualizar subcodigo: ' . ' ' . $model->descripcionc;
 $this->params['breadcrumbs'][] = ['label' => 'Subcodigos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';

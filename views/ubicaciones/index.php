@@ -29,7 +29,9 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
     
     <p>
-        <?= Html::a('+ Nueva Ubicación', ['create'], ['class' => 'btn btn-success', 'title'=>'Añadir Ubicación']) ?>
+        <?= Html::a('+ Nueva Ubicación', ['create'], ['class' => 'btn btn-primary', 'title'=>'Añadir Ubicación']) ?>
+        <br />
+        <?= Html::a('Ir a inventario', 'index.php?r=objeto', ['class' => 'btn btn-success','style'=>'margin-left:45%;']) ?>
     </p>
 
 </div>

@@ -15,24 +15,34 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a('Create Subcodigos', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'identificador',
-            'codigo',
-            'descripcionv',
+            [
+                'attribute'=>'identificador',
+                'contentOptions' =>['class' => 'table_class','style'=>'width:30px;text-align:right;'],
+            ],
+            [
+                'attribute' => 'codigo',
+                'filter'=>$searchModel->getCodigos(),
+                'content' => function ($data){
+                    return $data->getCodigo0()->one()['descripcionc'];
+                }
+            ],
+            //'descripcionv',
             'descripcionc',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
+    <p>
+        <?= Html::a('+ Nuevo subcódigo', ['create'], ['class' => 'btn btn-primary']) ?>
+        <br /><br />
+        <?= Html::a('Ir a contabilidad', 'index.php?r=cuenta', ['class' => 'btn btn-success','style'=>'margin-left:50%;']) ?>
+    </p>
 
 </div>

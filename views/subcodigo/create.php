@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Subcodigos */
 
-$this->title = 'Create Subcodigos';
+$this->title = 'Nuevo Subcodigo';
 $this->params['breadcrumbs'][] = ['label' => 'Subcodigos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

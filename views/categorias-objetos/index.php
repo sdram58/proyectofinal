@@ -40,6 +40,8 @@ $this->params['breadcrumbs'][] = $this->title;
     
     <p>
         <?= Html::a('+ Nueva Categor&iacute;a', ['create'], ['class' => 'btn btn-primary']) ?>
+        <br />
+        <?= Html::a('Ir a inventario', 'index.php?r=objeto', ['class' => 'btn btn-success','style'=>'margin-left:45%;']) ?>
     </p>
 
 </div>

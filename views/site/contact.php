@@ -11,7 +11,7 @@ use yii\captcha\Captcha;
 $this->title = 'Contacto';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-contact">
+<div class="site-contact categoria-form">
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?php if (Yii::$app->session->hasFlash('contactFormSubmitted')): ?>
@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php else: ?>
 
         <p>
-            Si tiene alguna consulta o duda , por favor , rellene el siguiente formulario para contactar con nosotros.
+            Si tiene alguna consulta o duda , por favor , rellene el siguiente formulario para contactar con nosotros.<br />
             Gracias.
         </p>
 

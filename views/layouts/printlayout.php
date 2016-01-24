@@ -18,7 +18,7 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
+    <title>Listado movimientos</title>
     <link rel="stylesheet" href="css/print.css" />
     <script src="scripts/miscript.js" type="text/javascript"></script>
     <?php $this->head() ?>
@@ -31,13 +31,6 @@ AppAsset::register($this);
     </div>
 </div>
 
-<footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; Gesti&oacute;n inventabilidad <?= date('Y') ?></p>
-
-        <p class="pull-right">Carlos Tarazona</p>
-    </div>
-</footer>
 </body>
 </html>
 <?php //$this->endPage() ?>

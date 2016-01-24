@@ -107,8 +107,6 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('+ Nuevo Elemento', ['create'], ['class' => 'btn btn-success']) ?>
        <?php }?>
         <?= Html::a('Listados', ['listado'], ['class' => 'btn btn-success btn-imprimir']) ?>
-        <br /><br />
-        <?= Html::a('Volver', ['index'], ['class' => 'btn btn-success','style'=>'margin-left:50%;']) ?>
     </p> 
         
     

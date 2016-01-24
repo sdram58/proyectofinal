@@ -5,17 +5,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 use yii\helpers\Html;
-use yii\grid\GridView;
 use yii\widgets\ActiveForm;
+
+
+$this->title = 'Filtrado Movimientos';
+$this->params['breadcrumbs'][] = ['label' => 'Movimientos', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
 
 ?>
 <div class="wraplistadoconteido">
     <div class="row comparadores">
         
             <div class="col-xs-4" >
-                <h3>Comparadores:</h3>
+                <h3 style='text-align:right;position:relative;top:-15px;'>Comparadores:</h3>
             </div>
         <div class="col-xs-1" >
             <div id="igual" class="btn btn-primary comparador" title="Igual" draggable="true">=</div>
@@ -28,7 +31,7 @@ use yii\widgets\ActiveForm;
             <div id="menorque" class="btn btn-primary comparador" title="Menor que" draggable="true"><</div>          
         </div>
         <div class="col-xs-1">
-            <div id="mayorque" class="btn btn-primary comparador" title="Mayor que" draggable="true"><</div>          
+            <div id="mayorque" class="btn btn-primary comparador" title="Mayor que" draggable="true">></div>          
         </div>
         <div class="col-xs-1">
             <div id="menoroigual" class="btn btn-primary comparador" title="Menor o igual" draggable="true"><=</div>         
@@ -50,7 +53,18 @@ use yii\widgets\ActiveForm;
     <div class="col-xs-2 listado-campos">
         <h3>Atributos</h3>
         <?php foreach($model->attributeLabels() as $key=>$valor){
-                echo '<div class="btn btn-success btn-atributo" id="'.$key.'" draggable="true">'.$valor.'</div><br />';
+            $tipo='';
+            $mivalor='';
+                if (is_array($tipos[$valor])){
+                    $tipo='select';
+                    foreach($tipos[$valor] as $clave=>$val){
+                        $mivalor.=$clave.':'.$val.'_';
+                    }
+                    $mivalor=substr($mivalor,0,strlen($mivalor)-1);
+                }else{
+                    $tipo = $tipos[$valor];
+                }
+                echo '<div tipo="'.$tipo.'" mivalor="'.$mivalor.'"class="btn btn-success btn-atributo" id="'.$key.'" draggable="true">'.$valor.'</div><br />';
         }?>
     </div>
     <div class="col-xs-10 condicion">
@@ -61,21 +75,21 @@ use yii\widgets\ActiveForm;
                 </div>
                 
             </div>
-            <div class="col-xs-3">
+            <div class="col-xs-2">
                 <div class="cond-atributo cond-comparador">
                     Comparador
                 </div>
                 
             </div>
-            <div class="col-xs-4">
-                <div class="valor">
+            <div class="col-xs-5">
+                <div class="cond-atributo valor">
                     Valor
                 </div>
             </div>
             <div class="col-xs-1">
                 <div class="cond-accion">
-                    <a class="nueva-cond" title="Nueva condición"><span class="glyphicon glyphicon-arrow-down" ></span></a>    
-                    <a class="del-cond" title="Eliminar condición"><span class="glyphicon glyphicon-erase"></span></a>
+                    <a class="nueva-cond" title="Nueva condición"><span class="glyphicon glyphicon-plus" ></span></a>    
+                    <a class="del-cond" title="Eliminar condición"><span class="glyphicon glyphicon-remove"></span></a>
                 </div>
                 
             </div>
@@ -84,24 +98,35 @@ use yii\widgets\ActiveForm;
         <div class="row ordenar">
             <h3>ORDEN</h3><br />
             <div class="ordenar">
-                <div class="col-xs-4 cond-atributo">
+                <div id="atr-cond" class="col-xs-3 col-xs-offset-2 cond-atributo atributo-orden">
                     atributo
                 </div>
-                <div class="t_orden">
-                    <select class="t_orden">
-                        <option value="asc">ASCENDENTE</option>
-                        <option value="desc">DESCENDENTE</option>
-                    </select>
+                <div class="col-xs-5 t_orden">
+                    <div id="asc" class="btn btn-primary btn-orden" title="Orden Ascendente A-Z">Ascendente</div>
+                    <div id="desc" class="btn btn-primary btn-orden" title="Orden Descendente Z-A">Descendente</div>                    
+                </div>
+                <div class="col-xs-1">
+                    <div class="cond-accion2">                            
+                        <a id="atr-cond-del" class="del-orden" title="Eliminar orden"><span class="glyphicon glyphicon-remove"></span></a>
+                    </div>                
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="errores">Hay errores en las consultas, <br> Debe haber campos o atributos incompletos.</div>
+        </div>
+        <div class="row listar">
+            <?php $form = ActiveForm::begin(['options' => ['id' => 'formfiltro']]); ?>
+                <input id="consulta" name="consulta" type="hidden"></input>
+                <div id="btn-listar" class="btn btn-primary" title="Imprimir Listado">Imprimir Listado</div>
+            </form><?php ActiveForm::end(); ?>
+            
+        </div>
+        
             
     </div>
 </div>
 
-<div id="hola" class atributo>
-                    atributo<br><br>fesf
-</div>
 
 
 

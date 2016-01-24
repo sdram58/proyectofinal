@@ -156,9 +156,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php if ((!Yii::$app->user->isGuest)&&(Yii::$app->user->identity->contabilidad==1)) { ?>
         <?= Html::a('+ Nuevo cuenta', ['create'], ['class' => 'btn btn-success']) ?>
        <?php }?>
-        <?= Html::a('Listados', ['listado'], ['class' => 'btn btn-success btn-imprimir']) ?>
-        <br /><br />
-        <?= Html::a('Volver', ['index'], ['class' => 'btn btn-success','style'=>'margin-left:50%;']) ?>
+        <?= Html::a('Listados', ['listado'], ['class' => 'btn btn-success btn-imprimir']) ?>        
     </p>
 
 </div>

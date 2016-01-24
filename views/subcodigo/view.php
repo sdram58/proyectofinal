@@ -6,34 +6,40 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Subcodigos */
 
-$this->title = $model->id;
+$this->title = 'Vista subcódigo '.$model->identificador;
 $this->params['breadcrumbs'][] = ['label' => 'Subcodigos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+echo '<script>alert('.$model->getCodigo0()->one()['descripcionv'].')</script>';
 ?>
 <div class="subcodigos-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+    
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             'identificador',
-            'codigo',
-            'descripcionv',
+            [
+                'label' => 'Código',
+                  'value' => $model->getCodigo0()->one()['descripcionc'],
+            ],
+            //'descripcionv',
             'descripcionc',
         ],
     ]) ?>
+    <p>
+        <?= Html::a('Actualizar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('borrar', ['delete', 'id' => $model->id], [
+            'class' => 'btn btn-danger',
+            'data' => [
+                'confirm' => '¿Estás seguro que quieres borrar el subcódigo?',
+                'method' => 'post',
+            ],
+        ]) ?>
+    </p>
+    <br />
+        <?= Html::a('Volver', ['index'], ['class' => 'btn btn-success','style'=>'margin-left:50%;']) ?>
 
 </div>
