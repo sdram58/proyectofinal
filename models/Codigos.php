@@ -45,8 +45,8 @@ class Codigos extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'identificador' => 'Identificador',
-            'descripcionc' => 'Descripcionc',
-            'descripcionv' => 'Descripcionv',
+            'descripcionc' => 'Descripción Castellano',
+            'descripcionv' => 'Descripció Valencià',
         ];
     }
 

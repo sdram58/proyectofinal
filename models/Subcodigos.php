@@ -46,9 +46,9 @@ class Subcodigos extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'identificador' => 'Identificador',
-            'codigo' => 'Codigo',
-            'descripcionv' => 'Descripcionv',
-            'descripcionc' => 'Descripcionc',
+            'codigo' => 'Código',
+            'descripcionv' => 'Descripció Valencià',
+            'descripcionc' => 'Descripción',
         ];
     }
 
@@ -66,5 +66,17 @@ class Subcodigos extends \yii\db\ActiveRecord
     public function getCodigo0()
     {
         return $this->hasOne(Codigos::className(), ['identificador' => 'codigo']);
+    }
+    
+    public function getCodigos(){
+        $comando = Yii::$app->getDb()->createCommand("SELECT identificador, descripcionc FROM codigos ");
+        
+        $temp = $comando->queryAll();
+        
+        $categorias = array();
+        foreach($temp as $cat){                          
+            $categorias[$cat['identificador']] = strtoupper($cat['descripcionc']);  
+        }
+        return $categorias;
     }
 }

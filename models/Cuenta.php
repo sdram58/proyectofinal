@@ -15,6 +15,7 @@ use app\models\Subcodigos;
  * @property string $fecha
  * @property string $descripcion
  *@property string $gastoingreso
+ * *@property double $saldoactual
  * @property Subcodigos $idconcepto0
  */
 class Cuenta extends \yii\db\ActiveRecord
@@ -40,7 +41,8 @@ class Cuenta extends \yii\db\ActiveRecord
         return [
             [['saldo', 'idconcepto', 'fecha', 'gastoingreso'], 'required'],
             [['id', 'tipocuenta', 'idconcepto','gastoingreso'], 'integer'],
-            [['saldo'], 'number','min'=>0],
+            ['saldoactual', 'default', 'value' => 0],
+            [['saldo','saldoactual'], 'number','min'=>0],
             [['fecha'], 'safe'],
             [['descripcion'], 'string', 'max' => 250]
         ];
@@ -60,6 +62,23 @@ class Cuenta extends \yii\db\ActiveRecord
             'descripcion' => 'Descripción',
             'gastoingreso' => 'Movimiento',
         ];
+    }
+    
+    /**
+     * Retorna todos los atributos con sus tipos correspondientes
+     * @return array() de tipos
+     */
+    public function getTipos(){
+        return [
+            'ID'=>'number', 
+            'Importe'=>'decimal',
+            'Fecha'=>'date',
+            'Concepto'=>$this->getConceptos(),
+            'Cuenta'=>Cuenta::$cuentas,
+            'Movimiento'=>Cuenta::$GASTO_INGRESO,
+            'Descripción' => 'text',
+            
+            ];
     }
     
     function fields() {
@@ -161,5 +180,13 @@ class Cuenta extends \yii\db\ActiveRecord
         return  Yii::$app->db
                 ->createCommand("SELECT sum(saldo) FROM cuenta where tipocuenta=0 AND gastoingreso=".cuenta::$GASTO)
                 ->queryScalar();
+    }
+    
+    
+    public function getListado($consulta){
+       $miConsulta = "SELECT c.id, tipocuenta,saldoactual, saldo, idconcepto, fecha, descripcion, gastoingreso, codigo, identificador, descripcionc, descripcionv FROM cuenta c, subcodigos sc WHERE c.idconcepto=sc.id AND ";
+       $miConsulta .= $consulta;        
+       $temp = Yii::$app->getDb()->createCommand($miConsulta)->queryAll();        
+        return $temp;
     }
 }

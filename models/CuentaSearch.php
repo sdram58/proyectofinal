@@ -19,7 +19,7 @@ class CuentaSearch extends Cuenta
     {
         return [
             [['id', 'tipocuenta', 'idconcepto','gastoingreso'], 'integer'],
-            [['saldo'], 'number'],
+            [['saldo','saldoactual'], 'number'],
             [['fecha', 'descripcion'], 'safe'],
         ];
     }
