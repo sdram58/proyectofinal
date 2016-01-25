@@ -93,7 +93,7 @@ class Application extends \yii\base\Application
                 return $response;
             }
         } catch (InvalidRouteException $e) {
-            throw new NotFoundHttpException(Yii::t('yii', 'P&aacute;gina no encontrada.'), $e->getCode(), $e);
+            throw new NotFoundHttpException(Yii::t('yii', 'Pagina no encontrada.'), $e->getCode(), $e);
         }
     }
 
