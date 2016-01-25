@@ -28,3 +28,14 @@ th,.centrado{
 .derecha{
     text-align:right;
 }
+.saltopagina{
+    display:block;
+    page-break-after:always;
+}
+
+@media print{
+   p.saltopagina{ 
+      display:block; 
+      page-break-after:always;
+   }
+}

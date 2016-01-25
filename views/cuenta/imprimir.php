@@ -9,9 +9,7 @@
 
 ?>
 <br>
-
-<table id="tabla">
-    <tr>
+<?php $cabecera='<tr>
         <th rowspan="3" class="centrado table-header">Número Orden</th>
         <th class="centrado table-header" rowspan="3">Fecha</th>
         <th class="centrado table-header" rowspan="3">Recurso A/B</th>
@@ -40,11 +38,15 @@
         <th class="centrado table-header">Movil Enseres</th>
         <th class="centrado table-header">Equipos Procesos Informático</th>
 
-    </tr>
+    </tr>'; ?>
+<table id="tabla">    
 
     <?php 
+    echo $cabecera;
     if(count($movimientos)>0){
-        foreach($movimientos as $mov){                          
+        $filas=0;
+        foreach($movimientos as $mov){   
+            $filas++;
 ?>
     <tr>
         <td class="centrado"><?php echo $mov['id']; ?></td><!--Numero de orden ID-->
@@ -93,7 +95,15 @@
         <td class="derecha"><?php echo $mov['tipocuenta']==0?number_format($mov['saldoactual'],2,'.',','):''; ?></td><!--Saldo A-->
         <td class="derecha"><?php echo $mov['tipocuenta']==0?'':number_format($mov['saldoactual'],2,'.',','); ?></td><!--Saldo B-->
     </tr>
-    <?php } 
+    <?php 
+        if($filas>5){
+            //$mpdf->AddPage();
+            echo '<p style="page-break-after:always"></p>';
+            echo $cabecera;
+            $filas=0;
+        }//Fin salto de página
+    
+      } //Fin foreach
     }else{
         echo '<tr><td class="centrado" colspan="19">No se ha seleccionado ningún registro</td></tr>';
     } ?>
