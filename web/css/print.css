@@ -4,7 +4,7 @@ body{
     font-family:'arial';
 }
 table {
-    margin-top:10px;
+    /*margin-top:10px;*/
     border-collapse: collapse;
     width:100%;
 }
@@ -34,7 +34,7 @@ th,.centrado{
 }
 
 @media print{
-   p.saltopagina{ 
+   div.saltopagina{ 
       display:block; 
       page-break-after:always;
    }
