@@ -97,8 +97,8 @@
     </tr>
     <?php 
         if($filas>5){
-            //$mpdf->AddPage();
-            echo '<p style="page-break-after:always"></p>';
+            $mpdf->AddPage();
+            echo '<div class="saltopagina"></p>';
             echo $cabecera;
             $filas=0;
         }//Fin salto de página
@@ -157,6 +157,12 @@ DECLARE ingresoanterior double;
 DECLARE gastoanterior double;
 SELECT SUM(saldo) into ingresoanterior FROM cuenta WHERE tipocuenta=NEW.tipocuenta AND gastoingreso=1 AND YEAR(fecha)=YEAR(NEW.fecha);
 SELECT SUM(saldo) INTO gastoanterior FROM cuenta WHERE tipocuenta=NEW.tipocuenta AND gastoingreso=0  AND YEAR(fecha)=YEAR(NEW.fecha);
+IF ingresoanterior IS NULL THEN
+	SET ingresoanterior=0;   
+END IF;
+IF gastoanterior IS NULL THEN
+	SET gastoanterior=0;   
+END IF;
 IF NEW.gastoingreso > 0 THEN
 	UPDATE cuenta SET saldoactual=(ingresoanterior-gastoanterior+NEW.saldo) WHERE id=NEW.id;
    ELSE 
@@ -164,4 +170,55 @@ IF NEW.gastoingreso > 0 THEN
 END IF;
 END; //
 DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER saldoActualUpdate AFTER UPDATE ON cuenta
+FOR EACH ROW
+BEGIN
+DECLARE diferencia double;
+SET diferencia = NEW.saldo-OLD.saldo;
+UPDATE cuenta SET saldoacutal=saldoactual+diferencia WHERE tipocuenta=NEW.tipocuenta AND YEAR(fecha)=YEAR(NEW.fecha) AND id>=NEW.id;
+END; //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE actualizarSadoActual (IN mcuenta VARCHAR(20))
+BEGIN
+DECLARE vid,vtipocuenta INT;
+DECLARE vgastoingreso INT;
+DECLARE vsaldo DOUBLE;
+DECLARE vfecha DATE;
+DECLARE saldo_ingresos DOUBLE;
+DECLARE saldo_gastos DOUBLE;
+DECLARE vsaldoActual DOUBLE;
+
+DECLARE cursor1 CURSOR FOR SELECT c.id,saldo,c.saldoActual,c.tipocuenta,c.gastoingreso,c.fecha FROM mcuenta c;
+DECLARE CONTINUE HANDLER FOR NOT FOUND SET @hecho = TRUE;
+OPEN cursor1;
+
+loop1: LOOP
+
+FETCH cursor1 INTO vid,vsaldo,vsaldoActual,vtipocuenta,vgastoingreso, vfecha;
+IF @hecho THEN
+LEAVE loop1;
+END IF;
+
+
+SELECT SUM(saldo) INTO saldo_ingresos FROM mcuenta WHERE id<vid AND YEAR(fecha)=YEAR(vfecha) AND gastoingreso=1 AND tipocuenta=vtipocuenta;
+SELECT SUM(saldo) INTO saldo_gastos FROM mcuenta WHERE id<vid AND YEAR(fecha)=YEAR(vfecha) AND gastoingreso=0 AND tipocuenta=vtipocuenta;
+
+IF saldo_ingresos IS NULL THEN
+	SET saldo_ingresos=0;   
+END IF;
+IF saldo_gastos IS NULL THEN
+	SET saldo_gastos=0;   
+END IF;
+IF vgastoingreso < 1 THEN
+	SET vgastoingreso=vgastoingreso * -1;
+END IF;
+UPDATE mcuenta SET saldoActual=saldo_ingresos-saldo_gastos+vsaldo WHERE id=vid;
+END LOOP loop1;
+END; //
+DELIMITER ;
+
 -->
