@@ -156,16 +156,27 @@ class CuentaController extends Controller
             /*****************************************************************************************/
             $this->layout = 'printlayout';
             $pdf = new mPDF('utf-8','A4-L',0,'',10,10,10,10);
-            $movimientos = $model->getListado(Yii::$app->request->post('consulta'));  
-            $content = $this->render('imprimir', [
-                'model' => $model,'movimientos'=>$movimientos,'mpdf'=>$pdf,
-            ]);
+            $movimientos = $model->getListado(Yii::$app->request->post('consulta'));
+            $movPerPage=10;
+            $misMovimientos = array_chunk($movimientos,$movPerPage,true);
+            $numPages = count($misMovimientos);
+            foreach($misMovimientos as $key=>$valor){
+                $ultimo=false;
+                if(($key+1)==$numPages){
+                    $ultimo=true;
+                }
+                $content = $this->render('imprimir', [
+                'model' => $model,'movimientos'=>$valor,'mpdf'=>$pdf,'ultimo'=>$ultimo,
+                ]);
+                $pdf->SetHeader('Movimientos del año 2015');
+                $pdf->SetFooter('Página '.($key+1).' de '.$numPages.'->'.'{PAGENO}');
+                $pdf->WriteHTML($content);
+                
+                if(!$ultimo){
+                    $pdf->AddPage();
+                }
+            }
             
-
- 
-  
-            
-            $pdf->WriteHTML($content);
             $pdf->Output();
             exit;
    
