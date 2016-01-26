@@ -6,7 +6,6 @@
  * and open the template in the editor.
  */
 
-
 ?>
 <br>
 <?php $cabecera='<tr>
@@ -96,17 +95,12 @@
         <td class="derecha"><?php echo $mov['tipocuenta']==0?'':number_format($mov['saldoactual'],2,'.',','); ?></td><!--Saldo B-->
     </tr>
     <?php 
-        if($filas>5){
-            $mpdf->AddPage();
-            echo '<div class="saltopagina"></p>';
-            echo $cabecera;
-            $filas=0;
-        }//Fin salto de página
     
       } //Fin foreach
     }else{
         echo '<tr><td class="centrado" colspan="19">No se ha seleccionado ningún registro</td></tr>';
-    } ?>
+    } 
+    if ($ultimo){ ?>
     <!--PIE TABLA -->
     <tr class="table-foot">
         <td colspan="5" rowspan="2"></td>
@@ -127,7 +121,7 @@
         <td colspan="2"><?php echo number_format($model->getSaldoB(),2,'.',',').'€'; ?></td>
         <td colspan="2"><?php $total = $model->getSaldoA()+$model->getSaldoB(); echo number_format($total,2,'.',',').'€'; ?></td>
     </tr>
-
+<?php } ?>
 </table>
 
 
