@@ -9,7 +9,7 @@
 ?>
 <br>
 <?php $cabecera='<tr>
-        <th rowspan="3" class="centrado table-header">Número Orden</th>
+        <th rowspan="3" class="centrado table-header">Nº Orden</th>
         <th class="centrado table-header" rowspan="3">Fecha</th>
         <th class="centrado table-header" rowspan="3">Recurso A/B</th>
         <th class="centrado table-header" rowspan="3">Código de gastos</th>
@@ -38,7 +38,7 @@
         <th class="centrado table-header">Equipos Procesos Informático</th>
 
     </tr>'; ?>
-<table id="tabla">    
+ <table id="tabla">  
 
     <?php 
     echo $cabecera;
@@ -212,6 +212,37 @@ IF vgastoingreso < 1 THEN
 END IF;
 UPDATE mcuenta SET saldoActual=saldo_ingresos-saldo_gastos+vsaldo WHERE id=vid;
 END LOOP loop1;
+END; //
+DELIMITER ;
+
+
+DELIMITER //
+CREATE TRIGGER updateIdentificadorSubc BEFORE INSERT ON subcodigos
+FOR EACH ROW
+BEGIN
+DECLARE maxidentificador double;
+SELECT MAX(identificador) INTO maxidentificador FROM subcodigos WHERE codigo=NEW.codigo;
+IF maxidentificador IS NULL THEN
+	SET maxidentificador=0;
+
+END IF;
+IF NEW.descripcionv IS NULL OR NEW.descripcionv=''  THEN
+	SET NEW.descripcionv='Sense descripció';
+END IF;
+IF NEW.descripcionc IS NULL OR NEW.descripcionc='' THEN
+	SET NEW.descripcionc='Sin descripción';
+END IF;
+SET NEW.descripcionc=UPPER(NEW.descripcionc);
+SET NEW.descripcionv=UPPER(NEW.descripcionv);
+SET NEW.identificador=maxidentificador+1;
+END; //
+DELIMITER ;
+
+
+DELIMITER //
+CREATE PROCEDURE ajustarIdentificadores(IN iden INT)
+BEGIN
+UPDATE subcodigos SET identificador=identificador-1 WHERE identificador>iden;
 END; //
 DELIMITER ;
 

@@ -17,11 +17,13 @@ use yii\widgets\ActiveForm;
         ],
     ]); ?>
 
-    <?= $form->field($model, 'codigo')->textInput() ?>
+    <?= $form->field($model, 'codigo')->dropDownList($model->getCodigos()) ?>
 
     <?= $form->field($model, 'descripcionv')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'descripcionc')->textInput(['maxlength' => true]) ?>
+    
+    <?= $form->field($model, 'gastosingresos')->dropDownList($model::$GASTOSINGRESOS) ?>
 
     <div class="form-group grupo-envio">
         <?= Html::submitButton($model->isNewRecord ? 'Crear' : 'Actualizar', ['class' => 'btn btn-primary']) ?>

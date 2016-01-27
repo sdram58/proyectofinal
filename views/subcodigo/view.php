@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Subcodigos */
 
-$this->title = 'Vista subcódigo '.$model->identificador;
+$this->title = 'Vista subcódigo '.$model->codigo.'.'.$model->identificador;
 $this->params['breadcrumbs'][] = ['label' => 'Subcodigos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 echo '<script>alert('.$model->getCodigo0()->one()['descripcionv'].')</script>';
