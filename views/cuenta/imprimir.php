@@ -49,7 +49,7 @@
 ?>
     <tr>
         <td class="centrado"><?php echo $mov['id']; ?></td><!--Numero de orden ID-->
-        <td class="centrado"><?php $aa=substr($mov['fecha'],0,4); $mm=substr($mov['fecha'],5,2); $dd=substr($mov['fecha'],8,2); echo $dd.'-'.$mm.'-'.$aa; ?></td><!--fecha fecha-->
+        <td class="centrado"><?php $aa=substr($mov['fecha'],0,4); $mm=substr($mov['fecha'],5,2); $dd=substr($mov['fecha'],8,2); echo $dd.'-'.$mm;//.'-'.$aa; ?></td><!--fecha fecha-->
         <td class="centrado"><?php echo $mov['tipocuenta']==0?'A':'B'; ?></td><!--Cuenta A o B -->
         <td class="centrado">
             <?php 

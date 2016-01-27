@@ -71,7 +71,8 @@ $config = [
             ],
         ],
         'db' => require(__DIR__ . '/db.php'),
-        //'db' => require(__DIR__ . '/db2.php'),
+        'dbconta' => require(__DIR__ . '/db2.php'),
+        'dbuser' => require(__DIR__ . '/db3.php'),
     ],
     'params' => $params,
 ];

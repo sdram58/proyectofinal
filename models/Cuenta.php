@@ -32,6 +32,10 @@ class Cuenta extends \yii\db\ActiveRecord
     {
         return 'cuenta';
     }
+    
+    public static function getDb(){
+        return \Yii::$app->dbconta;
+    }
 
     /**
      * @inheritdoc

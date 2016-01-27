@@ -24,6 +24,16 @@ class Usuario extends \yii\db\ActiveRecord
     {
         return 'usuario';
     }
+    
+    
+    /*
+     * Selecciona la Base de datos user
+     * 
+     */
+    
+    public static function getDb(){
+        return \Yii::$app->dbuser;
+    }
 
     /**
      * @inheritdoc
