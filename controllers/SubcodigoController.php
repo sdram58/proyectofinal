@@ -108,7 +108,11 @@ class SubcodigoController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $identificador=$model->identificador;
+        $code = $model->codigo;
+        $model->delete();
+        Subcodigos::getDb()->createCommand('call ajustarIdentificadores('.$identificador.','.$code.')')->execute();
 
         return $this->redirect(['index']);
     }

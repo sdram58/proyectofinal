@@ -16,6 +16,36 @@ use mPDF;
  */
 class CuentaController extends Controller
 {
+    private static $CABECERA = '<table id="tabla"><caption>Movimientos 2015</caption><tr>
+        <th rowspan="3" class="centrado table-header">Nº Orden</th>
+        <th class="centrado table-header" rowspan="3">Fecha</th>
+        <th class="centrado table-header" rowspan="3">Recurso A/B</th>
+        <th class="centrado table-header" rowspan="3">Código de gastos</th>
+        <th class="centrado table-header" rowspan="3">Explicación de los ingresos y de los gastos</th>
+        <th class="centrado table-header" rowspan="3">Importe de los ingresos</th>
+        <th class="centrado table-header" colspan="11">Importe de los gastos según concepto</th>
+
+        <th class="centrado table-header" rowspan="3">SALDO A</th>
+        <th class="centrado table-header" rowspan="3">SALDO B</th>
+    </tr>
+     <tr>                   
+        <th class="centrado table-header" colspan="4">Reparación y conservación</th>
+
+        <th class="centrado table-header" rowspan="2">Suministro</th>
+        <th class="centrado table-header" rowspan="2">Transporte y comunicación</th>
+        <th class="centrado table-header" rowspan="2">Trabajo por otros</th>
+        <th class="centrado table-header" rowspan="2">Material oficina</th>
+        <th class="centrado table-header" rowspan="2">Mobiliario y equipo</th>
+        <th class="centrado table-header" rowspan="2">Dietas y locomocion</th>
+        <th class="centrado table-header" rowspan="2">Diversos</th>
+    </tr>
+     <tr>                  
+        <th class="centrado table-header">Edificación y contrstucción</th>
+        <th class="centrado table-header">Maquinaria Instalación Util.</th>
+        <th class="centrado table-header">Movil Enseres</th>
+        <th class="centrado table-header">Equipos Procesos Informático</th>
+
+    </tr>';
     public function behaviors()
     {
         return [
@@ -107,7 +137,7 @@ class CuentaController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->db->createCommand("call actualizarSaldoActual('');")->execute();
+            $model::getDb()->createCommand("call actualizarSaldoActual('');")->execute();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -135,25 +165,7 @@ class CuentaController extends Controller
     
     public function actionListado(){
         $model = new Cuenta();
-        if(Yii::$app->request->post('consulta')!=NULL){
-            /*Yii::$app->response->format = 'pdf';
-
-        // Rotate the page
-       $mpdf= Yii::$container->set(Yii::$app->response->formatters['pdf']['class'], [
-            'format' => [297, 210], // Legal page size in mm
-            'orientation' => 'Landscape', // This value will be used when 'format' is an array only. Skipped when 'format' is empty or is a string
-            'beforeRender' => function($mpdf, $data) {},
-            ]);
-
-            
-            $this->layout = 'printlayout';
-            $movimientos = $model->getListado(Yii::$app->request->post('consulta'));
-            
-            return $this->render('imprimir', [
-                'model' => $model,'movimientos'=>$movimientos,'mpdf'=>$mpdf,
-            ]);*/
-            
-            /*****************************************************************************************/
+        if(Yii::$app->request->post('consulta')!=NULL){           
             $this->layout = 'printlayout';
             $pdf = new mPDF('utf-8','A4-L',0,'',10,10,10,10);
             $movimientos = $model->getListado(Yii::$app->request->post('consulta'));
@@ -168,7 +180,8 @@ class CuentaController extends Controller
                 $content = $this->render('imprimir', [
                 'model' => $model,'movimientos'=>$valor,'mpdf'=>$pdf,'ultimo'=>$ultimo,
                 ]);
-                $pdf->SetHeader('Movimientos del año 2015');
+                //$pdf->SetHeader('Movimientos del año 2015');
+                $pdf->SetHTMLHeader($this::$CABECERA,'',true);
                 $pdf->SetFooter('Página '.($key+1).' de '.$numPages.'->'.'{PAGENO}');
                 $pdf->WriteHTML($content);
                 
@@ -185,7 +198,7 @@ class CuentaController extends Controller
             /****************************************************************************************/
  
         }
-        
+        /**Pagina de filtrado************************/
         return $this->render('listado', [
                 'model' => $model, 'tipos'=>$model->getTipos(),
             ]);
@@ -224,13 +237,13 @@ class CuentaController extends Controller
     }
     
     private function actualizarNumCuenta($numcuenta){
-        $comando = Yii::$app->getDb()->createCommand('UPDATE cuenta SET id=id - 1 WHERE id>'.$numcuenta);
+        $comando = Cuenta::getDb()->createCommand('UPDATE cuenta SET id=id - 1 WHERE id>'.$numcuenta);
         $comando->execute();
         
-        $command = Yii::$app->db->createCommand("SELECT max(id) FROM cuenta");
+        $command = Cuenta::getDb()->createCommand("SELECT max(id) FROM cuenta");
         $maximo = $command->queryScalar();
         
-        $comando = Yii::$app->getDb()->createCommand('ALTER TABLE cuenta AUTO_INCREMENT = :max');
+        $comando = Cuenta::getDb()->createCommand('ALTER TABLE cuenta AUTO_INCREMENT = :max');
         $comando->bindValue(':max', $maximo+1);
         $comando->execute();     
 
