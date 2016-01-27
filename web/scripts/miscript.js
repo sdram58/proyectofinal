@@ -644,7 +644,10 @@ function iniciar(){
             numCondiciones++;
             var sc=''; //Separador cadena
             var atributo = $(this).find('.btn-atributo').html();
-            
+            var condicion = $(this).find('.comparador').html();
+            if($('.condicion-row').length==1 && !atributo && !condicion){
+                return false;
+            }
             sc = detectarTipo($(this).find('.btn-atributo'));  
             if(!atributo){
                 var color =$(this).find('.atributo').css('color');
@@ -664,7 +667,7 @@ function iniciar(){
                 errores++;
             }else{atributo='UPPER('+$(this).find('.btn-atributo').attr('id')+')';}
             
-            var condicion = $(this).find('.comparador').html();
+            
             if(!condicion){
                 var color =$(this).find('.cond-comparador').css('color');
                 $(this).find('.cond-comparador').css('color','red');
@@ -773,17 +776,26 @@ function iniciar(){
             if ($('.condicion-row').length==1){
                 if($('.condicion-row').find('.btn-atributo').length==0 && $('.condicion-row').find('.comparador').length==0){
                    $('#consulta').val('1 = 1 order by c.id');
-                   $('#formfiltro').submit(); 
+                   $('#formfiltro').submit();
+                   return true;
                 }
             }else{
                 $('.errores').attr('display','block');
+                return false;
             }           
             
             
         }else{
-            
+            if ($('.condicion-row').length==1){
+                if($('.condicion-row').find('.btn-atributo').length==0 && $('.condicion-row').find('.comparador').length==0){
+                   $('#consulta').val('1 = 1 order by c.id');
+                   $('#formfiltro').submit(); 
+                   return true;
+                }
+            }
             $('#consulta').val(where+' '+orderBy);
             $('#formfiltro').submit();
+            return true;
         }
         
         
