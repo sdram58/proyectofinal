@@ -148,9 +148,9 @@ class Cuenta extends \yii\db\ActiveRecord
      * Devuelvo el saldo total de todas las cuentas A
      */
     public function getSaldoA(){
-        $command = Yii::$app->db->createCommand("SELECT sum(saldo) FROM cuenta where tipocuenta=0 AND gastoingreso=".cuenta::$INGRESO);
+        $command = $this::getDb()->createCommand("SELECT sum(saldo) FROM cuenta where tipocuenta=0 AND gastoingreso=".cuenta::$INGRESO);
         $ingresos = $command->queryScalar();
-        $command = Yii::$app->db->createCommand("SELECT sum(saldo) FROM cuenta where tipocuenta=0 AND gastoingreso=".cuenta::$GASTO);
+        $command = $this::getDb()->createCommand("SELECT sum(saldo) FROM cuenta where tipocuenta=0 AND gastoingreso=".cuenta::$GASTO);
         $gastos = $command->queryScalar();
         return ($ingresos - $gastos);
     }
@@ -158,30 +158,30 @@ class Cuenta extends \yii\db\ActiveRecord
      * Devuelvo el saldo total de todas las cuentas B
      */
     public function getSaldoB(){        
-        $command = Yii::$app->db->createCommand("SELECT sum(saldo) FROM cuenta where tipocuenta=1 AND gastoingreso=".cuenta::$INGRESO);
+        $command = $this::getDb()->createCommand("SELECT sum(saldo) FROM cuenta where tipocuenta=1 AND gastoingreso=".cuenta::$INGRESO);
         $ingresos = $command->queryScalar();
-        $command = Yii::$app->db->createCommand("SELECT sum(saldo) FROM cuenta where tipocuenta=1 AND gastoingreso=".cuenta::$GASTO);
+        $command = $this::getDb()->createCommand("SELECT sum(saldo) FROM cuenta where tipocuenta=1 AND gastoingreso=".cuenta::$GASTO);
         $gastos = $command->queryScalar();
         return ($ingresos - $gastos);
     }
     
     public function getIngresosB(){        
-        return  Yii::$app->db
+        return  $this::getDb()
                 ->createCommand("SELECT sum(saldo) FROM cuenta where tipocuenta=1 AND gastoingreso=".cuenta::$INGRESO)
                 ->queryScalar();
     }
     public function getIngresosA(){        
-        return  Yii::$app->db
+        return  $this::getDb()
                 ->createCommand("SELECT sum(saldo) FROM cuenta where tipocuenta=0 AND gastoingreso=".cuenta::$INGRESO)
                 ->queryScalar();
     }
     public function getGastosB(){        
-        return  Yii::$app->db
+        return  $this::getDb()
                 ->createCommand("SELECT sum(saldo) FROM cuenta where tipocuenta=1 AND gastoingreso=".cuenta::$GASTO)
                 ->queryScalar();
     }
     public function getGastosA(){        
-        return  Yii::$app->db
+        return  $this::getDb()
                 ->createCommand("SELECT sum(saldo) FROM cuenta where tipocuenta=0 AND gastoingreso=".cuenta::$GASTO)
                 ->queryScalar();
     }
@@ -190,7 +190,7 @@ class Cuenta extends \yii\db\ActiveRecord
     public function getListado($consulta){
        $miConsulta = "SELECT c.id, tipocuenta,saldoactual, saldo, idconcepto, fecha, descripcion, gastoingreso, codigo, identificador, descripcionc, descripcionv FROM cuenta c, subcodigos sc WHERE c.idconcepto=sc.id AND ";
        $miConsulta .= $consulta;        
-       $temp = Yii::$app->getDb()->createCommand($miConsulta)->queryAll();        
+       $temp = $this::getDb()->createCommand($miConsulta)->queryAll();        
         return $temp;
     }
 }

@@ -21,6 +21,10 @@ class Ubicaciones extends \yii\db\ActiveRecord
     {
         return 'ubicaciones';
     }
+    
+    public static function getDb(){
+        return \Yii::$app->db;
+    }
 
     /**
      * @inheritdoc

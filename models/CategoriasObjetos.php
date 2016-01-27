@@ -22,6 +22,10 @@ class CategoriasObjetos extends \yii\db\ActiveRecord
     {
         return 'categorias_objetos';
     }
+    
+    public static function getDb(){
+        return \Yii::$app->db;
+    }
 
     /**
      * @inheritdoc

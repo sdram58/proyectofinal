@@ -36,6 +36,10 @@ class Codigos extends \yii\db\ActiveRecord
             [['identificador'], 'unique']
         ];
     }
+    
+    public static function getDb(){
+        return \Yii::$app->dbconta;
+    }
 
     /**
      * @inheritdoc

@@ -83,7 +83,7 @@ class Usuario extends \yii\db\ActiveRecord
     
     
     public function getUsuarios(){
-        $temp = Yii::$app->getDb()->createCommand("SELECT * FROM usuario")->queryAll();
+        $temp = $this::getDb()->createCommand("SELECT * FROM usuario")->queryAll();
         $usuario = array();
         foreach($temp as $usr){                          
             $usuario[$usr['id']] = strtoupper($usr['username']);  
@@ -91,7 +91,8 @@ class Usuario extends \yii\db\ActiveRecord
         return $usuario;
     }
     public function getUsuariosMenosActual($usr){
-        $comando = Yii::$app->getDb()->createCommand("SELECT * FROM usuario WHERE UPPER(username) NOT LIKE :usr ");
+        
+        $comando = $this::getDb()->createCommand("SELECT * FROM usuario WHERE UPPER(username) NOT LIKE :usr ");
         
         $temp = $comando->bindValue(':usr', strtoupper($usr))->queryAll();
         

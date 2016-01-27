@@ -12,12 +12,13 @@ use Yii;
  * @property integer $codigo
  * @property string $descripcionv
  * @property string $descripcionc
- *
+ * @property string $gastosingresos
  * @property Cuenta[] $cuentas
  * @property Codigos $codigo0
  */
 class Subcodigos extends \yii\db\ActiveRecord
 {
+    public static $GASTOSINGRESOS = ['0'=>'GASTOS','1'=>'INGRESOS'];
     /**
      * @inheritdoc
      */
@@ -32,9 +33,10 @@ class Subcodigos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['identificador', 'codigo'], 'required'],
-            [['identificador', 'codigo'], 'integer'],
-            [['descripcionv', 'descripcionc'], 'string', 'max' => 60]
+            [['codigo','gastosingresos'], 'required'],
+            [['id','identificador', 'codigo'], 'integer'],
+            [['descripcionv', 'descripcionc'], 'string', 'max' => 60],
+            [['gastosingresos'], 'integer','min'=>0,'max'=>1],
         ];
     }
 
@@ -47,9 +49,14 @@ class Subcodigos extends \yii\db\ActiveRecord
             'id' => 'ID',
             'identificador' => 'Identificador',
             'codigo' => 'Código',
+            'gastosingresos' => 'Gastos o Ingresos',
             'descripcionv' => 'Descripció Valencià',
             'descripcionc' => 'Descripción',
         ];
+    }
+    
+    public static function getDb(){
+        return \Yii::$app->dbconta;
     }
 
     /**
@@ -69,7 +76,7 @@ class Subcodigos extends \yii\db\ActiveRecord
     }
     
     public function getCodigos(){
-        $comando = Yii::$app->getDb()->createCommand("SELECT identificador, descripcionc FROM codigos ");
+        $comando = $this::getDb()->createCommand("SELECT identificador, descripcionc FROM codigos ");
         
         $temp = $comando->queryAll();
         
@@ -78,5 +85,9 @@ class Subcodigos extends \yii\db\ActiveRecord
             $categorias[$cat['identificador']] = strtoupper($cat['descripcionc']);  
         }
         return $categorias;
+    }
+    
+    public function getIdentificador(){
+        return $this->identificador;
     }
 }

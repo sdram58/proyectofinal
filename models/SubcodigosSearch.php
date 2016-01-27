@@ -12,13 +12,14 @@ use app\models\Subcodigos;
  */
 class SubcodigosSearch extends Subcodigos
 {
+   
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'identificador', 'codigo'], 'integer'],
+            [['id', 'identificador', 'codigo','gastosingresos'], 'integer'],
             [['descripcionv', 'descripcionc'], 'safe'],
         ];
     }

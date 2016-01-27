@@ -31,6 +31,10 @@ class Objeto extends \yii\db\ActiveRecord
     {
         return 'objeto';
     }
+    
+    public static function getDb(){
+        return \Yii::$app->db;
+    }
 
     /**
      * @inheritdoc

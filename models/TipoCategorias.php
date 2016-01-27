@@ -23,6 +23,10 @@ class TipoCategorias extends \yii\db\ActiveRecord
     {
         return 'tipo_categorias';
     }
+    
+    public static function getDb(){
+        return \Yii::$app->db;
+    }
 
     /**
      * @inheritdoc
