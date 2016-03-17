@@ -28,8 +28,19 @@ function iniciar(){
     
     }else{
         if((window.location.href.indexOf("objeto")>-1) && (window.location.href.indexOf("imprimir")<0)){
+            
             if(window.location.href.indexOf("create")>-1){
                 ponerFechaElemento('fecha_alta');
+            }else{ // Estamos dentro de la página objetos        
+                var elementosxPagina=document.getElementById("elexp");
+                var btnir= document.querySelector('[class$="warning"]');
+                addEventHandler(btnir,'click',function(e){
+                    e.preventDefault();                   
+                   window.location.href="index.php?r=objeto/index&exp="+ elementosxPagina.value;
+                   return false;
+                });
+        
+
             }
             addEventHandler(document.getElementById('input-categoria'),'change',cambiarTipo);
             addEventHandler(document.getElementById('fecha_alta'),'change',comprobarFechaBaja);
