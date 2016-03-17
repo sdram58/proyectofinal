@@ -37,15 +37,18 @@ class ObjetoController extends Controller
      */
     public function actionIndex()
     {
+        $numxpag= Yii::$app->getRequest()->getQueryParam('exp')!==null?Yii::$app->getRequest()->getQueryParam('exp'):10;
         $searchModel = new ObjetoSearch();
         
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->pagination->pageSize=5;
+        $dataProvider->pagination->pageSize=$numxpag;
+        $dataProvider->pagination->totalCount=5;
        
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'estados' => $searchModel::$estados,
+            'numxpag' =>$numxpag,
         ]);
     }
 
