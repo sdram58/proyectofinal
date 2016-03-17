@@ -40,10 +40,12 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Borrar', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => '¿Estás seguro que quieres eliminar el objeto?',
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('Duplicar', ['duply', 'id' => $model->id], ['class' => 'btn btn-warning','title' => $model->id]) ?>
+        <input type="number" name="cantidad" min="1" max="100" step="1" value="1" />
         <?php } ?>
         <br />
         <?= Html::a('Volver', ['index'], ['class' => 'btn btn-success','style'=>'margin-left:50%;']) ?>
