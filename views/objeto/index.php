@@ -16,8 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php  //echo $this->render('_search', ['model' => $searchModel]); 
     //Solo usuarios logeados y con rol de inventario podrán modificar
     if ((!Yii::$app->user->isGuest)&&(Yii::$app->user->identity->inventario==1)) {
-        $plantilla= '{view} {update} {delete}{link}';
-        $anchoAction = ['width' => '70'];
+        $plantilla= '{view} {update} {delete} {duply} {link}';
+        $anchoAction = ['width' => '90'];
         $accion='Acción';
     }else{
         $plantilla= '{view}{link}';
@@ -25,6 +25,10 @@ $this->params['breadcrumbs'][] = $this->title;
         $accion="Ver";
     }?>
         <?= GridView::widget([
+        'pager' => [
+                'prevPageLabel'=>'Prev',
+                'nextPageLabel'=>'Sig'
+            ],
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         //'layout'=>"{sorter}\n{pager}\n{summary}\n{items}",
@@ -91,6 +95,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 'header'=> $accion,
                 'headerOptions' => $anchoAction,
                 'template' => $plantilla,
+                'buttons' => [
+                    'duply' => function ($url, $model, $key) {
+                        $options = array_merge([
+                            'title' => Yii::t('yii', 'Duplicar'),
+                            'aria-label' => Yii::t('yii', 'Update'),
+                            'data-pjax' => '0',
+                        ]);
+                        return Html::a('<span class="glyphicon glyphicon-plus-sign"></span>', $url, $options);
+                    },
+                ]
                 ],
         ], 
         'options'=>['class'=>'grid-view gridview-newclass'],
@@ -102,12 +116,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
     ]); ?>
     
+    Elementos por página <input id="elexp" type="number" step="1"  name="inputexp" value="<?php echo $numxpag; ?>" min="1" max="100" style="width:50px;text-align: right"/>
+    <a href="#" title="ir" class="btn btn-warning">ir</a>
+    <br /><br />
     <p>
         <?php if ((!Yii::$app->user->isGuest)&&(Yii::$app->user->identity->inventario==1)) { ?>
-        <?= Html::a('+ Nuevo Elemento', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('+ Nuevo Elemento', ['create'], ['class' => 'btn btn-success',"onclick"=>"ir()"]) ?>
        <?php }?>
         <?= Html::a('Listados', ['listado'], ['class' => 'btn btn-success btn-imprimir']) ?>
-    </p> 
+    </p>
+   
         
     
 
