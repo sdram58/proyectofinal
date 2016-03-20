@@ -13,6 +13,7 @@ use app\models\TipoCategorias;
 use app\models\CategoriasObjetos;
 use app\models\Ubicaciones;
 use app\models\Usuario;
+use app\models\Objeto;
 use app\models\Cuenta;
 /*Use de pruebas*/
 use app\models\IngresoFormulario;
@@ -182,6 +183,26 @@ class SiteController extends Controller
             if($damecat){
                 $tc = new Cuenta();
                 echo json_encode($tc->getConceptoIngresos());
+            }
+            
+        }
+        
+        if (isset($_POST['duplicar'])){//Llama al procedimiento 
+            $dup = $_POST['duplicar'];
+            if($dup){
+                if (isset($_POST['id']) && isset($_POST['cantidad'])){
+                    $id = $_POST['id'];
+                    $cantidad = $_POST['cantidad'];
+                    $model = new Objeto();
+                    try{
+                        $numRowsAffected = $model::getDb()->createCommand("call duplicarObjeto(".$id.",".$cantidad.");")->execute();
+                        $objeto = Objeto::findOne($id);
+                        echo "Se han añadido ".$cantidad." registros más del objeto ".$objeto->tipo." de ".$objeto->ubicacion;
+                    }catch(yii\db\Exception $e){
+                        echo "No se ha podido duplicar según su solicitud";
+                    }
+                    
+                }
             }
             
         }

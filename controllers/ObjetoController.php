@@ -37,12 +37,22 @@ class ObjetoController extends Controller
      */
     public function actionIndex()
     {
-        $numxpag= Yii::$app->getRequest()->getQueryParam('exp')!==null?Yii::$app->getRequest()->getQueryParam('exp'):10;
+        session_start();
+        //Si la variable de sesion no esta creada se crea con el valor
+        //por defecto de 10 elementos por página
+        if (isset($_SESSION['objetoelementoxpag'])==false){
+            $_SESSION['objetoelementoxpag']=10;
+        }
+        //Si se envia a través de la URL se establece el nuevo valor de 
+        //Elementos por página.
+        $numxpag= Yii::$app->getRequest()->getQueryParam('exp')!==null?Yii::$app->getRequest()->getQueryParam('exp'):$_SESSION['objetoelementoxpag'];;
+        $_SESSION['objetoelementoxpag'] = $numxpag;
+        
         $searchModel = new ObjetoSearch();
         
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->pagination->pageSize=$numxpag;
-        $dataProvider->pagination->totalCount=5;
+        //$dataProvider->pagination->totalCount=5;
        
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -144,6 +154,15 @@ class ObjetoController extends Controller
         return $this->render('listado', [
             'model' => $model,'tipos'=>$model->getTipos(),
         ]);
+    }
+    
+    /**
+     * Duplicar, controla la duplicación de los objetos.
+     */
+    
+    public function actionDuplicar($id){
+        
+        return $this->redirect(['index']);
     }
     
     /**
