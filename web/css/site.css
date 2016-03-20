@@ -337,3 +337,29 @@ a#btnenviar:hover{
     padding:10px;
     display:none;
 }
+
+.duplicar{
+    display:none;
+    position:absolute;
+    text-align:center;
+    border: 2px solid #81BEF7;
+    border-radius:8px;
+    padding: 8px;
+    background-color:rgba(150,150,150,0.9);
+}
+.div-cerrar{
+    text-align: right;
+}
+
+#dupnumber{
+    text-align: right;
+}
+.btn-cerrar:hover{
+    cursor: pointer;
+}
+
+.mensajes{
+    display:none;
+    color:red;
+    padding:6px;
+}

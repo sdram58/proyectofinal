@@ -33,7 +33,7 @@ function iniciar(){
                 ponerFechaElemento('fecha_alta');
             }else{ // Estamos dentro de la página objetos        
                 var elementosxPagina=document.getElementById("elexp");
-                var btnir= document.querySelector('[class$="warning"]');
+                var btnir= document.querySelector('[class$="elporpag"]');
                 addEventHandler(btnir,'click',function(e){
                     e.preventDefault();                   
                    window.location.href="index.php?r=objeto/index&exp="+ elementosxPagina.value;
@@ -952,12 +952,14 @@ function iniciar(){
 //manejador de eventos multinavegador
 
 function addEventHandler(objeto, evento, funcion){
-    if(objeto.addEventListener){
+    if (objeto !== null){
+        if(objeto.addEventListener){
         objeto.addEventListener(evento, funcion);
-    }else{
-        if(objeto.attachEvent)
-            objeto.attachEvent("on"+evento, funcion);
-    }
+        }else{
+            if(objeto.attachEvent)
+                objeto.attachEvent("on"+evento, funcion);
+        }
+    }    
 }
 
 
