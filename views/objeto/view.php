@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Objeto */
 
-$this->title = isset($model->Descripcion)?$model->Descripcion.' de '.$model->ubicacion:$model->id;
+$this->title = isset($model->Descripcion)?strtoupper($model->tipo.": ".$model->Descripcion.' de '.$model->ubicacion):$model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Inventario', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -44,8 +44,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
-        <?= Html::a('Duplicar', ['duply', 'id' => $model->id], ['class' => 'btn btn-warning','title' => $model->id]) ?>
-        <input type="number" name="cantidad" min="1" max="100" step="1" value="1" />
+        <!--Boton duplicar -->
+        <a class='btn btn-warning btn-duplicar' title='Duplicar'>Duplicar</a>
+        <?php include 'duplicar.php'; ?>
         <?php } ?>
         <br />
         <?= Html::a('Volver', ['index'], ['class' => 'btn btn-success','style'=>'margin-left:50%;']) ?>

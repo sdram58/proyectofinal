@@ -21,6 +21,7 @@ AppAsset::register($this);
     <link rel="shortcut icon" href="<?php echo Yii::$app->homeUrl.'../assets/image/inventario.png' ?>" type="image/png" />
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
+    <script src="scripts/jquery-2.2.2.min.js" type="text/javascript"></script>
     <script src="scripts/Modernizr.js" type="text/javascript"></script>
     <script src="scripts/h5utils.js" type="text/javascript"></script>
     <script src="scripts/miscript.js" type="text/javascript"></script>    

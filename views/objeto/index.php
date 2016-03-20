@@ -99,10 +99,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     'duply' => function ($url, $model, $key) {
                         $options = array_merge([
                             'title' => Yii::t('yii', 'Duplicar'),
-                            'aria-label' => Yii::t('yii', 'Update'),
+                            'aria-label' => Yii::t('yii', 'Duplicar'),
                             'data-pjax' => '0',
                         ]);
-                        return Html::a('<span class="glyphicon glyphicon-plus-sign"></span>', $url, $options);
+                        return Html::a('<span id="'.$model->id.'"class="glyphicon glyphicon-duplicate btn-duplicar"></span>', $url, $options);
                     },
                 ]
                 ],
@@ -117,7 +117,7 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
     
     Elementos por página <input id="elexp" type="number" step="1"  name="inputexp" value="<?php echo $numxpag; ?>" min="1" max="100" style="width:50px;text-align: right"/>
-    <a href="#" title="ir" class="btn btn-warning">ir</a>
+    <a href="#" title="ir" class="btn btn-warning elporpag">ir</a>
     <br /><br />
     <p>
         <?php if ((!Yii::$app->user->isGuest)&&(Yii::$app->user->identity->inventario==1)) { ?>
@@ -125,6 +125,7 @@ $this->params['breadcrumbs'][] = $this->title;
        <?php }?>
         <?= Html::a('Listados', ['listado'], ['class' => 'btn btn-success btn-imprimir']) ?>
     </p>
+    <?php include 'duplicar.php'; ?>
    
         
     
