@@ -31,8 +31,8 @@ $config = [
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'smtp.gmail.com',
-                'username' => 'cartatar@gmail.com',
-                'password' => 'Pi=3,1415',
+                'username' => 'gestinventabilidad@gmail.com',
+                'password' => 'GestionInventario',
                 'port' => '587',
                 'encryption' => 'tls',
                 ],
