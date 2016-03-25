@@ -73,14 +73,17 @@ class Objeto extends \yii\db\ActiveRecord
      * @return array() de tipos
      */
     public function getTipos(){
+        $ubicaciones = new Ubicaciones();
+        $categorias = new CategoriasObjetos();
+        $subcategorias = new TipoCategorias();
         return [
             'ID'=>'number', 
-            'Estado'=>'number',
+            'Estado'=>Objeto::$estados,
             'Fecha de Alta'=>'date',
             'Fecha de Baja'=>'date',
-            'Categoría'=>'number',
-            'Ubicación'=>'text',
-            'Tipo'=>'number',
+            'Categoría'=>$categorias->getCategorias(),
+            'Ubicación'=>  $ubicaciones->getUbicaciones(),
+            'Tipo'=>$subcategorias->getAllTipoCategorias(),
             'Descripción (N/S)' => 'text',
             
             ];
@@ -110,4 +113,23 @@ class Objeto extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Ubicaciones::className(), ['id' => 'ubicacion']);
     }
+    
+    
+    /**
+     * Funcion que ejecuta la consulta para el listado
+     * 
+     * @param type $consulta
+     * @return type
+     */
+     public function getListado($consulta){
+     
+       $miConsulta = "SELECT o.id as id, estado, u.Descripcion as ubicacion, c.categoria as categoria, o.tipo as tipo, o.Descripcion as descripcion"
+               .", o.fecha_alta as falta, o.fecha_baja as fbaja "
+               . "FROM objeto o, categorias_objetos c, ubicaciones u "
+               . "WHERE UPPER(o.ubicacion)=UPPER(u.id) AND o.categoria = c.id AND ";
+       $miConsulta .= $consulta;        
+       $temp = $this::getDb()->createCommand($miConsulta)->queryAll();        
+       return $temp;
+    }
+       
 }
