@@ -34,6 +34,11 @@ function iniciar(){
             }else{ // Estamos dentro de la página objetos        
                 var elementosxPagina=document.getElementById("elexp");
                 var btnir= document.querySelector('[class$="elporpag"]');
+                $('#elexp').keydown(function(event){                     
+                     if ( event.which == 13 ) {                        
+                        btnir.click();
+                      }
+                 });
                 addEventHandler(btnir,'click',function(e){
                     e.preventDefault();                   
                    window.location.href="index.php?r=objeto/index&exp="+ elementosxPagina.value;
@@ -112,6 +117,20 @@ function iniciar(){
                  addEventHandler(document.getElementById('tipocuenta'),'change',cambiarCodigos);
                  cargarCodigoIngresos();
                  cargarCodigoCargos();
+                 
+                 /**Elementos Por página **/
+                 var elementosxPagina=document.getElementById("elexp");
+                 $('#elexp').keydown(function(event){                     
+                     if ( event.which == 13 ) {                        
+                        btnir.click();
+                      }
+                 });
+                 var btnir= document.querySelector('[class$="elporpag"]');
+                 addEventHandler(btnir,'click',function(e){
+                    e.preventDefault();                   
+                   window.location.href="index.php?r=cuenta/index&exp="+ elementosxPagina.value;
+                   return false;
+                 });
              }
         
         if((window.location.href.indexOf("cuenta")>-1) && (window.location.href.indexOf("listado")>-1)){
@@ -676,7 +695,7 @@ function iniciar(){
                 
                 $(this).find('.atributo').css('color',color);
                 errores++;
-            }else{atributo='UPPER('+$(this).find('.btn-atributo').attr('id')+')';}
+            }else{atributo='UPPER(c.'+$(this).find('.btn-atributo').attr('id')+')';}
             
             
             if(!condicion){
@@ -702,7 +721,7 @@ function iniciar(){
                         condicion='<';
                         break;
                     case '&gt;':
-                        condicion='<';
+                        condicion='>';
                         break;
                     case '&lt;&gt;':
                         condicion='<>';

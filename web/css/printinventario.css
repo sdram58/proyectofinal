@@ -1,0 +1,34 @@
+.fila{
+    width: 100%;
+    display: flex;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;  
+    justify-content: flex-start;
+    
+}
+
+.uno{
+    flex-basis: 8%;
+    -ms-flex-basis: 8%;
+    -o-flex-basis: 8%;
+    -webkit-flex-basis: 8%;
+}
+.dos{
+    flex-basis: 15%;
+    -ms-flex-basis: 15%;
+    -o-flex-basis: 15%;
+    -webkit-flex-basis: 15%;
+}
+.tres{
+    flex-basis: 23%;
+    -ms-flex-basis: 23%;
+    -o-flex-basis: 23%;
+    -webkit-flex-basis: 23%;
+}
+
+.cabecera{
+    background-color: grey;
+}
+

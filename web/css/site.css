@@ -111,6 +111,12 @@ a.desc:after {
     background-image: url('../assets/images/inventariohover.png');
 }
 
+.precargar, .precargar img{
+    visibility: hidden;
+    width:1px;
+    position:absolute;
+}
+
 .btn-contabilidad:hover{
    background-image: url('../assets/images/contabilidadhover.png'); 
 }
