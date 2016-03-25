@@ -18,7 +18,25 @@ AppAsset::register($this);
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="<?php echo Yii::$app->homeUrl.'../assets/image/inventario.png' ?>" type="image/png" />
+    <!--
+    <link rel="apple-touch-icon" sizes="57x57" href="./assets/image/favicon/apple-icon-57x57.png?v=1">
+    <link rel="apple-touch-icon" sizes="60x60" href="./assets/image/favicona/pple-icon-60x60.png?v=1">
+    <link rel="apple-touch-icon" sizes="72x72" href="./assets/image/favicon/apple-icon-72x72.png?v=1">
+    <link rel="apple-touch-icon" sizes="76x76" href="./assets/image/favicon/apple-icon-76x76.png?v=1">
+    <link rel="apple-touch-icon" sizes="114x114" href="./assets/image/favicon/apple-icon-114x114.png?v=1">
+    <link rel="apple-touch-icon" sizes="120x120" href="./assets/image/favicon/apple-icon-120x120.png?v=1">
+    <link rel="apple-touch-icon" sizes="144x144" href="./assets/image/favicon/apple-icon-144x144.png?v=1">
+    <link rel="apple-touch-icon" sizes="152x152" href="./assets/image/favicon/apple-icon-152x152.png?v=1">
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/image/favicon/apple-icon-180x180.png?v=1"> 
+    <link rel="icon" type="image/png" sizes="192x192"  href="./assets/image/favicon/android-icon-192x192.png?v=1">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/image/favicon/favicon-32x32.png?v=1">
+    <link rel="icon" type="image/png" sizes="96x96" href="./assets/image/favicon/favicon-96x96.png?v=1">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/image/favicon/favicon-16x16.png?v=1">
+    <link rel="manifest" href="./assets/image/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff"> -->
+    <link rel="shortcut icon" type="image/x-icon" href="./assets/image/favicon/favicon.ico?v=1">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <script src="scripts/jquery-2.2.2.min.js" type="text/javascript"></script>
@@ -30,7 +48,7 @@ AppAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
-
+ 
 <div class="wrap">
     <?php
     NavBar::begin([

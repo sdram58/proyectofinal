@@ -26,6 +26,9 @@ $this->title = 'Gestinvetabilidad';
                 <p><a class="btn btn-lg btn-success btn-principal btn-contabilidad" href="index.php?r=cuenta/index" title="Contabilidad" alt="Contabilidad"></a></p>
             </div>
         </div>
+        <div class="precargar">
+            <img src="./assets/images/inventariohover.png"><img src="./assets/images/contabilidadhover.png">
+        </div>
 
     </div>
 </div>

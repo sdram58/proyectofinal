@@ -150,7 +150,9 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
     
-    
+    Elementos por página <input id="elexp" type="number" step="1"  name="inputexp" value="<?php echo $numxpag; ?>" min="1" max="100" style="width:50px;text-align: right"/>
+    <a href="#" title="ir" class="btn btn-warning elporpag">ir</a>
+    <br /><br />
     
      <p>
         <?php if ((!Yii::$app->user->isGuest)&&(Yii::$app->user->identity->contabilidad==1)) { ?>
