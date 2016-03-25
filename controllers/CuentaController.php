@@ -16,7 +16,7 @@ use mPDF;
  */
 class CuentaController extends Controller
 {
-    private static $CABECERA = '<table id="tabla"><caption>Movimientos 2015</caption><tr>
+    private static $CABECERA = '<table id="tabla"><caption>Movimientos 2016</caption><tr>
         <th rowspan="3" class="centrado table-header">Nº Orden</th>
         <th class="centrado table-header" rowspan="3">Fecha</th>
         <th class="centrado table-header" rowspan="3">Recurso A/B</th>
@@ -78,10 +78,23 @@ class CuentaController extends Controller
                 $model = new Cuenta();
         }
         
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        //Si la variable de sesion no esta creada se crea con el valor
+        //por defecto de 10 elementos por página
+        if (isset($_SESSION['objetoelementoxpagc'])==false){
+            $_SESSION['objetoelementoxpagc']=10;
+        }
+        //Si se envia a través de la URL se establece el nuevo valor de 
+        //Elementos por página.
+        $numxpagc= Yii::$app->getRequest()->getQueryParam('exp')!==null?Yii::$app->getRequest()->getQueryParam('exp'):$_SESSION['objetoelementoxpagc'];;
+        $_SESSION['objetoelementoxpagc'] = $numxpagc;
+        
         $searchModel = new CuentaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->sort =['defaultOrder' => ['id'=>SORT_DESC]];
-        $dataProvider->pagination->pageSize=6;
+        $dataProvider->pagination->pageSize=$numxpagc;
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -93,6 +106,7 @@ class CuentaController extends Controller
             'saldoGastosB'=>$model->getGastosB(),
             'saldoIngresosA'=>$model->getIngresosA(),
             'saldoIngresosB'=>$model->getIngresosB(),
+            'numxpag'=>$numxpagc,
         ]);
     }
 

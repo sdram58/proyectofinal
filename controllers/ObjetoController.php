@@ -11,7 +11,7 @@ use app\models\Ubicaciones;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use kartik\mpdf\Pdf;
+use mPDF;
 
 
 /**
@@ -19,6 +19,19 @@ use kartik\mpdf\Pdf;
  */
 class ObjetoController extends Controller
 {    
+    
+    private static $CABECERA='<div class="fila cabecera">
+    <div class="uno">ID</div>
+    <div class="uno">Estado</div>
+    <div class="dos">Ubicación</div>
+    <div class="dos">Categoría</div>
+    <div class="dos">Subcategoría</div>
+    <div class="tres">Descripción</div>
+    <div class="uno">Fecha Alta</div>
+    <div class="uno">Fecha Baja</div>
+</div>';
+        
+            
     public function behaviors()
     {
         return [
@@ -37,7 +50,9 @@ class ObjetoController extends Controller
      */
     public function actionIndex()
     {
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         //Si la variable de sesion no esta creada se crea con el valor
         //por defecto de 10 elementos por página
         if (isset($_SESSION['objetoelementoxpag'])==false){
@@ -146,11 +161,42 @@ class ObjetoController extends Controller
      * Muestra las opciones para buscar
      */
     public function actionListado(){
+        $this->comprobarPermiso();
         $model = new Objeto();
         
-        /*$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->pagination->pageSize=5;*/
+        if(Yii::$app->request->post('consulta')!=NULL){           
+            $this->layout = 'printlayoutInventario';
+            $objetos = $model->getListado(Yii::$app->request->post('consulta'));
+            $pdf = new mPDF('utf-8','A4-L',0,'',10,10,10,10);
+            
+            $objPerPage=23;
+            //Dividimos el objeto en arrays del mismo tamaño
+            $misObjetos = array_chunk($objetos,$objPerPage,true);
+            $numPages = count($misObjetos);
+            foreach($misObjetos as $key=>$valor){
+                $ultimo=false;
+                if(($key+1)==$numPages){
+                    $ultimo=true;
+                }
+                $content = $this->render('imprimir', [
+                'model' => $model,'objetos'=>$valor,'mpdf'=>$pdf,'ultimo'=>$ultimo,
+                ]);
+
+                $pdf->SetHTMLHeader($this::$CABECERA,'',true);
+                $pdf->SetFooter('Página '.($key+1).' de '.$numPages.'->'.'{PAGENO}');
+                $pdf->WriteHTML($content);
+                
+                if(!$ultimo){
+                    $pdf->AddPage();
+                }
+            }
+            
+            $pdf->Output();           
+            
+            exit;
+        }
        
+        /** Si no hay consulta entra en el renderizado normal */
         return $this->render('listado', [
             'model' => $model,'tipos'=>$model->getTipos(),
         ]);
@@ -251,5 +297,6 @@ class ObjetoController extends Controller
         }
         return true;
     }
+    
 }
 
