@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
     <p>
-        <?= Html::a('+ Nuevo Código', 'index.php?r=cuenta', ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('+ Nuevo Código', ['create'], ['class' => 'btn btn-primary']) ?>
         <br />
         <?= Html::a('Ir a contabilidad', 'index.php?r=cuenta', ['class' => 'btn btn-success','style'=>'margin-left:45%;']) ?>
         

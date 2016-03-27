@@ -524,7 +524,7 @@ $this->params['breadcrumbs'][] = $this->title;
         if(campoOrden && tipoOrden){
             orderBy += 'o.'+campoOrden + ' ' + tipoOrden;
         }else {
-            orderBy="o.id";
+            orderBy="order by o.id asc";
         }
         
         if(errores>0){

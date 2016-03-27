@@ -89,7 +89,9 @@ AppAsset::register($this);
             'label' => 'Contabilidad',
             'items' => [
                  ['label' => 'Códigos', 'url' => ['/codigos']],
-                 ['label' => 'Subcódigos', 'url' => ['/subcodigo']],                 
+                 ['label' => 'Subcódigos', 'url' => ['/subcodigo']],
+                 '<li class="divider"></li>',
+                 ['label' => 'Cambio de año', 'url' => ['/cambioanyo']],
             ],];
     }
     
