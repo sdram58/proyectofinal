@@ -169,8 +169,9 @@ class ObjetoController extends Controller
             $objetos = $model->getListado(Yii::$app->request->post('consulta'));
             $pdf = new mPDF('utf-8','A4-L',0,'',10,10,10,10);
             
-            $objPerPage=23;
+            $objPerPage=30;
             //Dividimos el objeto en arrays del mismo tamaño
+            $total=count($objetos);
             $misObjetos = array_chunk($objetos,$objPerPage,true);
             $numPages = count($misObjetos);
             foreach($misObjetos as $key=>$valor){
@@ -179,11 +180,13 @@ class ObjetoController extends Controller
                     $ultimo=true;
                 }
                 $content = $this->render('imprimir', [
-                'model' => $model,'objetos'=>$valor,'mpdf'=>$pdf,'ultimo'=>$ultimo,
+                'model' => $model,'objetos'=>$valor,'mPDF'=>$pdf,'ultimo'=>$ultimo,'total'=>$total,
                 ]);
-
-                $pdf->SetHTMLHeader($this::$CABECERA,'',true);
-                $pdf->SetFooter('Página '.($key+1).' de '.$numPages.'->'.'{PAGENO}');
+                /*           return  $this->render('imprimir', [
+                'model' => $model,'objetos'=>$objetos,'ultimo'=>false,
+                ]);*/
+                //$pdf->SetHTMLHeader($this::$CABECERA,'',true);
+                $pdf->SetFooter('Página {PAGENO} de '.$numPages);
                 $pdf->WriteHTML($content);
                 
                 if(!$ultimo){
@@ -191,7 +194,7 @@ class ObjetoController extends Controller
                 }
             }
             
-            $pdf->Output();           
+            $pdf->Output();         
             
             exit;
         }
