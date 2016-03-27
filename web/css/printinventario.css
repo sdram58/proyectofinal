@@ -1,34 +1,49 @@
-.fila{
+body{
+    font-family: "verdana";
+    font-size: 10px;
+}
+
+table{
+    border:1px solid black;
+    border-collapse: collapse;
     width: 100%;
-    display: flex;
-    display: -webkit-flex;
-    display: -moz-flex;
-    display: -ms-flex;
-    display: -o-flex;  
-    justify-content: flex-start;
-    
+}
+th{ 
+    background-color:#FF9999;
+    border:1px solid black;
+    border-collapse: collapse;
+}
+.fila td{
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding:3px;
+}
+table tr:nth-child(odd){
+    /*background-color: #BBB;*/
+}
+table tr:nth-child(even){
+    background-color: #DDD;
 }
 
 .uno{
-    flex-basis: 8%;
-    -ms-flex-basis: 8%;
-    -o-flex-basis: 8%;
-    -webkit-flex-basis: 8%;
+    width: 8%;
+    text-align: center;
 }
 .dos{
-    flex-basis: 15%;
-    -ms-flex-basis: 15%;
-    -o-flex-basis: 15%;
-    -webkit-flex-basis: 15%;
+    width: 14%;
 }
 .tres{
-    flex-basis: 23%;
-    -ms-flex-basis: 23%;
-    -o-flex-basis: 23%;
-    -webkit-flex-basis: 23%;
+    width: 22%;
 }
 
-.cabecera{
+div.cabecera{
     background-color: grey;
+    font-weight: bold;
+    text-align: center;
+}
+
+.footer{
+    padding-top: 10px;
+    text-align: left;
 }
 
