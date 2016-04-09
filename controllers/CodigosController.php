@@ -68,7 +68,7 @@ class CodigosController extends Controller
     public function actionCreate()
     {
         $model = new Codigos();
-
+        $model->identificador = Codigos::getLastCodigo() +1;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
