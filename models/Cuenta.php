@@ -21,7 +21,7 @@ use app\models\Subcodigos;
 class Cuenta extends \yii\db\ActiveRecord
 {
     
-    public static $cuentas =['0'=>'A', '1'=>'B'];
+    public static $cuentas =['0'=>'A', '1'=>'B','2'=>'C','3'=>'T'];
     public static $GASTO_INGRESO=['0'=>'GASTO', '1'=>'INGRESO'];
     public static $GASTO=0;
     public static $INGRESO=1;

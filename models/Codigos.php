@@ -49,7 +49,7 @@ class Codigos extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'identificador' => 'Identificador',
-            'descripcionc' => 'Descripción Castellano',
+            'descripcionc' => 'Descripción',
             'descripcionv' => 'Descripció Valencià',
         ];
     }
@@ -60,5 +60,13 @@ class Codigos extends \yii\db\ActiveRecord
     public function getSubcodigos()
     {
         return $this->hasMany(Subcodigos::className(), ['codigo' => 'identificador']);
+    }
+    
+    
+    /**
+     * Devuelve último numero de codigo para ingresar uno nuevo.
+     */
+    public static function getLastCodigo(){
+        return Codigos::getDb()->createCommand("SELECT MAX(identificador) FROM codigos;")->queryScalar();
     }
 }
