@@ -24,7 +24,11 @@ $CABECERA='<table><tr class="fila cabecera">
         <td class="dos"><?php echo $mov['categoria']; ?></td>
         <td class="dos"><?php echo $mov['tipo']; ?></td>
         <td class="tres"><?php echo $mov['descripcion']===null?" ":$mov['descripcion']; ?></td>
-        <td class="uno"><?php echo $mov['falta']; ?></td>
+        <td class="uno"><?php 
+        $dia = substr($mov['falta'], 8);
+        $ano = substr($mov['falta'], 0,4);
+        $mes = substr($mov['falta'], 5, 2);
+        echo $dia.'-'.$mes.'-'.$ano; ?></td>
         <td class="uno"><?php echo $mov['fbaja']===null?" ":$mov['fbaja']; ?></td>
     </tr>
     

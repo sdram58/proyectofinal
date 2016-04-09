@@ -11,8 +11,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        Este sitio web ha sido realizado por Carlos Tarazona como proyecto final dentro del curso 2015-2016.<br />
-        La aplicación gestiona la contabilidad y el inventario, de una manera muy básica y sencilla, de un centro escolar
+        Este sitio web ha sido realizado por Carlos Tarazona como proyecto final del ciclo <br />
+        Desarrollo de Aplicaciones Web en CEEDCV dentro del curso 2015-2016.<br />
+        La aplicación gestiona la contabilidad y el inventario, de una manera muy básica y sencilla, de un centro escolar.
     </p>
     
     <br />

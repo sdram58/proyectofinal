@@ -5,7 +5,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+use app\models\Cuenta;
 ?>
 <br>
 <?php $cabecera='<tr>
@@ -50,7 +50,7 @@
     <tr>
         <td class="centrado"><?php echo $mov['id']; ?></td><!--Numero de orden ID-->
         <td class="centrado"><?php $aa=substr($mov['fecha'],0,4); $mm=substr($mov['fecha'],5,2); $dd=substr($mov['fecha'],8,2); echo $dd.'-'.$mm;//.'-'.$aa; ?></td><!--fecha fecha-->
-        <td class="centrado"><?php echo $mov['tipocuenta']==0?'A':'B'; ?></td><!--Cuenta A o B -->
+        <td class="centrado"><?php echo Cuenta::$cuentas[$mov['tipocuenta']]; ?></td><!--Cuenta A o B -->
         <td class="centrado">
             <?php 
             echo ($mov['gastoingreso']==0)?$mov['codigo'].'.'.$mov['identificador']:''; 
@@ -91,8 +91,12 @@
         <td class="derecha">
             <?php if($mov['gastoingreso']==0 && $mov['codigo']==8) echo  number_format($mov['saldo'],2,'.',','); ?>
         </td><!--saldo si gasto. Diversos 8 -->
+        <?php if($mov['tipocuenta']>1){?>
+        <td class="centrado" colspan="2"><?php echo number_format($mov['saldo'],2,'.',','); ?></td>
+        <?php }else{ ?>        
         <td class="derecha"><?php echo $mov['tipocuenta']==0?number_format($mov['saldoactual'],2,'.',','):''; ?></td><!--Saldo A-->
         <td class="derecha"><?php echo $mov['tipocuenta']==0?'':number_format($mov['saldoactual'],2,'.',','); ?></td><!--Saldo B-->
+        <?php } ?>
     </tr>
     <?php 
     
