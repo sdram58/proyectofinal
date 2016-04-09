@@ -37,6 +37,13 @@ body {
     font-style: italic;
 }
 
+legend span{
+    font-size:1.1em;
+    font-weight: bolder;
+    color:#333;    
+}
+
+
 /* add sorting icons to gridview sort links */
 a.asc:after, a.desc:after {
     position: relative;
@@ -368,4 +375,11 @@ a#btnenviar:hover{
     display:none;
     color:red;
     padding:6px;
+}
+
+.contsettings{
+    border:2px #BBB solid;
+    border-radius: 7px;
+    padding:10px;
+    background-color:rgba(255,233,201,0.8);
 }

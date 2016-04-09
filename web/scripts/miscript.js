@@ -799,7 +799,7 @@ function iniciar(){
         if(campoOrden && tipoOrden){
             orderBy += 'c.'+campoOrden + ' ' + tipoOrden;
         }else {
-            orderBy="order by o.id asc";
+            orderBy="order by c.id asc";
         }
         
         if(errores>0){
