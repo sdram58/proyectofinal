@@ -16,7 +16,7 @@ use mPDF;
  */
 class CuentaController extends Controller
 {
-    private static $CABECERA = '<table id="tabla"><caption>Movimientos 2016</caption><tr>
+    private static $CABECERA = '<table id="tabla"><caption>Movimientos</caption><tr>
         <th rowspan="3" class="centrado table-header">Nº Orden</th>
         <th class="centrado table-header" rowspan="3">Fecha</th>
         <th class="centrado table-header" rowspan="3">Recurso A/B</th>
@@ -150,12 +150,18 @@ class CuentaController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $model::getDb()->createCommand("call actualizarSaldoActual('');")->execute();
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->saldoactual=0;
+            if($model->save()){
+            $model::getDb()->createCommand("call actualizarSaldoActual();")->execute();
+            return $this->redirect(['view', 'id' => $model->id]);}else{
+               return $this->render('update', [
+                'model' => $model,'fecha'=>$model->fecha,'descripcion'=>$model->descripcion,'entra'=>3,
+            ]); 
+            }
         } else {
             return $this->render('update', [
-                'model' => $model,
+                'model' => $model,'fecha'=>$model->fecha,'descripcion'=>$model->descripcion,'entra'=>0,
             ]);
         }
     }
@@ -183,16 +189,18 @@ class CuentaController extends Controller
             $this->layout = 'printlayout';
             $pdf = new mPDF('utf-8','A4-L',0,'',10,10,10,10);
             $movimientos = $model->getListado(Yii::$app->request->post('consulta'));
-            $movPerPage=10;
+            $movPerPage=20;
             $misMovimientos = array_chunk($movimientos,$movPerPage,true);
             $numPages = count($misMovimientos);
+            $anyoActual = Cuenta::getDb()->createCommand( 'SELECT contActual()' )->queryScalar();
             foreach($misMovimientos as $key=>$valor){
                 $ultimo=false;
                 if(($key+1)==$numPages){
                     $ultimo=true;
                 }
+                
                 $content = $this->render('imprimir', [
-                'model' => $model,'movimientos'=>$valor,'mpdf'=>$pdf,'ultimo'=>$ultimo,
+                'model' => $model,'movimientos'=>$valor,'mpdf'=>$pdf,'ultimo'=>$ultimo,'anyoactual'=>$anyoActual,
                 ]);
                 //$pdf->SetHeader('Movimientos del año 2015');
                 $pdf->SetHTMLHeader($this::$CABECERA,'',true);
