@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <br />
         <br /><br />
         <?= Html::a('Crear otra', ['create'], ['class' => 'btn btn-success','style'=>'margin-left:38%;']) ?> &nbsp;
-        <?= Html::a('Vovler', ['index'], ['class' => 'btn btn-success','style'=>'margin-left:5%;']) ?>
+        <?= Html::a('Volver', ['index'], ['class' => 'btn btn-success','style'=>'margin-left:5%;']) ?>
     </p>
 
 </div>

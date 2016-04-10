@@ -9,10 +9,10 @@ use app\models\Cuenta;
 ?>
 <br>
 <?php $cabecera='<tr>
-        <th rowspan="3" class="centrado table-header">Nº Orden</th>
-        <th class="centrado table-header" rowspan="3">Fecha</th>
-        <th class="centrado table-header" rowspan="3">Recurso A/B</th>
-        <th class="centrado table-header" rowspan="3">Código de gastos</th>
+        <th rowspan="3" class="centrado table-header">Nº</th>
+        <th class="centrado table-header" rowspan="3">Fech</th>
+        <th class="centrado table-header" rowspan="3">A/B</th>
+        <th class="centrado table-header" rowspan="3">C<br />O<br />D<br /></th>
         <th class="centrado table-header" rowspan="3">Explicación de los ingresos y de los gastos</th>
         <th class="centrado table-header" rowspan="3">Importe de los ingresos</th>
         <th class="centrado table-header" colspan="11">Importe de los gastos según concepto</th>
@@ -56,10 +56,10 @@ use app\models\Cuenta;
         <td class="centrado"><?php echo Cuenta::$cuentas[$mov['tipocuenta']]; ?></td><!--Cuenta A o B -->
         <td class="centrado">
             <?php 
-            echo ($mov['gastoingreso']==0)?$mov['codigo'].'.'.$mov['identificador']:''; 
+            echo $mov['codigo'].'.'.$mov['identificador']; 
             ?>
         </td><!--Codigo Gastos si gasto-->
-        <td class="centrado" style="font-size:0.8em"><?php echo $mov['descripcion']; ?></td><!--Explicación Gastos o ingresos Descripcion -->
+        <td class="centrado"><?php echo $mov['descripcion']; ?></td><!--Explicación Gastos o ingresos Descripcion -->
         <td class="derecha"><?php if($mov['gastoingreso']==1) echo  number_format($mov['saldo'],2,'.',','); ?></td><!--saldo si ingreso-->
         <td class="derecha">
             <?php if($mov['gastoingreso']==0 && $mov['codigo']==1 && $mov['identificador']==1) echo  number_format($mov['saldo'],2,'.',','); ?>
@@ -112,9 +112,9 @@ use app\models\Cuenta;
     <tr class="table-foot">
         <td colspan="5" rowspan="2"></td>
         <td colspan="2">Saldo Ingresos A:</td>
-        <td colspan="2">Saldro Ingresos B:</td>
-        <td colspan="2">Salgo Gastos A:</td>
-        <td colspan="2">Salgo Gastos B:</td>
+        <td colspan="2">Saldo Ingresos B:</td>
+        <td colspan="2">Saldo Gastos A:</td>
+        <td colspan="2">Saldo Gastos B:</td>
         <td colspan="2">Saldo TotalA:</td>
         <td colspan="2">Saldo TotalB:</td>
         <td colspan="2">Saldo Total:</td>
