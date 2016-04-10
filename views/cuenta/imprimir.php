@@ -38,7 +38,8 @@ use app\models\Cuenta;
         <th class="centrado table-header">Equipos Procesos Informático</th>
 
     </tr>'; ?>
- <table id="tabla">  
+ <table id="tabla">
+     <caption><?php echo 'LLIBRE DEL COMPTE DE GESTIÓ / LIBRO DE LA CUENTA DE GESTION. '.$anyoactual;?></caption>
 
     <?php 
     echo $cabecera;
@@ -46,8 +47,10 @@ use app\models\Cuenta;
         $filas=0;
         foreach($movimientos as $mov){   
             $filas++;
+            $par="";
+            if($filas % 2 == 0) $par='class="par"';
 ?>
-    <tr>
+    <tr <?php echo $par;?>>
         <td class="centrado"><?php echo $mov['id']; ?></td><!--Numero de orden ID-->
         <td class="centrado"><?php $aa=substr($mov['fecha'],0,4); $mm=substr($mov['fecha'],5,2); $dd=substr($mov['fecha'],8,2); echo $dd.'-'.$mm;//.'-'.$aa; ?></td><!--fecha fecha-->
         <td class="centrado"><?php echo Cuenta::$cuentas[$mov['tipocuenta']]; ?></td><!--Cuenta A o B -->
@@ -56,7 +59,7 @@ use app\models\Cuenta;
             echo ($mov['gastoingreso']==0)?$mov['codigo'].'.'.$mov['identificador']:''; 
             ?>
         </td><!--Codigo Gastos si gasto-->
-        <td class="centrado"><?php echo $mov['descripcion']; ?></td><!--Explicación Gastos o ingresos Descripcion -->
+        <td class="centrado" style="font-size:0.8em"><?php echo $mov['descripcion']; ?></td><!--Explicación Gastos o ingresos Descripcion -->
         <td class="derecha"><?php if($mov['gastoingreso']==1) echo  number_format($mov['saldo'],2,'.',','); ?></td><!--saldo si ingreso-->
         <td class="derecha">
             <?php if($mov['gastoingreso']==0 && $mov['codigo']==1 && $mov['identificador']==1) echo  number_format($mov['saldo'],2,'.',','); ?>
@@ -80,7 +83,7 @@ use app\models\Cuenta;
             <?php if($mov['gastoingreso']==0 && $mov['codigo']==4) echo  number_format($mov['saldo'],2,'.',','); ?>
         </td><!--saldo si gasto. Trabajo para otros 4-->
         <td class="derecha">
-            <?php if($mov['gastoingreso']==5 && $mov['codigo']==5) echo  number_format($mov['saldo'],2,'.',','); ?>
+            <?php if($mov['gastoingreso']==0 && $mov['codigo']==5) echo  number_format($mov['saldo'],2,'.',','); ?>
         </td><!--saldo si gasto. Materia Oficina 5 -->
         <td class="derecha">
             <?php if($mov['gastoingreso']==0 && $mov['codigo']==6) echo  number_format($mov['saldo'],2,'.',','); ?>
@@ -89,7 +92,7 @@ use app\models\Cuenta;
             <?php if($mov['gastoingreso']==0 && $mov['codigo']==7) echo  number_format($mov['saldo'],2,'.',','); ?>
         </td><!--saldo si gasto. Ed Constr 1.1-->
         <td class="derecha">
-            <?php if($mov['gastoingreso']==0 && $mov['codigo']==8) echo  number_format($mov['saldo'],2,'.',','); ?>
+            <?php if($mov['gastoingreso']==0 && ($mov['codigo']==8 || $mov['codigo']==9)) echo  number_format($mov['saldo'],2,'.',','); ?>
         </td><!--saldo si gasto. Diversos 8 -->
         <?php if($mov['tipocuenta']>1){?>
         <td class="centrado" colspan="2"><?php echo number_format($mov['saldo'],2,'.',','); ?></td>

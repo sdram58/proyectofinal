@@ -6,23 +6,27 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Cuenta */
 
-$this->title = "Cuenta:".$model->id;
+$this->title = "Movimiento:".$model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Cuentas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="cuenta-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
     
-
-    <?= DetailView::widget([
+    
+   <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'id',
-            'tipocuenta',
+            ['label'=>'Cuenta',
+              'value'=>$model::$cuentas[$model->tipocuenta],
+                ],
             'saldo',
-            'idconcepto',
+            [
+                'label'=>'Concepto',
+                'value'=>$model->getConceptoById($model->idconcepto),
+            ],
             'fecha',
             'descripcion',
         ],
@@ -39,7 +43,8 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
         <br />
         <br /><br />
-        <?= Html::a('+ Crear otra', ['create'], ['class' => 'btn btn-success','style'=>'margin-left:45%;']) ?>
+        <?= Html::a('Crear otra', ['create'], ['class' => 'btn btn-success','style'=>'margin-left:38%;']) ?> &nbsp;
+        <?= Html::a('Vovler', ['index'], ['class' => 'btn btn-success','style'=>'margin-left:5%;']) ?>
     </p>
 
 </div>

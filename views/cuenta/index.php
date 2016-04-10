@@ -8,7 +8,7 @@ use yii\widgets\ActiveForm;
 /* @var $searchModel app\models\CuentaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Cuentas';
+$this->title = 'Movimientos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="cuenta-index">

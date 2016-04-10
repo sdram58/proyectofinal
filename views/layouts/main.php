@@ -91,7 +91,7 @@ AppAsset::register($this);
                  ['label' => 'Códigos', 'url' => ['/codigos']],
                  ['label' => 'Subcódigos', 'url' => ['/subcodigo']],
                  '<li class="divider"></li>',
-                 ['label' => 'Cambio de año', 'url' => ['/cambioanyo']],
+                 ['label' => 'Ajustes Contabilidad', 'url' => ['/cambioanyo']],
             ],];
     }
     

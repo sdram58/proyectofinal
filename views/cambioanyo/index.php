@@ -12,13 +12,14 @@ $this->params['breadcrumbs'][] = $this->title;
 //$anyoactual=$model->anyoActual;
 $anyosdisponibles=$model->anyosDisponibles;
 ?>
- <div class="contsettings">
+<div class="row">
+ <div class="col-md-5 contsettings">
  <?php $form = ActiveForm::begin([
-     'action'=>'/proyecto/proyectofinal/web/index.php?r=cambioanyo/change',
+     'action'=>'index.php?r=cambioanyo/change',
      'options' => ['class' => 'form-horizontal'],
         'fieldConfig' => [
-            'template' => "{label}<div class=\"col-lg-2\">{input}</div><div class=\"col-lg-4\">{error}</div>",
-            'labelOptions' => ['class' => 'col-lg-2',],
+            'template' => "{label}<div class=\"col-md-3\">{input}</div><div class=\"col-md-3\">{error}</div>",
+            'labelOptions' => ['class' => 'col-md-3',],
         ],
  ]); ?>
   <legend><span>Restaurar contabilidad anterior</span></legend>
@@ -35,21 +36,31 @@ $anyosdisponibles=$model->anyosDisponibles;
             
         
   <p>Elige el año al que quieres ir, recuerda que <strong>perderá</strong> toda la contabilidad actual</p>
-        <?= $form->field($model, 'anyorestore')->dropDownList($anyos2,['id'=>'anyocont','name'=>'anyocont']) ?>        
+        <?= $form->field($model, 'anyorestore')->dropDownList($anyos2,['id'=>'anyocont','name'=>'anyocont']) ?> 
+  &nbsp; 
+        <?php if($restore==0) { ?>
+        <span class="col-md-6 error" style="display: none;">Ha de introducir un año válido</span>
+        <?php }
+        if($restore==1){ ?>
+            <span class="col-md-6 error" style="display: inline;color:green">¡¡Contabilidad restaurada con éxito!!</span>
+        <?php }
+        if($restore==2){ ?>
+            <span class="col-md-6 error" style="display: inline;color:red">Ha habido algún problema y no se ha podido restaurar!!</span>
+        <?php } ?>
+            <br />
         <?= Html::submitButton('Restaurar Contabilidad', ['id'=>'restaurarcont','class' => 'btn btn-success']) ?>
          <?php }
         ?>
     
  <?php ActiveForm::end(); ?>
  </div>
-  <br />
-  <div class="contsettings">
+  <div class="col-sm-offset-1 col-md-6 contsettings">
  <?php $form = ActiveForm::begin([
-     'action'=>'/proyecto/proyectofinal/web/index.php?r=cambioanyo/guardar',
+     'action'=>'index.php?r=cambioanyo/guardar',
      'options' => ['class' => 'form-horizontal'],
         'fieldConfig' => [
-            'template' => "{label}<div class=\"col-lg-2\">{input}</div><div class=\"col-lg-4\">{error}</div>",
-            'labelOptions' => ['class' => 'col-lg-2',],
+            'template' => "{label}<div class=\"col-md-3\">{input}</div><div class=\"col-md-3\">{error}</div>",
+            'labelOptions' => ['class' => 'col-md-3',],
         ],
  ]); ?>
         <legend><span>Guardar Contabilidad</span></legend>
@@ -60,13 +71,13 @@ $anyosdisponibles=$model->anyosDisponibles;
         <?= $form->field($model, 'anyosave')->textInput(['id'=>'guardarcomoanyos','name'=>"guardarcomo",'type'=>'number','min'=>'2000','max'=>'2090','step'=>'1','value'=>$anyo]) ?>
         &nbsp; 
         <?php if($guardadook==0) { ?>
-        <span class="col-lg-6 error" style="display: none;">Ha de introducir un año válido</span>
+        <span class="col-md-6 error" style="display: none;">Ha de introducir un año válido</span>
         <?php }
         if($guardadook==1){ ?>
-            <span class="col-lg-6 error" style="display: inline;color:green">¡¡Guardado con éxito!!</span>
+            <span class="col-md-6 error" style="display: inline;color:green">¡¡Guardado con éxito!!</span>
         <?php }
         if($guardadook==2){ ?>
-            <span class="col-lg-6 error" style="display: inline;color:red">Ha habido algún problema y no se ha podido guardar!!</span>
+            <span class="col-md-6 error" style="display: inline;color:red">Ha habido algún problema y no se ha podido guardar!!</span>
         <?php } ?>
         <div class="form-group grupo-envio">
         <?= Html::submitButton('Guardar', ['id'=>'guardarcomo','class' => 'btn btn-success']) ?>
@@ -74,8 +85,10 @@ $anyosdisponibles=$model->anyosDisponibles;
     </div>
 <?php ActiveForm::end(); ?>
       </div>
+</div>
+  <div class="row">
   <br />
-      <div class="contsettings">
+      <div class="col-md-5 contsettings">
 
 <form>    
     <fieldset>
@@ -86,15 +99,14 @@ $anyosdisponibles=$model->anyosDisponibles;
     
 </form>
 </div>
-  <br />
-  
-  <div class="contsettings">
+ 
+  <div class="col-md-offset-1 col-md-6 contsettings">
  <?php $form = ActiveForm::begin([
-     'action'=>'/proyecto/proyectofinal/web/index.php?r=cambioanyo/delete',
+     'action'=>'index.php?r=cambioanyo/delete',
      'options' => ['class' => 'form-horizontal'],
         'fieldConfig' => [
-            'template' => "{label}<div class=\"col-lg-2\">{input}</div><div class=\"col-lg-4\">{error}</div>",
-            'labelOptions' => ['class' => 'col-lg-2',],
+            'template' => "{label}<div class=\"col-md-3\">{input}</div><div class=\"col-md-3\">{error}</div>",
+            'labelOptions' => ['class' => 'col-md-3',],
         ],
  ]); ?>
   <legend><span>Eliminar contabilidad guardada</span></legend>
@@ -117,7 +129,7 @@ $anyosdisponibles=$model->anyosDisponibles;
         ?>
     
  <?php ActiveForm::end(); ?>
- </div>
+ </div></div>
   
 <script type="text/javascript">
     $('document').ready(function(){
@@ -147,8 +159,7 @@ $anyosdisponibles=$model->anyosDisponibles;
             });
             
            $('#iniciarcont').click(function (e){
-               var eliminar = confirm('Toda la contabilidad actual se perderá\n\
-       Asegurese de que la ha guardado previamente\n¿Desea continuar reiniciando una nueva contabilidad?');
+               var eliminar = confirm('Toda la contabilidad actual se perderá\nAsegurese de que la ha guardado previamente\n¿Desea continuar reiniciando una nueva contabilidad?');
                 if(!eliminar){
                     e.preventDefault();
                 }
