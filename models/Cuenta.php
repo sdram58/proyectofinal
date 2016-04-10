@@ -14,8 +14,8 @@ use app\models\Subcodigos;
  * @property integer $idconcepto
  * @property string $fecha
  * @property string $descripcion
- *@property string $gastoingreso
- * *@property double $saldoactual
+ * @property string $gastoingreso
+ * @property double $saldoactual
  * @property Subcodigos $idconcepto0
  */
 class Cuenta extends \yii\db\ActiveRecord
@@ -46,8 +46,8 @@ class Cuenta extends \yii\db\ActiveRecord
             [['saldo', 'idconcepto', 'fecha', 'gastoingreso'], 'required'],
             [['id', 'tipocuenta', 'idconcepto','gastoingreso'], 'integer'],
             ['saldoactual', 'default', 'value' => 0],
+            ['fecha','safe'],
             [['saldo','saldoactual'], 'number','min'=>0],
-            [['fecha'], 'safe'],
             [['descripcion'], 'string', 'max' => 250]
         ];
     }
@@ -119,6 +119,20 @@ class Cuenta extends \yii\db\ActiveRecord
            } 
         return $conceptos;
             
+    }
+    /**
+     * Funcion que devuelve un string del concepto dado
+     * @return string
+     */
+    public function getConceptoById($id){
+        $subcodigos = Subcodigos::find()->where(['id'=>$id])
+                ->asArray()
+                ->all();
+        $conceptos = "";
+        foreach($subcodigos as $valor){
+            $conceptos = strtoupper($valor['codigo'].'.'.$valor['identificador'].'.-'.$valor['descripcionc']);
+           } 
+        return $conceptos;
     }
     
     public function getConceptosGastos(){ 
