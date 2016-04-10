@@ -7,10 +7,12 @@ table {
     /*margin-top:10px;*/
     border-collapse: collapse;
     width:100%;
+    font-size: 0.7em;
 }
 th, td{
     border:1px solid black;
     padding:2px;
+    font-size: 0.8em;
 }
 th,.centrado{
     text-align:center;
