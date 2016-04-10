@@ -121,9 +121,13 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; Gesti&oacute;n inventabilidad <?= date('Y') ?></p>
+        <p class="pull-center"><a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">
+                <img height="25px" alt="Licencia de Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a>
+                
+                <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Gestinventabilidad</span>
+                by <a xmlns:cc="http://creativecommons.org/ns#" href="http://daw.webcarlos.com" property="cc:attributionName" rel="cc:attributionURL">Carlos Tarazona</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Reconocimiento-NoComercial-SinObraDerivada 4.0 Internacional License</a>. <?= date('Y') ?></p>
 
-        <p class="pull-right">Carlos Tarazona</p>
+        <!--<p class="pull-right">Carlos Tarazona</p>-->
     </div>
 </footer>
 
