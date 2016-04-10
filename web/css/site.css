@@ -383,3 +383,7 @@ a#btnenviar:hover{
     padding:10px;
     background-color:rgba(255,233,201,0.8);
 }
+
+tr.par td{
+    background-color: red;
+}
