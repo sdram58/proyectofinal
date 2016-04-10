@@ -189,7 +189,7 @@ class CuentaController extends Controller
             $this->layout = 'printlayout';
             $pdf = new mPDF('utf-8','A4-L',0,'',10,10,10,10);
             $movimientos = $model->getListado(Yii::$app->request->post('consulta'));
-            $movPerPage=20;
+            $movPerPage=25;
             $misMovimientos = array_chunk($movimientos,$movPerPage,true);
             $numPages = count($misMovimientos);
             $anyoActual = Cuenta::getDb()->createCommand( 'SELECT contActual()' )->queryScalar();
