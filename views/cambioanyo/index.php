@@ -39,13 +39,13 @@ $anyosdisponibles=$model->anyosDisponibles;
         <?= $form->field($model, 'anyorestore')->dropDownList($anyos2,['id'=>'anyocont','name'=>'anyocont']) ?> 
   &nbsp; 
         <?php if($restore==0) { ?>
-        <span class="col-md-6 error" style="display: none;">Ha de introducir un año válido</span>
+        <span class="col-md-7 error2" style="display: none;">Ha de introducir un año válido</span>
         <?php }
         if($restore==1){ ?>
-            <span class="col-md-6 error" style="display: inline;color:green">¡¡Contabilidad restaurada con éxito!!</span>
+            <span class="col-md-7 error2" style="display: inline;color:green">¡¡Contabilidad restaurada con éxito!!</span>
         <?php }
         if($restore==2){ ?>
-            <span class="col-md-6 error" style="display: inline;color:red">Ha habido algún problema y no se ha podido restaurar!!</span>
+            <span class="col-md-7 error2" style="display: inline;color:red">Ha habido algún problema y no se ha podido restaurar!!</span>
         <?php } ?>
             <br />
         <?= Html::submitButton('Restaurar Contabilidad', ['id'=>'restaurarcont','class' => 'btn btn-success']) ?>
