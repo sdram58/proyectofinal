@@ -115,8 +115,11 @@ class TipoCategoriasController extends Controller
     public function actionDelete($id)
     {
         //$this->comprobarPermiso();
-        $this->findModel($id)->delete();
-
+        $model= $this->findModel($id);
+        if($model->noTieneObjetos($model->tipo)==true){
+            $model->delete();
+            
+        }     
         return $this->redirect(['index']);
     }
 
