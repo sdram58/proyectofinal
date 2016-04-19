@@ -89,7 +89,11 @@ class TipoCategorias extends \yii\db\ActiveRecord
     }
     
     public function getTipoCategorias(){
-        $temp = Yii::$app->getDb()->createCommand("SELECT * FROM tipo_categorias WHERE categoria like 'EDFISICA' ")->queryAll();
+        
+        $categoria = Yii::$app->getDb()->createCommand("SELECT id FROM categorias_objetos ORDER BY id")->queryScalar();
+        $comando = Yii::$app->getDb()->createCommand("SELECT * FROM tipo_categorias WHERE UPPER(categoria) like :cat ");
+        
+        $temp = $comando->bindValue(':cat', strtoupper($categoria))->queryAll();
         $tiposCategorias = array();
         foreach($temp as $tc){                          
             $tiposCategorias[$tc['tipo']] = strtoupper($tc['tipo']);  
@@ -150,6 +154,23 @@ class TipoCategorias extends \yii\db\ActiveRecord
             $categorias[$cat['id']] = strtoupper($cat['categoria']);  
         }
         return $categorias;
+        
+    }
+    
+    
+    /**
+     * noTieneObjetos comprueba que no existen objetos de esta categoria
+     */
+    public function noTieneObjetos($tipo){
+        $notiene=false;
+        $comando = Yii::$app->getDb()->createCommand("SELECT * FROM objeto WHERE UPPER(tipo) LIKE :tipo");
+        
+        $temp = $comando->bindValue(':tipo', strtoupper($tipo))->queryAll();
+        if(count($temp)>0){
+            return false;
+         } else {
+            return true;
+        }
         
     }
     

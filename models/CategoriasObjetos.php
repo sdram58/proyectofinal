@@ -103,7 +103,7 @@ class CategoriasObjetos extends \yii\db\ActiveRecord
     }
     
     public function getCategorias(){
-        $temp = Yii::$app->getDb()->createCommand("SELECT * FROM categorias_objetos")->queryAll();
+        $temp = Yii::$app->getDb()->createCommand("SELECT * FROM categorias_objetos ORDER BY id")->queryAll();
         $categorias = array();
         foreach($temp as $cat){                          
             $categorias[$cat['id']] = strtoupper($cat['categoria']);  
@@ -122,4 +122,40 @@ class CategoriasObjetos extends \yii\db\ActiveRecord
         return $categorias;
     }
     
+    
+    /**
+     * noTieneObjetos comprueba que no existen objetos de esta categoria
+     */
+    public function noTieneObjetos($id){
+        $notiene=false;
+        $comando = Yii::$app->getDb()->createCommand("SELECT * FROM objeto WHERE UPPER(categoria) LIKE :cat ");
+        
+        $temp = $comando->bindValue(':cat', strtoupper($id))->queryAll();
+        if(count($temp)>0){
+            return false;
+         } else {
+            return true;
+        }
+        
+    }
+    
+    /**
+     * noTieneCategorias comprueba que no existen tipo de categoria de esta categoria
+     */
+    public function noTieneCategorias($id){
+        $notiene=false;
+        $comando = Yii::$app->getDb()->createCommand("SELECT * FROM tipo_categorias WHERE UPPER(categoria) LIKE :cat ");
+        
+        $temp = $comando->bindValue(':cat', strtoupper($id))->queryAll();
+        $categorias = array();
+        foreach($temp as $cat){                          
+            $categorias[$cat['id']] = strtoupper($cat['categoria']);  
+        }
+        if(count($temp)>0){
+            return false;
+         } else {
+            return true;
+        }
+        
+    }
 }
